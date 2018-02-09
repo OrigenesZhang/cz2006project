@@ -5,6 +5,7 @@ class User(models.Model):
 	name = models.CharField(max_length = 32)
 	phone_number = models.CharField(max_length = 16)
 	password = models.CharField(max_length = 16)
+	registration_date = models.DateField(null = True, blank = False)
 
 	class Meta:
 		abstract = True
@@ -12,7 +13,7 @@ class User(models.Model):
 
 class PetOwner(User):
 	breed = models.CharField(max_length = 16)
-	age = models.IntegerField()
+	birthday = models.DateField(null = True, blank = False)
 
 
 class Clinic(User):

@@ -1,4 +1,6 @@
-from .models import User, PetOwner, Clinic, Vet
+from .models import PetOwner, Clinic, Vet
+from django.core.exceptions import ObjectDoesNotExist
+import datetime
 
 
 '''
@@ -45,7 +47,7 @@ For anything else input as a user_type, a TypeError is thrown.
 The additional information should be passed in as a reference to a python list, 
 the dimension of which depends on the user_type but would be checked inside the function.
 However, the type of info must be checked before passing into the function.
-For pet owners, info[0] and info[1] should be the breed and age of the pet respectively.
+For pet owners, info[0] and info[1] should be the breed and birthday of the pet respectively.
 info[0] should be a string whereas info[1] should be an integer.
 For clinics, info[0] and info[1] should be the address and the license respectively.
 Both of them should be legitimate strings.
@@ -70,7 +72,7 @@ def insert_user(name, phone_number, password, user_type, info):
 		if len(info) > 2:
 			raise SystemError('Oops! Something is wrong.')
 		if check_phone_number(phone_number):
-			PetOwner.objects.create(name = name, phone_number = phone_number, password = password, breed = info[0], age = info[1])
+			PetOwner.objects.create(name = name, phone_number = phone_number, password = password, registration_date = datetime.date.today(), breed = info[0], birthday = info[1])
 		else:
 			raise FileExistsError('The phone number has already been used for registration')
 	elif user_type == 1:  # Clinic
@@ -85,7 +87,7 @@ def insert_user(name, phone_number, password, user_type, info):
 				Clinic.objects.get(name = name)
 				raise ValueError('The clinic has already registered')
 			except Clinic.DoesNotExist:
-				Clinic.objects.create(name = name, phone_number = phone_number, password = password, address = info[0], license = info[1], isVerified = False)
+				Clinic.objects.create(name = name, phone_number = phone_number, password = password, registration_date = datetime.date.today(), address = info[0], license = info[1], isVerified = False)
 		else:
 			raise FileExistsError('The phone number has already been used for registration')
 	elif user_type == 2:  # Vet
@@ -98,7 +100,7 @@ def insert_user(name, phone_number, password, user_type, info):
 				entry = Clinic.objects.get(name = info[0])
 			except Clinic.DoesNotExist:
 				raise ValueError('Please enter a registered clinic')
-			Vet.objects.create(name = name, phone_number = phone_number, password = password, clinic = entry, isVerified = False)
+			Vet.objects.create(name = name, phone_number = phone_number, password = password, registration_date = datetime.date.today(), clinic = entry, isVerified = False)
 		else:
 			raise FileExistsError('The phone number has already been used for registration')
 	else:
@@ -136,4 +138,38 @@ def query_user(phone_number):
 	except Vet.MultipleObjectsReturned:
 		raise SystemError('Oops! Something is wrong with database')
 	except Vet.DoesNotExist:
-		raise User.DoesNotExist
+		raise ObjectDoesNotExist
+
+
+'''
+The verify function is used for the email verification for both clinics and vet,
+the phone number of being-verified should be passed in.
+The isVerified field would be set to true if the phone number is found in db,
+otherwise an ObjectDoesNotExist exception would be raised.
+If the corresponding user of the given phone number has already been verified,
+a PermissionError would be raised.
+'''
+
+
+def verify(phone_number):
+	try:
+		entry = Clinic.objects.get(phone_number = phone_number)
+		if not entry.isVerified:
+			entry.isVerified = True
+			entry.save()
+		else:
+			raise PermissionError('It is already verified')
+		return
+	except Clinic.DoesNotExist:
+		pass
+
+	try:
+		entry = Vet.objects.get(phone_number = phone_number)
+		if not entry.isVerified:
+			entry.isVerified = True
+			entry.save()
+		else:
+			raise PermissionError('It is already verified')
+		return
+	except Vet.DoesNotExist:
+		raise ObjectDoesNotExist
