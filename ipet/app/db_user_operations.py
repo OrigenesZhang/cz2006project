@@ -72,7 +72,7 @@ def insert_user(name, phone_number, password, user_type, info):
 		if len(info) > 2:
 			raise SystemError('Oops! Something is wrong.')
 		if check_phone_number(phone_number):
-			PetOwner.objects.create(name = name, phone_number = phone_number, password = password, registration_date = datetime.date.today(), breed = info[0], birthday = info[1])
+			PetOwner.objects.create(name = name, phone_number = phone_number, password = password, registration_date = datetime.datetime.today(), breed = info[0], birthday = info[1])
 		else:
 			raise FileExistsError('The phone number has already been used for registration')
 	elif user_type == 1:  # Clinic
@@ -87,7 +87,7 @@ def insert_user(name, phone_number, password, user_type, info):
 				Clinic.objects.get(name = name)
 				raise ValueError('The clinic has already registered')
 			except Clinic.DoesNotExist:
-				Clinic.objects.create(name = name, phone_number = phone_number, password = password, registration_date = datetime.date.today(), address = info[0], license = info[1], isVerified = False)
+				Clinic.objects.create(name = name, phone_number = phone_number, password = password, registration_date = datetime.datetime.today(), address = info[0], license = info[1], isVerified = False)
 		else:
 			raise FileExistsError('The phone number has already been used for registration')
 	elif user_type == 2:  # Vet
@@ -100,7 +100,7 @@ def insert_user(name, phone_number, password, user_type, info):
 				entry = Clinic.objects.get(name = info[0])
 			except Clinic.DoesNotExist:
 				raise ValueError('Please enter a registered clinic')
-			Vet.objects.create(name = name, phone_number = phone_number, password = password, registration_date = datetime.date.today(), clinic = entry, isVerified = False)
+			Vet.objects.create(name = name, phone_number = phone_number, password = password, registration_date = datetime.datetime.today(), clinic = entry, isVerified = False)
 		else:
 			raise FileExistsError('The phone number has already been used for registration')
 	else:

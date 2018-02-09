@@ -96,3 +96,50 @@ class RegistrationTest(TestCase):
 			raise RuntimeError
 		except PermissionError:
 			pass
+
+
+class ReminderTest(TestCase):
+
+	def test_reminder_insertion(self):
+		reg = RegistrationTest()
+		RegistrationTest.test_pet_owner(reg)
+
+		from .db_reminder_operations import insert_reminder
+		entry = query_user("1234567")
+		# print(datetime.datetime.now()+datetime.timedelta(days = 1))
+		# Test medication reminder
+		insert_reminder(entry.pk, "MedTest", "No remarks", [False, datetime.datetime.now()+datetime.timedelta(days = 3)], datetime.datetime.now()+datetime.timedelta(days = 1), 3, 0)
+		# Test hygiene reminder
+		insert_reminder(entry.pk, "HgTest", "No remarks", [True], datetime.datetime.now()+datetime.timedelta(days = 2), 4, 1)
+		# Test exercise reminder
+		insert_reminder(entry.pk, "ExTest", "", [False, datetime.datetime.now()+datetime.timedelta(days = 5)], datetime.datetime.now()+datetime.timedelta(hours = 12), 0.5, 2)
+
+		from .models import Reminder
+		entry = Reminder.objects.get(name = "MedTest")
+		print(entry.name, entry.remarks, entry.next_time, entry.period, entry.remain_times, entry.type)
+		entry = Reminder.objects.get(name = "HgTest")
+		print(entry.name, entry.remarks, entry.next_time, entry.period, entry.remain_times, entry.type)
+		entry = Reminder.objects.get(name = "ExTest")
+		print(entry.name, entry.remarks, entry.next_time, entry.period, entry.remain_times, entry.type)
+
+	def test_single_reminder(self):
+		self.test_reminder_insertion()
+
+		entry = query_user("1234567")
+
+		from .db_reminder_operations import query_reminder
+		flags, ret = query_reminder(entry)
+		for items in ret:		# Dangerous practice. Do not use unless you are sure it won't crash
+			print(items.link.name, items.type, items.time)
+		print()
+
+		from .db_reminder_operations import update_reminder
+		for items in ret:
+			update_reminder(items)
+
+		entry = query_user("1234567")
+
+		flags, ret = query_reminder(entry)
+		for i in range(3):		# Better way to print the result
+			if flags[i]:
+				print(ret[i].link.name, ret[i].type, ret[i].time)
