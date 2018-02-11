@@ -11,7 +11,7 @@ class RegistrationTest(TestCase):
 
 		res = query_user("1234567")
 		self.assertEqual(res.name, "Zhang Bin")
-		self.assertEqual(res.phone_number, "1234567")
+		self.assertEqual(res.phone_number.phone_number, "1234567")
 		self.assertEqual(res.password, "12345678")
 		self.assertEqual(res.breed, "dog")
 		self.assertEqual(res.birthday, datetime.date.today())
@@ -26,7 +26,7 @@ class RegistrationTest(TestCase):
 
 		res = query_user("1234567")
 		self.assertEqual(res.name, "Zhang Bin")
-		self.assertEqual(res.phone_number, "1234567")
+		self.assertEqual(res.phone_number.phone_number, "1234567")
 		self.assertEqual(res.password, "12345678")
 		self.assertEqual(res.breed, "dog")
 		self.assertEqual(res.birthday, datetime.date.today())
@@ -34,7 +34,7 @@ class RegistrationTest(TestCase):
 		res = query_user("12345678")
 		# print(res)
 		self.assertEqual(res.name, "Origenes")
-		self.assertEqual(res.phone_number, "12345678")
+		self.assertEqual(res.phone_number.phone_number, "12345678")
 		self.assertEqual(res.password, "12345679")
 		self.assertEqual(res.breed, "cat")
 		self.assertEqual(res.birthday, datetime.date.today())
@@ -78,7 +78,6 @@ class RegistrationTest(TestCase):
 
 	def test_verification(self):
 		self.test_vet()
-
 		from .db_user_operations import verify
 		from django.core.exceptions import ObjectDoesNotExist
 
@@ -96,6 +95,8 @@ class RegistrationTest(TestCase):
 			raise RuntimeError
 		except PermissionError:
 			pass
+
+		# add your test here
 
 
 class ReminderTest(TestCase):
@@ -122,6 +123,8 @@ class ReminderTest(TestCase):
 		entry = Reminder.objects.get(name = "ExTest")
 		print(entry.name, entry.remarks, entry.next_time, entry.period, entry.remain_times, entry.type)
 
+		# add your test here
+
 	def test_single_reminder(self):
 		self.test_reminder_insertion()
 
@@ -143,3 +146,75 @@ class ReminderTest(TestCase):
 		for i in range(3):		# Better way to print the result
 			if flags[i]:
 				print(ret[i].link.name, ret[i].type, ret[i].time)
+
+		# add your test here
+
+
+class ForumTest(TestCase):
+
+	def test_post(self):
+		insert_user("Zhang Bin", "1234567", "12345678", 0, info = ["dog", datetime.date.today()])
+		user = query_user("1234567")
+
+		from .db_forum_operations import insert_post, query_post_title, like_post
+
+		title = 'Post insertion test'
+		content = 'This is a test'
+		insert_post(user = user, title = title, content = content)
+
+		post = query_post_title(title)
+		self.assertNotEqual(post, False)
+
+		post = post[0]
+
+		try:
+			self.assertEqual(post.user, user)
+			self.assertEqual(post.title, title)
+			self.assertEqual(post.content, content)
+			self.assertEqual(post.likes.all().count(), 0)
+		except AssertionError:
+			print(post.user.phone_number, post.title, post.content, post.likes)
+
+		like_post(post, user)
+
+		try:
+			self.assertEqual(post.likes.all().count(), 1)
+		except AssertionError:
+			print(post.likes)
+
+		try:
+			like_post(post, user)
+			raise RuntimeError
+		except PermissionError:
+			pass
+
+		# add your test here
+
+	def test_delete(self):
+		insert_user("Zhang Bin", "1234567", "12345678", 0, info = ["dog", datetime.date.today()])
+		user = query_user("1234567")
+
+		from .db_forum_operations import insert_post, query_post_title, insert_reply, query_reply
+		title = 'Post insertion test'
+		content = 'This is a test'
+		insert_post(user = user, title = title, content = content)
+
+		post = query_post_title(title)[0]
+		content = 'Reply 1'
+		insert_reply(user = user, thread = post, content = content)
+		content = 'Reply 2'
+		insert_reply(user = user, thread = post, content = content)
+
+		print(query_reply(post))
+
+		from .db_forum_operations import delete_reply, delete_post
+
+		reply = query_reply(post)[0]
+		delete_reply(reply, user)
+
+		print(query_reply(post))
+
+		delete_post(post, user)
+		self.assertEqual(query_post_title(title), False)
+
+		# add your test here

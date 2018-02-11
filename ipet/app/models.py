@@ -1,11 +1,13 @@
 from django.db import models
-import datetime
-from django.utils import timezone
+
+
+class PhoneNumber(models.Model):
+	phone_number = models.CharField(max_length = 16)
 
 
 class User(models.Model):
 	name = models.CharField(max_length = 32)
-	phone_number = models.CharField(max_length = 16)
+	phone_number = models.OneToOneField(PhoneNumber, on_delete = models.CASCADE)
 	password = models.CharField(max_length = 16)
 	registration_date = models.DateField()
 
@@ -44,3 +46,21 @@ class SingleReminder(models.Model):
 	user = models.ForeignKey(PetOwner, on_delete = models.CASCADE, null = True)
 	type = models.SmallIntegerField()
 	time = models.DateTimeField()
+
+
+class Post(models.Model):
+	user = models.ForeignKey(PhoneNumber, on_delete = models.CASCADE)
+	time = models.DateTimeField()
+	title = models.CharField(max_length = 128)
+	content = models.TextField(max_length = 4096)
+	reports = models.ManyToManyField(PhoneNumber, related_name = 'reports_reports')
+	likes = models.ManyToManyField(PhoneNumber, related_name = 'likes_likes')
+
+
+class Reply(models.Model):
+	user = models.ForeignKey(PhoneNumber, on_delete = models.CASCADE)
+	thread = models.ForeignKey(Post, on_delete = models.CASCADE)
+	time = models.DateTimeField()
+	content = models.TextField(max_length = 2048)
+	reports = models.ManyToManyField(PhoneNumber, related_name = 'reports')
+	likes = models.ManyToManyField(PhoneNumber, related_name = 'likes')

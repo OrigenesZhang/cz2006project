@@ -1,4 +1,4 @@
-from .models import PetOwner, Clinic, Vet
+from .models import PetOwner, Clinic, Vet, PhoneNumber
 from django.core.exceptions import ObjectDoesNotExist
 import datetime
 
@@ -11,21 +11,10 @@ A true indicates the phone number is unoccupied and vice versa.
 
 def check_phone_number(phone_number):
 	try:
-		PetOwner.objects.get(phone_number = phone_number)
-		return False
-	except PetOwner.DoesNotExist:
-		pass
-	try:
-		Clinic.objects.get(phone_number = phone_number)
-		return False
-	except Clinic.DoesNotExist:
-		pass
-	try:
-		Vet.objects.get(phone_number = phone_number)
-		return False
-	except Vet.DoesNotExist:
+		PhoneNumber.objects.get(phone_number = phone_number)
+	except PhoneNumber.DoesNotExist:
 		return True
-
+	return False
 
 '''
 The insert_user function takes in the name of the registrant, the phone number, the password,
@@ -65,16 +54,21 @@ def insert_user(name, phone_number, password, user_type, info):
 		raise ValueError('Passwords should not be longer that 16 characters')
 	if len(password) < 6:
 		raise ValueError('Passwords should consist of at least 6 characters')
+	if user_type != 0 and user_type !=1 and user_type !=2:
+		raise TypeError('Invalid user type')
+
+	if check_phone_number(phone_number):
+		if user_type != 2:
+			number = PhoneNumber.objects.create(phone_number = phone_number)
+	else:
+		raise FileExistsError('The phone number has already been used for registration')
 
 	if user_type == 0:  # PetOwner
 		if len(info) < 2:
 			raise NameError('Insufficient information about your pet')
 		if len(info) > 2:
 			raise SystemError('Oops! Something is wrong.')
-		if check_phone_number(phone_number):
-			PetOwner.objects.create(name = name, phone_number = phone_number, password = password, registration_date = datetime.datetime.today(), breed = info[0], birthday = info[1])
-		else:
-			raise FileExistsError('The phone number has already been used for registration')
+		PetOwner.objects.create(name = name, phone_number = number, password = password, registration_date = datetime.datetime.today(), breed = info[0], birthday = info[1])
 	elif user_type == 1:  # Clinic
 		if len(info) < 2:
 			raise NameError('Insufficient information')
@@ -82,29 +76,22 @@ def insert_user(name, phone_number, password, user_type, info):
 			raise SystemError('Oops! Something is wrong.')
 		if len(info[0]) > 128:
 			raise ValueError('The address is too long')
-		if check_phone_number(phone_number):
-			try:
-				Clinic.objects.get(name = name)
-				raise ValueError('The clinic has already registered')
-			except Clinic.DoesNotExist:
-				Clinic.objects.create(name = name, phone_number = phone_number, password = password, registration_date = datetime.datetime.today(), address = info[0], license = info[1], isVerified = False)
-		else:
-			raise FileExistsError('The phone number has already been used for registration')
-	elif user_type == 2:  # Vet
+		try:
+			Clinic.objects.get(name = name)
+			raise ValueError('The clinic has already registered')
+		except Clinic.DoesNotExist:
+			Clinic.objects.create(name = name, phone_number = number, password = password, registration_date = datetime.datetime.today(), address = info[0], license = info[1], isVerified = False)
+	else:  # Vet
 		if len(info) < 1:
 			raise NameError('Please enter the clinic you work for')
 		if len(info) > 1:
 			raise SystemError('Oops! Something is wrong.')
-		if check_phone_number(phone_number):
-			try:
-				entry = Clinic.objects.get(name = info[0])
-			except Clinic.DoesNotExist:
-				raise ValueError('Please enter a registered clinic')
-			Vet.objects.create(name = name, phone_number = phone_number, password = password, registration_date = datetime.datetime.today(), clinic = entry, isVerified = False)
-		else:
-			raise FileExistsError('The phone number has already been used for registration')
-	else:
-		raise TypeError('Please select a valid type')
+		try:
+			entry = Clinic.objects.get(name = info[0])
+		except Clinic.DoesNotExist:
+			raise ValueError('Please enter a registered clinic')
+		number = PhoneNumber.objects.create(phone_number = phone_number)
+		Vet.objects.create(name = name, phone_number = number, password = password, registration_date = datetime.datetime.today(), clinic = entry, isVerified = False)
 
 
 '''
@@ -116,6 +103,11 @@ The whole entry of the record would be returned if a result could be got.
 
 
 def query_user(phone_number):
+	try:
+		phone_number = PhoneNumber.objects.get(phone_number = phone_number)
+	except PhoneNumber.DoesNotExist:
+		raise ObjectDoesNotExist
+
 	try:
 		entry = PetOwner.objects.get(phone_number = phone_number)
 		return entry
@@ -152,6 +144,8 @@ a PermissionError would be raised.
 
 
 def verify(phone_number):
+	phone_number = PhoneNumber.objects.get(phone_number = phone_number)
+
 	try:
 		entry = Clinic.objects.get(phone_number = phone_number)
 		if not entry.isVerified:
