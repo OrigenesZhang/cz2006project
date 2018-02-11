@@ -90,11 +90,13 @@ def insert_reminder(user, name, remarks, is_permanent, start_time, frequency, re
 		raise ValueError('Reminder type out of range')
 
 	if is_permanent[0]:
-		entry = Reminder.objects.create(user = entry, name = name, remarks = remarks, next_time = start_time, period = period, type = reminder_type)
+		entry = Reminder.objects.create(user = entry, name = name, remarks = remarks, next_time = start_time,
+										period = period, type = reminder_type)
 	else:
 		duration = is_permanent[1] - start_time
 		total_actions = duration // period
-		entry = Reminder.objects.create(user = entry, name = name, remarks = remarks, next_time = start_time, remain_times = total_actions, period = period, type = reminder_type)
+		entry = Reminder.objects.create(user = entry, name = name, remarks = remarks, next_time = start_time,
+										remain_times = total_actions, period = period, type = reminder_type)
 
 	if not create_single_reminder(entry.id):
 		raise SystemError('Insertion failed')

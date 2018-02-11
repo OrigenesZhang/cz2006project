@@ -54,7 +54,7 @@ def insert_user(name, phone_number, password, user_type, info):
 		raise ValueError('Passwords should not be longer that 16 characters')
 	if len(password) < 6:
 		raise ValueError('Passwords should consist of at least 6 characters')
-	if user_type != 0 and user_type !=1 and user_type !=2:
+	if user_type != 0 and user_type != 1 and user_type != 2:
 		raise TypeError('Invalid user type')
 
 	if check_phone_number(phone_number):
@@ -68,7 +68,8 @@ def insert_user(name, phone_number, password, user_type, info):
 			raise NameError('Insufficient information about your pet')
 		if len(info) > 2:
 			raise SystemError('Oops! Something is wrong.')
-		PetOwner.objects.create(name = name, phone_number = number, password = password, registration_date = datetime.datetime.today(), breed = info[0], birthday = info[1])
+		PetOwner.objects.create(name = name, phone_number = number, password = password,
+								registration_date = datetime.datetime.today(), breed = info[0], birthday = info[1])
 	elif user_type == 1:  # Clinic
 		if len(info) < 2:
 			raise NameError('Insufficient information')
@@ -80,7 +81,9 @@ def insert_user(name, phone_number, password, user_type, info):
 			Clinic.objects.get(name = name)
 			raise ValueError('The clinic has already registered')
 		except Clinic.DoesNotExist:
-			Clinic.objects.create(name = name, phone_number = number, password = password, registration_date = datetime.datetime.today(), address = info[0], license = info[1], isVerified = False)
+			Clinic.objects.create(name = name, phone_number = number, password = password,
+								  registration_date = datetime.datetime.today(), address = info[0], license = info[1],
+								  isVerified = False)
 	else:  # Vet
 		if len(info) < 1:
 			raise NameError('Please enter the clinic you work for')
@@ -91,7 +94,8 @@ def insert_user(name, phone_number, password, user_type, info):
 		except Clinic.DoesNotExist:
 			raise ValueError('Please enter a registered clinic')
 		number = PhoneNumber.objects.create(phone_number = phone_number)
-		Vet.objects.create(name = name, phone_number = number, password = password, registration_date = datetime.datetime.today(), clinic = entry, isVerified = False)
+		Vet.objects.create(name = name, phone_number = number, password = password,
+						   registration_date = datetime.datetime.today(), clinic = entry, isVerified = False)
 
 
 '''

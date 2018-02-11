@@ -182,7 +182,7 @@ If the user is neither zero nor the entry of the user who posted the reply, a Pe
 
 
 def delete_reply(reply, user):
-	if user != 0 and user.phone_number != reply.user:		# user == 0 indicating it is system operation
+	if user != 0 and user.phone_number != reply.user:  # user == 0 indicating it is system operation
 		raise PermissionError('Action defied')
 	reply.delete()
 
