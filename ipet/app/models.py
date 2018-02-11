@@ -79,3 +79,10 @@ class Appointment(models.Model):
 	user = models.ForeignKey(PetOwner, on_delete = models.CASCADE)
 	clinic = models.ForeignKey(Clinic, on_delete = models.CASCADE)
 	time = models.DateTimeField()
+
+
+class Promotion(models.Model):
+	user = models.ForeignKey(PhoneNumber, on_delete = models.CASCADE)
+	title = models.CharField(max_length = 128)
+	content = models.TextField(max_length = 4096)
+	time = models.DateTimeField()

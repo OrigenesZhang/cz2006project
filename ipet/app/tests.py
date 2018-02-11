@@ -309,3 +309,56 @@ class ContactAndAppointmentTest(TestCase):
 		print('--------------------------------')
 
 	# add your test here
+
+
+class PromotionTest(TestCase):
+
+	def test_promotion(self):
+		insert_user("Clinic 1", "12345678", "12345678", 1, info = ["Hall 15 NTU", "EKLIJQWLF"])
+		insert_user("Clinic 2", "12345679", "12345678", 1, info = ["Hall 15 NTU", "EKLIJQWLF"])
+		entry1 = query_user("12345678")
+
+		from .db_promotion_operations import insert_promotion, list_promotions, delete_promotion, query_promotion_content
+		try:
+			insert_promotion(entry1, "Should not make it", "....")
+			raise RuntimeError
+		except PermissionError:
+			pass
+
+		from .db_user_operations import verify
+
+		verify("12345678")
+		verify("12345679")
+		entry1 = query_user("12345678")
+		entry2 = query_user("12345679")
+
+		title1 = "title 1"
+		content1 = "content 1"
+		title2 = "title 2"
+		content2 = "content 2"
+
+		insert_promotion(entry1, title1, content1)
+		insert_promotion(entry2, title2, content2)
+
+		ret = list_promotions()
+
+		self.assertEqual(len(ret), 2)
+		self.assertEqual(ret[0][1], "Clinic 2")
+		self.assertEqual(ret[1][1], "Clinic 1")
+
+		content = query_promotion_content(ret[0][0])
+		self.assertEqual(content, content2)
+		content = query_promotion_content(ret[1][0])
+		self.assertEqual(content, content1)
+
+		from .models import Promotion
+
+		delete_promotion(Promotion.objects.get(pk = ret[0][0]), 0)
+		ret = list_promotions()
+		self.assertEqual(len(ret), 1)
+
+		delete_promotion(Promotion.objects.get(pk = ret[0][0]), entry1)
+		ret = list_promotions()
+		self.assertEqual(len(ret), 0)
+
+	# add your test here
