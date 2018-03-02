@@ -377,7 +377,19 @@ class PromotionTest(TestCase):
 		entry2 = query_user("12345679")
 
 		title1 = "title 1"
-		content1 = "content 1"
+		content1 = '''
+					content 1 content 1 content 1 content 1 content 1 content 1 content 1 content 1
+					content 1 content 1 content 1 content 1 content 1 content 1 content 1 content 1
+					content 1 content 1 content 1 content 1 content 1 content 1 content 1 content 1
+					content 1 content 1 content 1 content 1 content 1 content 1 content 1 content 1
+					content 1 content 1 content 1 content 1 content 1 content 1 content 1 content 1
+					content 1 content 1 content 1 content 1 content 1 content 1 content 1 content 1
+					content 1 content 1 content 1 content 1 content 1 content 1 content 1 content 1
+					content 1 content 1 content 1 content 1 content 1 content 1 content 1 content 1
+					content 1 content 1 content 1 content 1 content 1 content 1 content 1 content 1
+					content 1 content 1 content 1 content 1 content 1 content 1 content 1 content 1
+					'''
+
 		title2 = "title 2"
 		content2 = "content 2"
 
@@ -389,6 +401,9 @@ class PromotionTest(TestCase):
 		self.assertEqual(len(ret), 2)
 		self.assertEqual(ret[0][1], "Clinic 2")
 		self.assertEqual(ret[1][1], "Clinic 1")
+		self.assertEqual(ret[0][3], "content 2")
+
+		print(ret[1][3])
 
 		content = query_promotion_content(ret[0][0])
 		self.assertEqual(content, content2)

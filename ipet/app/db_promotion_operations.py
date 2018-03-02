@@ -11,26 +11,44 @@ If the user has the access to posting a promotion, the functions returns a true,
 
 def check_permission(user):
 	try:
-		entry = Clinic.objects.get(phone_number = user.phone_number)
+		entry = Clinic.objects.get(pk = user.pk)
 		if entry.isVerified:
 			return True
 		return False
 	except Clinic.DoesNotExist:
-		pass
+		return False
 
-	try:
-		entry = Vet.objects.get(phone_number = user.phone_number)
-		if entry.isVerified:
-			return True
-		return False
-	except Vet.DoesNotExist:
-		return False
+
+'''
+This function is used to get the abstract of the content, which takes in a string (content) and returns the abstract.
+
+The function works like this:
+1.	If the length of the content is shorter than 128 characters, then the whole content is regarded as the abstract.
+2.	If the length is greater than or equal to 128 characters. Only the first few words would be chosen to be displayed, 
+	the total length of which cannot exceed 123 characters and a three dots is added at the end.
+
+The function is used for both promotions and tips.
+'''
+
+
+def get_abstract(content):
+	if len(content) < 128:
+		return content
+
+	tmp = content.split(' ')
+	ret = ''
+	for word in tmp:
+		if len(word) + len(ret) > 123:
+			return ret + '...'
+		else:
+			ret += word
+			ret += ' '
 
 
 '''
 The function takes in 3 parameters, user, title and content and creates a new Promotion object if applicable.
 
-user should be an entry to a verified vet or clinic, otherwise a PermissionError would be raised.
+user should be an entry to a verified clinic, otherwise a PermissionError would be raised.
 
 title is the title or headline of this promotion and should be a non-empty string not longer than 128 characters.
 Otherwise a ValueError would be raised.
@@ -42,7 +60,7 @@ Otherwise a ValueError would be raised.
 
 def insert_promotion(user, title, content):
 	if not check_permission(user):
-		raise PermissionError('Only verified clinics or vets can post here')
+		raise PermissionError('Only verified clinics can post here')
 	if len(title) == 0:
 		raise ValueError('Title cannot be empty')
 	if len(title) > 128:
@@ -50,14 +68,16 @@ def insert_promotion(user, title, content):
 	if len(content) > 4096:
 		raise ValueError('Content is too long')
 
+	abstract = get_abstract(content)
 	current_time = datetime.datetime.now()
-	Promotion.objects.create(user = user.phone_number, time = current_time, title = title, content = content)
+
+	Promotion.objects.create(user = user, time = current_time, title = title, content = content, abstract = abstract)
 
 
 '''
 This function lists all the available promotions at the time of query.
-A nested python list would be returned, whose elements are lists of 4 elements, the primary key of the promotion, 
-the name of the vet/clinic who made the post, the title and the time of the promotion.
+A nested python list would be returned, whose elements are lists of 5 elements, the primary key of the promotion, 
+the name of the vet/clinic who made the post, the title, the abstract, and the time of the promotion.
 The members of the returned list are sorted in time order, the most recent one appears at the first.
 The content of promotions are not listed with the consideration that copying a large string from disk to memory is 
 costly (both in time and space) and unnecessary (most of the promotions will not be viewed by the user).
@@ -70,11 +90,9 @@ def list_promotions():
 
 	for event in q_set:
 		cur = [event.pk]
-		try:
-			cur.append(event.user.vet_name.name)
-		except:
-			cur.append(event.user.clinic_name.name)
+		cur.append(event.user.name)
 		cur.append(event.title)
+		cur.append(event.abstract)
 		cur.append(event.time)
 		ret.append(cur)
 
@@ -106,6 +124,6 @@ If the user is neither zero nor the entry of the user who posted the promotion, 
 
 
 def delete_promotion(promotion, user):
-	if user != 0 and user.phone_number != promotion.user:
+	if user != 0 and user != promotion.user:
 		raise PermissionError('Action defied')
 	promotion.delete()
