@@ -126,6 +126,42 @@ class ReminderTest(TestCase):
 		print(entry.name, entry.remarks, entry.next_time, entry.period, entry.remain_times, entry.type)
 		entry = Reminder.objects.get(name = "ExTest")
 		print(entry.name, entry.remarks, entry.next_time, entry.period, entry.remain_times, entry.type)
+		print('-----------------------------------------------------')
+
+	# add your test here
+
+	def test_reminder_deletion(self):
+		self.test_reminder_insertion()
+
+		from .db_reminder_operations import query_reminder, delete_reminder, recover_reminder
+		from .models import Reminder
+
+		entry = Reminder.objects.get(name = "MedTest")
+		delete_reminder(entry)
+
+		# entry = Reminder.objects.get(name = "MedTest")
+		# print(entry.name, entry.isDeleted)
+
+		user = query_user("1234567")
+		flags, ret = query_reminder(user)
+		# print('--------------------', flags, ret[0].link.name, ret[0].isDeleted)
+		# import time
+		# time.sleep(10)
+		self.assertEqual(flags[0], False)
+
+		recover_reminder(entry)
+		flags, ret = query_reminder(user)
+		self.assertEqual(flags[0], True)
+
+		from .db_reminder_operations import list_trash_bin, permanent_deletion
+
+		delete_reminder(entry)
+		ret, num = list_trash_bin(user, 0)
+		self.assertEqual(num, 1)
+
+		permanent_deletion(entry)
+		ret, num = list_trash_bin(user, 0)
+		self.assertEqual(num, 0)
 
 	# add your test here
 

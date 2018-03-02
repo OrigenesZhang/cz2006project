@@ -1,5 +1,6 @@
 from .models import Reminder, SingleReminder, PetOwner
 import datetime
+from django.core.exceptions import ObjectDoesNotExist
 
 
 '''
@@ -32,7 +33,8 @@ def create_single_reminder(reminder_id):
 		entry.delete()
 		return False
 
-	SingleReminder.objects.create(link = entry, time = entry.next_time, user = entry.user, type = entry.type)
+	SingleReminder.objects.create(link = entry, time = entry.next_time, user = entry.user, type = entry.type,
+								  isDeleted = entry.isDeleted)
 	entry.remain_times -= 1
 	entry.next_time = entry.next_time + entry.period
 	entry.save()
@@ -116,21 +118,21 @@ def query_reminder(user):
 	ret = [None, None, None]
 
 	try:
-		medications = SingleReminder.objects.filter(user = user, type = 0).order_by('time')[0]
+		medications = SingleReminder.objects.filter(user = user, type = 0, isDeleted = False).order_by('time')[0]
 		ret[0] = medications
 		flags[0] = True
 	except IndexError:
 		pass
 
 	try:
-		hygiene = SingleReminder.objects.filter(user = user, type = 1).order_by('time')[0]
+		hygiene = SingleReminder.objects.filter(user = user, type = 1, isDeleted = False).order_by('time')[0]
 		ret[1] = hygiene
 		flags[1] = True
 	except IndexError:
 		pass
 
 	try:
-		exercise = SingleReminder.objects.filter(user = user, type = 2).order_by('time')[0]
+		exercise = SingleReminder.objects.filter(user = user, type = 2, isDeleted = False).order_by('time')[0]
 		ret[2] = exercise
 		flags[2] = True
 	except IndexError:
@@ -172,3 +174,73 @@ def show_reminder_query(flags, result):
 				result[i].link.period
 			]
 	return flags, ans
+
+
+'''
+The function takes in an entry to a reminder and marks the isDeleted field of both this reminder and its single reminder
+to true. The user can later choose to delete the reminder permanently or recover it from the trash bin.
+'''
+
+
+def delete_reminder(reminder):
+	try:
+		single_reminder = SingleReminder.objects.filter(link = reminder).order_by('-time')[0]
+	except IndexError:
+		raise ObjectDoesNotExist('Single reminder does not exist')
+
+	single_reminder.isDeleted = True
+	single_reminder.save()
+	reminder.isDeleted = True
+	reminder.save()
+
+
+'''
+The function takes in an entry to a reminder and marks the isDeleted field of both this reminder and its single reminder
+to false. The function removes the reminder from the trash bin and enables it again.
+'''
+
+
+def recover_reminder(reminder):
+	try:
+		single_reminder = SingleReminder.objects.filter(link = reminder).order_by('-time')[0]
+	except IndexError:
+		raise ObjectDoesNotExist('Single reminder does not exist')
+
+	single_reminder.isDeleted = False
+	single_reminder.save()
+	reminder.isDeleted = False
+	reminder.save()
+
+
+'''
+This function takes in an entry to a reminder which is already inside the trash bin and deletes it permanently.
+If the reminder is not in the trash bin yet, a PermissionError is to be raised.
+'''
+
+
+def permanent_deletion(reminder):
+	if not reminder.isDeleted:
+		raise PermissionError('Only a reminder in the trash bin can be deleted permanently')
+
+	try:
+		single_reminder = SingleReminder.objects.filter(link = reminder).order_by('-time')[0]
+	except IndexError:
+		raise ObjectDoesNotExist('Single reminder does not exist')
+
+	single_reminder.delete()
+	reminder.delete()
+
+
+'''
+The function takes in two parameters, user and type and returns a tuple.
+user is an entry to the user who is making the query.
+type is an integer ranging from 0-2 specifying the type of query, following the convention above.
+The first member of the returned tuple is a list of entries to the reminders of the specified type in the user's trash 
+bin. The order is unpredictable.
+The second member is an integer, indicating the length of the first member, which may be useful in terms of format.
+'''
+
+
+def list_trash_bin(user, type):
+	ret = list(Reminder.objects.filter(user = user, isDeleted = True, type = type))
+	return ret, len(ret)

@@ -35,6 +35,7 @@ class Vet(User):
 
 class Reminder(models.Model):
 	user = models.ForeignKey(PetOwner, on_delete = models.CASCADE)
+	isDeleted = models.BooleanField(default = False)
 	name = models.CharField(max_length = 128)
 	remarks = models.TextField(max_length = 1024)
 	remain_times = models.IntegerField(default = 1 << 20)
@@ -45,6 +46,7 @@ class Reminder(models.Model):
 
 class SingleReminder(models.Model):
 	link = models.ForeignKey(Reminder, on_delete = models.CASCADE)
+	isDeleted = models.BooleanField(default = False)
 	user = models.ForeignKey(PetOwner, on_delete = models.CASCADE, null = True)
 	type = models.SmallIntegerField()
 	time = models.DateTimeField()
