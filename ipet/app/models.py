@@ -61,7 +61,8 @@ class Post(models.Model):
 
 class Reply(models.Model):
 	user = models.ForeignKey(PhoneNumber, on_delete = models.CASCADE)
-	thread = models.ForeignKey(Post, on_delete = models.CASCADE)
+	thread = models.ForeignKey(Post, blank = True, null = True, on_delete = models.CASCADE)
+	dependency = models.ForeignKey('self', blank = True, null = True, on_delete = models.CASCADE)
 	time = models.DateTimeField()
 	content = models.TextField(max_length = 2048)
 	reports = models.ManyToManyField(PhoneNumber, related_name = 'reports')

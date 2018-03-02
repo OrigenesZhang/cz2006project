@@ -95,43 +95,60 @@ def report_post(post, user):
 
 
 '''
-Warning: 	For this very first version, replies can only be made towards main posts.
-			Replying to existing replies is not allowed.
-
-
-This function can be used to insert a reply of an existing post in the forum.
-It takes in three parameters, user, post and content.
+This function can be used to insert a reply of an existing post or reply in the forum.
+It takes in four parameters, user, target, thread, and content.
 
 user is an entry to a user (can be either a pet owner, a vet or a clinic) of the app.
 No check of the user inside the function is provided so the validity of user has to be checked in advance.
 
-post is an entry to an existing post.
-No check of the post inside the function is provided so the validity of post has to be checked in advance.
+target is a boolean indicating whether the reply is made to a post or a reply.
+If target is True, the reply is made to a post, otherwise, it is made to a reply.
+
+post is an entry to an existing post or a reply.
+No check of the post or reply inside the function is provided so the validity of post has to be checked in advance.
 
 content is the reply content, which is a string not longer than 2048 characters.
 If the content is too long, a ValueError would be raised.
 '''
 
 
-def insert_reply(user, thread, content):
+def insert_reply(user, target, thread, content):
 	if len(content) > 2048:
 		raise ValueError('The reply is too long')
 	time = datetime.datetime.now()
-	Reply.objects.create(user = user.phone_number, thread = thread, time = time, content = content)
+	if target:
+		Reply.objects.create(user = user.phone_number, thread = thread, time = time, content = content)
+	else:
+		Reply.objects.create(user = user.phone_number, dependency = thread, time = time, content = content)
 
 
 '''
-This function takes in a post object and returns a list of reply objects that replies this post.
+This function takes two parameters and returns tuple of a list of reply objects and a list of booleans.
+The first parameter is an entry of the queried thread and the second one is a boolean, indicating whether the thread is
+a post or a reply.
 If there is no such reply, a false would be returned.
 If multiple replies are found, they would be sorted in the order of posting time. (The most recent would appear first)
+The second returned list should have the same number of elements as the first one. The respective member indicates 
+whether the reply has replies.
 '''
 
 
-def query_reply(thread):
-	q_set = Reply.objects.filter(thread = thread).order_by('-time')
+def query_reply(thread, target):
+	if target:
+		q_set = Reply.objects.filter(thread = thread).order_by('-time')
+	else:
+		q_set = Reply.objects.filter(dependency = thread).order_by('-time')
 	if len(q_set) == 0:
 		return False
-	return list(q_set)
+	ret1 = list(q_set)
+	ret2 = []
+	for entry in ret1:
+		q_set = Reply.objects.filter(dependency = entry)
+		if len(q_set) == 0:
+			ret2.append(False)
+		else:
+			ret2.append(True)
+	return ret1, ret2
 
 
 '''
@@ -173,17 +190,24 @@ def report_reply(reply, user):
 
 
 '''
-This function is used to delete a particular reply.
+This function is used to delete a particular reply and all the replies made towards it.
 Two parameters, reply and user are taken in, which are entries to Reply and User objects respectively.
 Notice that the user could also be integer zero, which indicates the deletion is made by the system or administrators.
 
 If the user is neither zero nor the entry of the user who posted the reply, a PermissionError would be returned.
+
+The function works in a recursive manner.
 '''
 
 
 def delete_reply(reply, user):
 	if user != 0 and user.phone_number != reply.user:  # user == 0 indicating it is system operation
 		raise PermissionError('Action defied')
+
+	q_set = list(Reply.objects.filter(dependency = reply))
+	for entry in q_set:
+		delete_reply(entry, 0)
+
 	reply.delete()
 
 

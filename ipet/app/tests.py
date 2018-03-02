@@ -205,18 +205,26 @@ class ForumTest(TestCase):
 
 		post = query_post_title(title)[0]
 		content = 'Reply 1'
-		insert_reply(user = user, thread = post, content = content)
+		insert_reply(user = user, thread = post, content = content, target = True)
 		content = 'Reply 2'
-		insert_reply(user = user, thread = post, content = content)
+		insert_reply(user = user, thread = post, content = content, target = True)
 
-		print(query_reply(post))
+		print('-----------------------------------------------------')
+		replies = query_reply(post, True)[0]
+		print(replies)
+
+		content = 'reply to reply'
+		insert_reply(user = user, thread = replies[0], content =content, target = False)
 
 		from .db_forum_operations import delete_reply, delete_post
 
-		reply = query_reply(post)[0]
+		# Test whether the reply to reply is inserted successfully.
+		self.assertEqual(query_reply(post, True)[1], [True, False])
+
+		reply = query_reply(post, True)[0][0]
 		delete_reply(reply, user)
 
-		print(query_reply(post))
+		print(query_reply(post, True))
 
 		delete_post(post, user)
 		self.assertEqual(query_post_title(title), False)
