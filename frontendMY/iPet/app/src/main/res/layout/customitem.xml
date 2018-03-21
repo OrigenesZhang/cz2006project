@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="2dp"
+    android:padding="2dp"
+    android:background="@color/white"
+    android:layout_margin="0dp"
+    app:cardUseCompatPadding="false"
+
+    android:elevation="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <ImageView
+            android:id="@+id/clinic_image"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:padding="2dp"
+            android:layout_marginRight="15dp"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/clinic_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+
+            android:layout_marginStart="14dp"
+            android:text="Clinic Name"
+            android:paddingTop="0dp"
+            android:textColor="@color/colorDarkerGray"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textSize="19sp" />
+
+        <TextView
+            android:id="@+id/clinic_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/clinic_image"
+            android:layout_alignStart="@+id/clinic_title"
+            android:paddingTop="0dp"
+            android:text="Clinic Phone Number"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/clinic_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/clinic_title"
+            android:layout_centerVertical="true"
+            android:paddingLeft="0dp"
+            android:text="4.7"
+            android:paddingTop="4dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/rating_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/clinic_rating"
+            android:layout_centerVertical="true"
+            android:text="/5.0"
+            android:paddingTop="4dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="17sp" />
+
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

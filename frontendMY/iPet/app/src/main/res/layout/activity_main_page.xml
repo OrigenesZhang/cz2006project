@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="9"
+    android:background="@android:color/white"
+    tools:context="sg.edu.ntu.e.fang0074.ipet.MainPage">
+
+    <RelativeLayout
+        android:id = "@+id/mainPageIcon"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="3.75">
+
+        <ImageView
+            android:id="@+id/imageViewProfile"
+            android:layout_width="180dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/mainMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageViewProfile"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif"
+            android:text="Welcome!"
+            android:textColor="@color/colorDarkerGray"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.GridLayout
+        android:id = "@+id/mainPageGrid"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="25dp"
+        android:layout_weight="6"
+
+
+        android:paddingTop="10dp"
+        android:paddingBottom="50dp"
+        app:alignmentMode="alignMargins"
+        app:columnCount="3"
+        app:columnOrderPreserved="false"
+        app:rowCount="2">
+
+
+        <!-- Row 1 -->
+        <!-- Column 1 -->
+        <android.support.v7.widget.CardView
+            android:id = "@+id/profileGrid"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="0dp"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="2dp">
+            <!--
+            app:layout_conlumWeight="1"
+            app:layout_rowWeight="1" -->
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    app:srcCompat="@drawable/ic_pets_orange_24dp"
+                    android:id="@+id/imageMainMenu1"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                     />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:text="Profile"
+                    android:layout_gravity="center_horizontal"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorDarkGray"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <!-- Column 2 -->
+        <android.support.v7.widget.CardView
+            android:id = "@+id/searchGrid"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="0dp"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="2dp"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="12dp"
+                android:orientation="vertical">
+
+
+                <ImageView
+                    app:srcCompat="@drawable/ic_search_orange_24dp"
+                    android:id="@+id/imageMainMenu2"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_horizontal"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="0dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Clinics"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorDarkGray"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <!-- Column 3 -->
+        <android.support.v7.widget.CardView
+            android:id = "@+id/reminderGrid"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="30dp"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="12dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageMainMenu3"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_horizontal"
+                    app:srcCompat="@drawable/ic_reminder_orange_24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:text="Reminders"
+                    android:layout_gravity="center_horizontal"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorDarkGray"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <!-- Row 1 -->
+        <!-- Column 1 -->
+        <android.support.v7.widget.CardView
+            android:id = "@+id/tipsGrid"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="18dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="0dp"
+            app:layout_rowWeight="1"
+            app:layout_columnWeight="1"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="2dp"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="10dp"
+                android:layout_marginTop="0dp"
+                android:orientation="vertical">
+
+
+                <ImageView
+                    app:srcCompat="@drawable/ic_monetization_on_maroon_24dp"
+                    android:id="@+id/imageMainMenu4"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                     />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="sans-serif"
+                    android:text="Promotions"
+                    android:layout_gravity="center_horizontal"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorDarkGray"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <!-- Column 2 -->
+        <android.support.v7.widget.CardView
+            android:id = "@+id/promoGrid"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="18dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="0dp"
+            app:layout_rowWeight="1"
+            app:layout_columnWeight="1"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="12dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    app:srcCompat="@drawable/ic_beenhere_maroon_24dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/imageMainMenu5"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                 />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="sans-serif"
+                    android:text="Tips"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorDarkGray"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <!-- Column 3 -->
+        <android.support.v7.widget.CardView
+            android:id = "@+id/commentGrid"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="18dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="30dp"
+            app:layout_rowWeight="1"
+            app:layout_columnWeight="1"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="12dp"
+                android:orientation="vertical">
+
+
+                <ImageView
+                    app:srcCompat="@drawable/ic_local_phone_teal_24dp"
+                    android:id="@+id/imageMainMenu6"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                     />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Contact Us"
+                    android:layout_gravity="center_horizontal"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorDarkGray"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+
+    </android.support.v7.widget.GridLayout>
+
+</LinearLayout>
