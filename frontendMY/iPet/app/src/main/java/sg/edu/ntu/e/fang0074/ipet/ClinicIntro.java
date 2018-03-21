@@ -3,8 +3,11 @@ package sg.edu.ntu.e.fang0074.ipet;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ZoomControls;
 
 import com.google.android.gms.location.places.GeoDataClient;
@@ -21,6 +24,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -29,10 +35,14 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
     TextView mapClinicAddress;
     TextView mapClinicTel;
     TextView mapClnicRating;
-    private final static int MY_PERMISSION_FINE_LOCATION = 101;
-    private final static int PLACE_PICKER_REQUEST = 1;
+    //private final static int MY_PERMISSION_FINE_LOCATION = 101;
+    //private final static int PLACE_PICKER_REQUEST = 1;
     private final static LatLngBounds bounds = new LatLngBounds(new LatLng(51.5152192,-0.1321900), new LatLng(51.5166013,-0.1299262));
 
+    RecyclerView listshowrcy;
+    List<CommentItem> commentList = new ArrayList<>();
+    private RecyclerView.LayoutManager mLayoutManager;
+    CommentAdapter adapter;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +72,16 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
         mapClinicAddress = (TextView) findViewById(R.id.map_clinic_addr);
         mapClinicTel = (TextView) findViewById(R.id.map_clinic_tel);
         mapClnicRating = (TextView) findViewById(R.id.map_clinic_rating);
+
+        createCommentList();
+
+        listshowrcy = (RecyclerView)findViewById(R.id.comment_list);
+        listshowrcy.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        listshowrcy.setLayoutManager(linearLayoutManager);
+        adapter = new CommentAdapter(commentList,ClinicIntro.this);
+
+        listshowrcy.setAdapter(adapter);
     }
 
 
@@ -128,12 +148,22 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
 
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPlace.getLatLng(), 14.0f));
 
-                    System.out.println("Place found: " + myPlace.getName());
+                    //System.out.println("Place found: " + myPlace.getName());
                     places.release(); //IMPORTANT!! MUST FREE THE BUFFER
                 } else {
                     //Log.e(TAG, "Place not found.");
+                    Toast.makeText(ClinicIntro.this, "Clinic not found", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    private void createCommentList(){
+        //System.out.println("Create list..");
+        commentList.add(new CommentItem("First dog", "Good", "02/03/2018", "4.0/5.0"));
+        commentList.add(new CommentItem("Third dog", "I like this clinic", "02/03/2018", "3.7/5.0"));
+        commentList.add(new CommentItem("Fourth dog", "Excellent Service", "02/03/2018", "4.5/5.0"));
+        commentList.add(new CommentItem("Fifth dog", "Very good.", "02/03/2018", "3.5/5.0"));
+        commentList.add(new CommentItem("Sixth dog", "Recommended", "02/03/2018", "3.9/5.0"));
     }
 }

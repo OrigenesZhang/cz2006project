@@ -18,7 +18,7 @@
     <color name="colorDarkPurple">#5E35B1</color>
     <color name="white">#FFFFFF</color>
     <color name="colorLightGrey">#F0F0F0</color>
-
+    <color name="colorLightLightGrey">#F5F5F5</color>
     <color name="colorLighterGrey">#F9F9F9</color>
     <color name="colorMaroon">#F44336</color>
     <color name="colorLightOrange">#FFA726</color>
