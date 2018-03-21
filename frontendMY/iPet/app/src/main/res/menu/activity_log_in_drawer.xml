@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_pets_black_24dp"
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_clinic"
+            android:icon="@drawable/ic_search_black_24dp"
+            android:title="Clinics" />
+        <item
+            android:id="@+id/nav_reminder"
+            android:icon="@drawable/ic_event_note_black_24dp"
+            android:title="Reminders" />
+        <item
+            android:id="@+id/nav_promo"
+            android:icon="@drawable/ic_monetization_on_black_24dp"
+            android:title="Promotions" />
+        <item
+            android:id="@+id/nav_tips"
+            android:icon="@drawable/ic_beenhere_black_24dp"
+            android:title="Tips" />
+        <item
+            android:id="@+id/nav_contacts"
+            android:icon="@drawable/ic_local_phone_black_24dp"
+            android:title="Contact Us" />
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_help_outline_black_24dp"
+            android:title="Help" />
+
+    </group>
+
+
+</menu>
