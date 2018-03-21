@@ -1,13 +1,16 @@
 package sg.edu.ntu.e.fang0074.ipet;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ZoomControls;
 
+import com.google.android.gms.location.places.GeoDataClient;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBufferResponse;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -15,16 +18,17 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     ZoomControls zoom;
-    //Button geoLocationBt;
-    TextView placeNameText;
-    TextView placeAddressText;
-    WebView attributionText;
-    Button getPlaceButton;
+    TextView mapClinicName;
+    TextView mapClinicAddress;
+    TextView mapClinicTel;
+    TextView mapClnicRating;
     private final static int MY_PERMISSION_FINE_LOCATION = 101;
     private final static int PLACE_PICKER_REQUEST = 1;
     private final static LatLngBounds bounds = new LatLngBounds(new LatLng(51.5152192,-0.1321900), new LatLng(51.5166013,-0.1299262));
@@ -53,6 +57,11 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
                 mMap.animateCamera(CameraUpdateFactory.zoomIn());
             }
         });
+
+        mapClinicName = (TextView) findViewById(R.id.map_clinic_name);
+        mapClinicAddress = (TextView) findViewById(R.id.map_clinic_addr);
+        mapClinicTel = (TextView) findViewById(R.id.map_clinic_tel);
+        mapClnicRating = (TextView) findViewById(R.id.map_clinic_rating);
     }
 
 
@@ -70,9 +79,9 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        //LatLng sydney = new LatLng(-34, 151);
+        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
         /*
         geoLocationBt = (Button) findViewById(R.id.btSearch);
@@ -81,10 +90,10 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
             public void onClick(View view) {
                 EditText searchText = (EditText) findViewById(R.id.gmap_entry);
                 String search = searchText.getText().toString();
-                System.out.println(search);
+                //System.out.println(search);
                 if(search != null && !search.equals("")) {
                     //System.out.println("valid string");
-                    List<android.location.Address> addressList = null;
+                    List<Address> addressList = null;
                     Geocoder geocoder = new Geocoder(ClinicIntro.this);
                     //System.out.println("Going to try");
                     try {
@@ -99,6 +108,32 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
                     mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 }
             }
-        }); */
+        });*/
+
+        GeoDataClient myGeoDataClient = Places.getGeoDataClient(this, null);
+
+
+        myGeoDataClient.getPlaceById("ChIJa0VT3f0Z2jERB36JatD_MFM").addOnCompleteListener(new OnCompleteListener<PlaceBufferResponse>() {
+            @Override
+            public void onComplete(@NonNull Task<PlaceBufferResponse> task) {
+                if (task.isSuccessful()) {
+                    PlaceBufferResponse places = task.getResult();
+                    Place myPlace = places.get(0);
+                    //myPlace.getLatLng();
+                    mMap.addMarker(new MarkerOptions().position(myPlace.getLatLng()).title("Marker in Target Clinic"));
+
+                    mapClinicName.setText(myPlace.getName());
+                    mapClinicAddress.setText(myPlace.getAddress());
+                    mapClinicTel.setText(myPlace.getPhoneNumber());
+
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPlace.getLatLng(), 14.0f));
+
+                    System.out.println("Place found: " + myPlace.getName());
+                    places.release(); //IMPORTANT!! MUST FREE THE BUFFER
+                } else {
+                    //Log.e(TAG, "Place not found.");
+                }
+            }
+        });
     }
 }

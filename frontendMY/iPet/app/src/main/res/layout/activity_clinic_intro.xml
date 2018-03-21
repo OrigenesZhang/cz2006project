@@ -1,28 +1,7 @@
-<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/llmap"
-        android:orientation="horizontal"
-        android:weightSum="5">
-
-        <EditText
-            android:id="@+id/gmap_entry"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            />
-        <Button
-            android:id="@+id/btSearch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Go"/>
-
-    </LinearLayout>
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -30,41 +9,80 @@
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/llmap"
+        android:layout_height="400dp"
         tools:context="sg.edu.ntu.e.fang0074.ipet.ClinicIntro" />
 
-    <Button
-        android:id="@+id/btMark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mark"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"/>
-
-    <Button
-        android:id="@+id/btSatellite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@id/btMark"
-        android:text="Sat"/>
-
-
-    <Button
-        android:id="@+id/btClear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Clear"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@id/btSatellite"/>
 
     <ZoomControls
         android:id="@+id/zcZoom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/btMark"
-        android:layout_alignParentRight="true"></ZoomControls>
+        android:layout_alignBottom="@+id/map"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="8dp"></ZoomControls>
+
+    <TextView
+        android:id="@+id/map_clinic_name"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/map"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="29dp"
+        android:text="Clinic Name"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/map_clinic_addr"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/map_clinic_name"
+        android:layout_below="@+id/map_clinic_name"
+        android:layout_marginTop="14dp"
+        android:layout_centerHorizontal="true"
+        android:text="Clinic Address"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/map_clinic_tel"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/map_clinic_addr"
+        android:layout_below="@+id/map_clinic_addr"
+        android:layout_marginTop="14dp"
+        android:layout_centerHorizontal="true"
+        android:text="Clinic Tel"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/map_clinic_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/map_clinic_tel"
+        android:layout_below="@+id/map_clinic_tel"
+        android:layout_marginTop="19dp"
+        android:text="Clinic Rating"
+        android:textColor="@color/colorPrimary"
+        android:layout_centerHorizontal="true"
+        android:textSize="25dp" />
+
+
+    <!--
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/llmap"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    -->
 
 </RelativeLayout>
 

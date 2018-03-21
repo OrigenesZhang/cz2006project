@@ -45,7 +45,7 @@ public class SearchActivityAdapter extends RecyclerView.Adapter<SearchActivityAd
             @Override
             public void onClick(View view){
                 Toast.makeText(context, cliniclist.get(position).getName(), Toast.LENGTH_LONG).show();
-                Intent startIntent = new Intent(context, MapActivity.class);
+                Intent startIntent = new Intent(context, ClinicIntro.class);
                 //putExtra: clinic name
                 context.startActivity(startIntent);
                 // infoToLoad = queryData
