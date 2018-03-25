@@ -10,4 +10,8 @@
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_clinic_intro">Map</string>
     <string name="title_activity_map">Maps</string>
+    <string name="title_activity_sign_up">Sign Up</string>
+
+
+
 </resources>

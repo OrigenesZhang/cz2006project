@@ -1,11 +1,13 @@
 package sg.edu.ntu.e.fang0074.ipet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ZoomControls;
@@ -82,6 +84,15 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
         adapter = new CommentAdapter(commentList,ClinicIntro.this);
 
         listshowrcy.setAdapter(adapter);
+
+        Button ratingBtn = (Button) findViewById(R.id.rating_btn);
+        ratingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent startIntent = new Intent(getApplicationContext(), RateComment.class);
+                startActivity(startIntent);
+            }
+        });
     }
 
 

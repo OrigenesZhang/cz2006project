@@ -61,7 +61,7 @@
         android:layout_marginTop="9dp"
         android:text="Clinic Rating"
         android:textColor="@color/colorPrimary"
-        android:textSize="20dp" />
+        android:textSize="18dp" />
 
 
     <!--
@@ -84,8 +84,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/map_clinic_rating"
-        android:layout_marginTop="20dp"
-        android:background="@color/white">
+        android:layout_marginTop="60dp"
+        android:background="@color/white"
+        android:id="@+id/relativeLayout">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/comment_list"
@@ -95,6 +96,31 @@
         </android.support.v7.widget.RecyclerView>
 
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/appt_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/map_clinic_rating"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="11dp"
+        android:layout_toStartOf="@+id/rating_btn"
+        android:background="@color/colorPrimary"
+        android:text="Call"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/rating_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignEnd="@+id/zcZoom"
+        android:layout_alignTop="@+id/appt_btn"
+        android:layout_marginEnd="9dp"
+        android:background="@color/colorPrimary"
+        android:text="Rate"
+        android:textSize="16dp"
+        android:textColor="@color/white" />
 
 </RelativeLayout>
 

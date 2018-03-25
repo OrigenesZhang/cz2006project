@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="sg.edu.ntu.e.fang0074.ipet.SignUp"
+    tools:showIn="@layout/activity_sign_up">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3.75"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <ImageView
+            android:id="@+id/imageViewProfile"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="44dp"
+            android:src="@drawable/logo3" />
+
+        <TextView
+            android:id="@+id/sign_up_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/signupButton"
+            android:layout_below="@+id/imageViewProfile"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif"
+            android:text="Welcome!"
+            android:textColor="@color/colorLightBrown"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/newusername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sign_up_welcome"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/newpassword1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/new_user_email"
+            android:layout_below="@+id/new_user_email"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textSize="18dp" />
+
+        <Button
+            android:id="@+id/signupButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editText3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:background="@color/colorPrimary"
+            android:text="SIGN UP"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/new_user_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/newusername"
+            android:layout_below="@+id/newusername"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/newpassword2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/newpassword1"
+            android:layout_below="@+id/newpassword1"
+            android:ems="10"
+            android:textSize="18sp"
+            android:hint="Re-enter password "
+            android:inputType="textPassword" />
+
+        <CheckBox
+            android:id="@+id/clinicVerify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/newpassword2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="I'm a Clinic Representative"
+            android:textColor="@color/colorLightBrown"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/newpassword2"
+            android:layout_below="@+id/clinicVerify"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="Clinic Name"
+            android:inputType="textMultiLine"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+</LinearLayout>

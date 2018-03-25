@@ -42,8 +42,9 @@
             android:id="@+id/editName"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/editDescription"
             android:layout_alignTop="@+id/editProfileImage"
+            android:layout_marginStart="19dp"
+            android:layout_toEndOf="@+id/editProfileImage"
             android:fontFamily="sans-serif"
             android:hint="Pet Name"
             android:textColor="@color/colorDarkerGray"
@@ -209,19 +210,10 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="50dp"
             android:layout_toStartOf="@+id/feature3"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:textSize="18sp"
             android:text="SAVE" />
-
-        <EditText
-            android:id="@+id/editDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/feature1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:ems="10"
-            android:hint="Owner's Name"
-            android:inputType="textMultiLine"
-            android:textSize="20dp" />
 
         <Button
             android:id="@+id/cancelEdit"
@@ -231,18 +223,30 @@
             android:layout_alignBottom="@+id/saveEdit"
             android:layout_marginStart="13dp"
             android:layout_toEndOf="@+id/saveEdit"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:textSize="18sp"
             android:text="CANCEL" />
 
-        <EditText
-            android:id="@+id/editText"
+        <TextView
+            android:id="@+id/edit_profile_owner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/editDescription"
-            android:layout_below="@+id/editDescription"
-            android:ems="10"
-            android:textSize="20dp"
-            android:hint="Owner's Phone Number"
-            android:inputType="phone" />
+            android:layout_below="@+id/feature1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="47dp"
+            android:text="Owner: Liang Liang"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/edit_profile_owner_tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_profile_owner"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:text="Tel: 1234 5678"
+            android:textSize="22sp" />
 
     </RelativeLayout>
 

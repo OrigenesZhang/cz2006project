@@ -216,9 +216,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/feature1"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="42dp"
+            android:layout_marginTop="52dp"
             android:text="Owner: Liang Liang"
-            android:textSize="20sp" />
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/ownerPhoneNumber"
@@ -228,7 +228,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="19dp"
             android:text="TEL: 8888 1234"
-            android:textSize="20sp" />
+            android:textSize="22sp" />
 
     </RelativeLayout>
 

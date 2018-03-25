@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class LogIn extends AppCompatActivity
@@ -85,6 +86,15 @@ public class LogIn extends AppCompatActivity
             }
         });
 
+        TextView signUp = (TextView) findViewById(R.id.signup_link);
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            // Launch an activity within the app
+            public void onClick(View view) {
+                Intent startIntent = new Intent(getApplicationContext(), SignUp.class);
+                startActivity(startIntent);
+            }
+        });
         //use a while loop to trap user with wrong password
     }
 
