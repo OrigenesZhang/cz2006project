@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">CZ2006Project2</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="interstitial_ad_sample">Interstitial Ad Sample</string>
+    <string name="start_level">Level 1</string>
+    <string name="next_level">Next Level</string>
+
+    <string name="new_tip">New Tip</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quis justo vel lacus egestas tempor. Suspendisse ipsum erat, tincidunt in fermentum ac, consectetur a orci. Quisque nibh urna, vulputate eget magna eu, pretium luctus enim. Donec sodales imperdiet bibendum. Vivamus eget hendrerit velit. Maecenas non turpis a lectus maximus sollicitudin. Donec convallis nunc quis velit posuere egestas. Sed in ullamcorper justo. Aenean mollis aliquet lorem ullamcorper aliquam. Ut vitae nunc diam.
+
+Donec interdum laoreet suscipit. Pellentesque volutpat eros blandit metus commodo pulvinar. In vel tristique ligula. Aenean sit amet nisi nec sapien gravida pretium tincidunt nec sem. Vivamus quam tellus, fermentum eu semper a, tincidunt eu sem. Sed sed mauris urna. Maecenas pulvinar libero non dolor pretium blandit. Duis mauris nunc, consequat et lectus nec, lobortis placerat ligula. Vivamus porta efficitur lectus ut maximus. Donec porttitor ante vel leo venenatis gravida.
+
+Curabitur mi eros, elementum a mi id, sagittis euismod leo. Donec eget varius erat, quis mollis massa. Etiam suscipit ipsum sit amet facilisis convallis. Nulla in vehicula erat. Proin tempus lobortis diam non consectetur. Donec a justo et ipsum laoreet vestibulum a id eros. In consequat malesuada magna, a faucibus enim tincidunt ut. Morbi facilisis purus nec magna pharetra tempus vitae id odio. Fusce volutpat leo pellentesque, finibus ipsum non, hendrerit urna.
+
+Maecenas viverra, sapien id sagittis tempor, diam orci semper eros, vitae ultrices enim dolor in nulla. Praesent vitae diam viverra, molestie massa sed, consequat ex. Maecenas porttitor eros vitae ligula malesuada blandit. In et imperdiet ante. Praesent a quam arcu. Nam tincidunt nibh in feugiat mollis. Vestibulum vitae ultricies purus. Sed vulputate mollis aliquet. Donec maximus ipsum quis nulla faucibus, et cursus nisl convallis. Donec interdum egestas erat. Mauris ac auctor magna.
+
+Fusce consequat ullamcorper sapien sit amet vehicula. Nullam tellus ante, dictum luctus risus vitae, sollicitudin dapibus nunc. Integer vitae felis et est gravida molestie. Nulla varius lectus erat. Pellentesque sodales tellus a tempus malesuada. Nam tincidunt, libero nec bibendum facilisis, neque enim dictum quam, aliquam varius leo arcu sit amet purus. Nullam vitae interdum nunc, non suscipit erat. Maecenas consequat nisl vitae massa consectetur, luctus eleifend metus porta. Suspendisse auctor lectus sed lacus ultrices, sit amet finibus quam rutrum. Proin ligula urna, aliquam in mi non, facilisis suscipit est. Donec velit nulla, feugiat id tincidunt quis, condimentum eu dui. Fusce in ex diam. Nam non fringilla nunc.</string>
+    <string name="button">Button</string>
+    <string name="tip_title">TIP TITLE</string>
+    <string name="tip_detail_title">Tip Detail Title</string>
+    <string name="tip_content">Tip Content</string>
+    <string name="submit">Submit</string>
+
+</resources>
