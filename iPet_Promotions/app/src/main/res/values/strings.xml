@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">CustomList</string>
+    <string name="activity_name">Promotions</string>
+    <string name="activity_name2">Collections</string>
+
+</resources>
