@@ -1,40 +1,27 @@
 from django.db import models
 
 
-class PhoneNumber(models.Model):
-	phone_number = models.CharField(max_length = 16)
-
-
 class User(models.Model):
-	name = models.CharField(max_length = 32)
+	name = models.CharField(max_length = 32, unique = True)
 	password = models.CharField(max_length = 16)
-	registration_date = models.DateField()
+	phone_number = models.CharField(max_length = 16, unique = True)
+
+
+class Pet(models.Model):
+	name = models.CharField(max_length = 32)
+	owner = models.ForeignKey(User, on_delete = models.CASCADE)
+	breed = models.CharField(max_length = 32)
+	birthday = models.DateField(null = True)
+	location = models.CharField(max_length = 128, null = True)
+	gender = models.SmallIntegerField(default = 0)
+	weight = models.FloatField(null = True)
 
 	class Meta:
-		abstract = True
-
-
-class PetOwner(User):
-	phone_number = models.OneToOneField(PhoneNumber, on_delete = models.CASCADE, related_name = 'pet_owner_name')
-	breed = models.CharField(max_length = 16)
-	birthday = models.DateField(null = True, blank = False)
-
-
-class Clinic(User):
-	phone_number = models.OneToOneField(PhoneNumber, on_delete = models.CASCADE, related_name = 'clinic_name')
-	address = models.CharField(max_length = 128)
-	license = models.CharField(max_length = 64)
-	isVerified = models.BooleanField()
-
-
-class Vet(User):
-	phone_number = models.OneToOneField(PhoneNumber, on_delete = models.CASCADE, related_name = 'vet_name')
-	clinic = models.ForeignKey(Clinic, on_delete = models.CASCADE)
-	isVerified = models.BooleanField()
+		unique_together = ('name', 'owner', )
 
 
 class Reminder(models.Model):
-	user = models.ForeignKey(PetOwner, on_delete = models.CASCADE)
+	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	isDeleted = models.BooleanField(default = False)
 	name = models.CharField(max_length = 128)
 	remarks = models.TextField(max_length = 1024)
@@ -47,41 +34,32 @@ class Reminder(models.Model):
 class SingleReminder(models.Model):
 	link = models.ForeignKey(Reminder, on_delete = models.CASCADE)
 	isDeleted = models.BooleanField(default = False)
-	user = models.ForeignKey(PetOwner, on_delete = models.CASCADE, null = True)
+	user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
 	type = models.SmallIntegerField()
 	time = models.DateTimeField()
 
 
-class Post(models.Model):
-	user = models.ForeignKey(PhoneNumber, on_delete = models.CASCADE)
-	time = models.DateTimeField()
-	title = models.CharField(max_length = 128)
-	content = models.TextField(max_length = 4096)
-	reports = models.ManyToManyField(PhoneNumber, related_name = 'reports_reports')
-	likes = models.ManyToManyField(PhoneNumber, related_name = 'likes_likes')
+class Clinic(models.Model):
+	name = models.CharField(max_length = 128, unique = True)
+	geo_hash = models.CharField(max_length = 32, unique = True, default = "")
 
 
-class Reply(models.Model):
-	user = models.ForeignKey(PhoneNumber, on_delete = models.CASCADE)
-	thread = models.ForeignKey(Post, blank = True, null = True, on_delete = models.CASCADE)
-	dependency = models.ForeignKey('self', blank = True, null = True, on_delete = models.CASCADE)
-	time = models.DateTimeField()
-	content = models.TextField(max_length = 2048)
-	reports = models.ManyToManyField(PhoneNumber, related_name = 'reports')
-	likes = models.ManyToManyField(PhoneNumber, related_name = 'likes')
+class ClinicRep(models.Model):
+	name = models.CharField(max_length = 128, unique = True)
+	clinic = models.OneToOneField(Clinic, on_delete = models.CASCADE, null = True, related_name = 'clinic_rep')
+	password = models.CharField(max_length = 16)
+	phone_number = models.CharField(max_length = 16, unique = True)
 
 
-class ContactRecord(models.Model):
-	user = models.ForeignKey(PhoneNumber, on_delete = models.CASCADE, related_name = 'consumer')
-	clinic_or_vet = models.ForeignKey(PhoneNumber, on_delete = models.CASCADE, related_name = 'producer')
-	time = models.DateTimeField()
-	duration = models.DurationField()
-
-
-class Appointment(models.Model):
-	user = models.ForeignKey(PetOwner, on_delete = models.CASCADE)
+class Rate(models.Model):
+	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	clinic = models.ForeignKey(Clinic, on_delete = models.CASCADE)
-	time = models.DateTimeField()
+	date = models.DateField()
+	score = models.SmallIntegerField()
+	comment = models.TextField(max_length = 2048, null = True)
+
+	class Meta:
+		unique_together = ('user', 'clinic', 'date', )
 
 
 class PromoTips(models.Model):
@@ -89,14 +67,5 @@ class PromoTips(models.Model):
 	title = models.CharField(max_length = 128)
 	content = models.TextField(max_length = 4096)
 	time = models.DateTimeField()
-
-	class Meta:
-		abstract = True
-
-
-class Promotion(PromoTips):
-	user = models.ForeignKey(Clinic, on_delete = models.CASCADE)
-
-
-class Tip(PromoTips):
-	user = models.ForeignKey(PhoneNumber, on_delete = models.CASCADE)
+	user = models.ForeignKey(ClinicRep, on_delete = models.CASCADE)
+	type = models.BooleanField()
