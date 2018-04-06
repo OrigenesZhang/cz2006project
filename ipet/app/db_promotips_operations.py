@@ -127,7 +127,7 @@ If the user is neither zero nor the entry of the user who posted the post, a Per
 '''
 
 
-def delete_promotion(post, user):
+def delete_post(post, user):
 	if user != 0 and user != post.user:
 		raise PermissionError('Action defied')
 	post.delete()
