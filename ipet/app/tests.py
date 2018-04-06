@@ -96,3 +96,11 @@ class PetTest(TestCase):
 			raise RuntimeError("Deletion Error")
 		except Pet.DoesNotExist:
 			pass
+
+
+# since this part of code is mostly remained unchanged, the reliability relies on the previous version of testing
+# at least for now...
+class ReminderTest(TestCase):
+
+	def testing_reminder(self):
+		return True

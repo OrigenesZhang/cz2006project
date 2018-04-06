@@ -1,4 +1,4 @@
-from .models import Reminder, SingleReminder, PetOwner
+from .models import Reminder, SingleReminder, User
 import datetime
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -77,8 +77,8 @@ For any number else input as reminder_type, a ValueError would be raised.
 
 def insert_reminder(user, name, remarks, is_permanent, start_time, frequency, reminder_type):
 	try:
-		entry = PetOwner.objects.get(pk = user)
-	except PetOwner.DoesNotExist:
+		entry = User.objects.get(pk = user)
+	except User.DoesNotExist:
 		raise KeyError('The key is wrong')
 
 	try:
