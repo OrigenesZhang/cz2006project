@@ -7,10 +7,10 @@ package sg.edu.ntu.e.fang0074.ipet;
 public class ClinicItem {
     private String name;
     private int photo;
-    private int phone;
+    private String phone;
     private String rating;
 
-    public ClinicItem(String name, int photo, int phone, String rating) {
+    public ClinicItem(String name, int photo, String phone, String rating) {
         this.name = name;
         this.photo = photo;
         this.phone = phone;
@@ -21,7 +21,7 @@ public class ClinicItem {
         return name;
     }
 
-    public int getPhone(){return phone;}
+    public String getPhone(){return phone;}
 
     public String getRating() {
         return rating;
@@ -34,7 +34,7 @@ public class ClinicItem {
     public void setName(String name) {
         this.name = name;
     }
-    public void setPhone(int phone){this.phone = phone;}
+    public void setPhone(String phone){this.phone = phone;}
     public void setRating(String rating) {this.rating = rating;}
     public void setPhoto(int photo) {
         this.photo = photo;

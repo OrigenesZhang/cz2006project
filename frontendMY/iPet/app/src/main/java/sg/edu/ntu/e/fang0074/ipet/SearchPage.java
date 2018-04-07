@@ -25,6 +25,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import sg.edu.ntu.e.fang0074.ipet.controlclasses.Clinic;
+
 import static sg.edu.ntu.e.fang0074.ipet.R.color;
 import static sg.edu.ntu.e.fang0074.ipet.R.drawable;
 import static sg.edu.ntu.e.fang0074.ipet.R.id;
@@ -80,9 +82,26 @@ public class SearchPage extends AppCompatActivity
         listshowrcy.setAdapter(adapter);
     }
 
+
     private void createClinicList(){
-        System.out.println("Create list..");
-        clinicList.add(new ClinicItem("First dog", drawable.dog1, 12345678, "4.0"));
+        //System.out.println("Create list..");
+
+        //TODO: handle phone, rating and image
+        /* Testing */////////////////////////////////////////////////////////////////////
+        ArrayList<Clinic> clinics =  LogIn.clinicDAO.getAllClinics();
+        Clinic new1 = new Clinic(1,0, "Happy Dog", "12345");
+        clinics.add(new1);
+        Clinic new2 = new Clinic(1,0, "Happy Cat", "12345");
+        clinics.add(new2);
+        Clinic new3 = new Clinic(1,0, "Happy Fish", "12345");
+        clinics.add(new3);
+
+        for(Clinic cn : clinics){
+            clinicList.add(new ClinicItem(cn.getClinicName(), drawable.dog3, "12345", "5.0"));
+        }
+
+        /*Testing*/ /////////////////////////////////////////////////////////////////////
+        /*
         clinicList.add(new ClinicItem("Third dog", drawable.dog3, 12345687, "3.7"));
         clinicList.add(new ClinicItem("Fourth dog", drawable.dog4, 12345876, "4.5"));
         clinicList.add(new ClinicItem("Fifth dog", drawable.dog5, 12354768, "3.5"));
@@ -92,6 +111,7 @@ public class SearchPage extends AppCompatActivity
         clinicList.add(new ClinicItem("Ninth dog", drawable.dog9, 52345343, "4.9"));
         clinicList.add(new ClinicItem("Tenth dog", drawable.dog10, 35328364, "4.1"));
         clinicList.add(new ClinicItem("Eleventh dog", drawable.dog11, 35234345, "3.6"));
+        */
     }
 
 
@@ -199,5 +219,36 @@ public class SearchPage extends AppCompatActivity
             }
         }
     }
+
+    /*
+    private String getInfo(){
+        GeoDataClient myGeoDataClient = Places.getGeoDataClient(this, null);
+
+        myGeoDataClient.getPlaceById("ChIJa0VT3f0Z2jERB36JatD_MFM").addOnCompleteListener(new OnCompleteListener<PlaceBufferResponse>() {
+           // @Override
+            public void onComplete(@NonNull Task<PlaceBufferResponse> task) {
+                if (task.isSuccessful()) {
+                    PlaceBufferResponse places = task.getResult();
+                    Place myPlace = places.get(0);
+
+                    clinicphone = myPlace.getPhoneNumber().toString();
+
+                    //System.out.println("Place found: " + myPlace.getName());
+                    places.release(); //IMPORTANT!! MUST FREE THE BUFFER
+                } else {
+                    //Log.e(TAG, "Place not found.");
+                    Toast.makeText(SearchPage.this, "Some information not available", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        if(clinicphone != null){
+            return clinicphone;
+        }
+        else{
+            return "";
+        }
+    }
+    */
 
 }

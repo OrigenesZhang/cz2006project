@@ -20,15 +20,52 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import sg.edu.ntu.e.fang0074.ipet.controlclasses.ClinicDAO;
+import sg.edu.ntu.e.fang0074.ipet.controlclasses.ClinicRepDAO;
+import sg.edu.ntu.e.fang0074.ipet.controlclasses.ExeReminderDAO;
+import sg.edu.ntu.e.fang0074.ipet.controlclasses.HygReminderDAO;
+import sg.edu.ntu.e.fang0074.ipet.controlclasses.LoginController;
+import sg.edu.ntu.e.fang0074.ipet.controlclasses.MedReminderDAO;
+import sg.edu.ntu.e.fang0074.ipet.controlclasses.PetDAO;
+import sg.edu.ntu.e.fang0074.ipet.controlclasses.PromotionDAO;
+import sg.edu.ntu.e.fang0074.ipet.controlclasses.RateDAO;
+import sg.edu.ntu.e.fang0074.ipet.controlclasses.TipsDAO;
+import sg.edu.ntu.e.fang0074.ipet.controlclasses.UserDAO;
+
 public class LogIn extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    /* Initialize all control classes *///************************************************
+    static UserDAO userDAO = new UserDAO();
+    static ClinicDAO clinicDAO = new ClinicDAO();
+
+    // Subscriptions
+    static PetDAO petDAO = new PetDAO(userDAO);
+    static MedReminderDAO medRDAO = new MedReminderDAO(userDAO);
+    static HygReminderDAO hygRDAO = new HygReminderDAO(userDAO);
+    static ExeReminderDAO exeRDAO = new ExeReminderDAO(userDAO);
+    static RateDAO rateDAO = new RateDAO(userDAO, clinicDAO);
+
+    static ClinicRepDAO repDAO = new ClinicRepDAO(clinicDAO);
+    static PromotionDAO promoDAO = new PromotionDAO(clinicDAO);
+    static TipsDAO tipsDAO = new TipsDAO(clinicDAO);
+
+    static LoginController logincontroller = new LoginController(clinicDAO);
+
+    /* Initialize all control classes *///************************************************
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
+        /* test temp *////////////////////////////////////////////////////////////////////
+        userDAO.addUser("Meiyi", "12345", "12345678");
+
+        /* test temp *////////////////////////////////////////////////////////////////////
 
         int orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         setRequestedOrientation(orientation);
@@ -64,9 +101,10 @@ public class LogIn extends AppCompatActivity
                 String pwd = password.getText().toString();
                 System.out.println(user);
                 System.out.println(pwd);
-                if((user.equals("user"))&&(pwd.equals("12345"))){
+                if(logincontroller.verify(user, pwd)){
                     verify = true;
                 }
+                System.out.println(verify);
                 /*
                 while(!verify){
                     Intent startIntent = new Intent(getApplicationContext(), LogIn.class);
@@ -95,7 +133,7 @@ public class LogIn extends AppCompatActivity
                 startActivity(startIntent);
             }
         });
-        //use a while loop to trap user with wrong password
+
     }
 
     @Override

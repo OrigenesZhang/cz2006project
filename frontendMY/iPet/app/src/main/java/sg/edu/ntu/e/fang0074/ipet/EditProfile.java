@@ -23,7 +23,6 @@ public class EditProfile extends AppCompatActivity {
                 EditText editAge = (EditText) findViewById(R.id.ageBox);
                 EditText editWeight = (EditText) findViewById(R.id.weightBox);
                 EditText editGender = (EditText) findViewById(R.id.genderBox);
-                EditText editDescription = (EditText) findViewById(R.id.editDescription);
 
 
             }
