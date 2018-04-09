@@ -90,7 +90,4 @@ public class MedicineReminder extends Reminder {
         return startDate.before(endDate) &&
                 endDate.after(Calendar.getInstance());
     }
-
-
-
 }

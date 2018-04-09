@@ -16,9 +16,6 @@ public class HygieneReminder extends Reminder {
         this.nextDate = nextDate;
     }
 
-    public static HygieneReminder getInctance() {
-        return new HygieneReminder(null, 0, null, null);
-    }
 
     public String getNextDate() {
         SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");

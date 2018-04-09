@@ -28,6 +28,7 @@ import com.example.liangliang.ipetreminder.models.DataBase;
 import com.example.liangliang.ipetreminder.R;
 import com.example.liangliang.ipetreminder.models.ExerciseReminder;
 import com.example.liangliang.ipetreminder.models.Frequency;
+import com.example.liangliang.ipetreminder.models.ReminderFactory;
 
 import java.time.LocalTime;
 import java.util.Calendar;
@@ -48,7 +49,6 @@ public class EditExercise extends AppCompatActivity {
 
     ExerciseReminder exercise;
     int position;
-    int index;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -71,22 +71,19 @@ public class EditExercise extends AppCompatActivity {
         position = intent.getIntExtra("Position", -1);
 
         // If is to edit a reminder
-        if (position != -1) {
-            exercise = DataBase.exerciseItems.get(position);
-
-            mExerciseName.setText(exercise.getName());
-            mFreqNum.setText(Integer.toString(exercise.getFreqNum()));
-            // mNextDate.setText(exercise.getNextDate());
-            time.setText(exercise.getTime());
-            freqSpinner.setSelection(exercise.getFrequencyInex());
-
-            if (exercise.getNote() != null)
-                mNote.setText(exercise.getNote());
+        if (position == -1) {
+            exercise = (ExerciseReminder) ReminderFactory.getReminder("exercise");
 
         } else {
-            exercise = ExerciseReminder.getInstance();
-            index = DataBase.exerciseItems.size();
+            exercise = DataBase.exerciseItems.get(position);
         }
+
+        mExerciseName.setText(exercise.getName());
+        mFreqNum.setText(Integer.toString(exercise.getFreqNum()));
+        // mNextDate.setText(exercise.getNextDate());
+        time.setText(exercise.getTime());
+        freqSpinner.setSelection(exercise.getFrequencyInex());
+        mNote.setText(exercise.getNote());
 
         mExerciseName.addTextChangedListener(new TextWatcher() {
 
@@ -215,7 +212,7 @@ public class EditExercise extends AppCompatActivity {
                     if (position == -1) {
                         DataBase.exerciseItems.add(exercise);
                     } else {
-                        DataBase.exerciseItems.set(index, exercise);
+                        DataBase.exerciseItems.set(position, exercise);
                     }
                     startActivity(i);
                 }
@@ -232,7 +229,7 @@ public class EditExercise extends AppCompatActivity {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        DataBase.exerciseItems.remove(index);
+                        DataBase.exerciseItems.remove(position);
                         Intent i = new Intent(EditExercise.this, RemindersMainTab.class);
                         i.putExtra("Page", 2);
                         startActivity(i);

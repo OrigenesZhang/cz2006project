@@ -12,7 +12,7 @@ public class Reminder implements Serializable {
         this.name = name;
         this.freqNum = freqNum;
         this.frequency = frequency;
-        this.note = null;
+        this.note = "Note";
     }
 
     public String getName() {
