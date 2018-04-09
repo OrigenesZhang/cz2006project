@@ -1,18 +1,26 @@
 package com.example.liangliang.ipetreminder.models;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 
-public class Reminder implements Serializable {
+/**
+ * A parent class of reminder objects
+ */
+public abstract class Reminder implements Serializable {
     protected String name;
     protected int freqNum;
     protected Frequency frequency;
-    protected String note;
+    private String note;
+    protected UpdateNextDateStrategy updateNextDate;
+    protected GregorianCalendar nextDate;
 
-    public Reminder(String name, int freqNum, Frequency frequency) {
+    public Reminder(String name, int freqNum, Frequency frequency, UpdateNextDateStrategy update) {
         this.name = name;
         this.freqNum = freqNum;
         this.frequency = frequency;
         this.note = "Note";
+        this.updateNextDate = update;
     }
 
     public String getName() {
@@ -29,6 +37,13 @@ public class Reminder implements Serializable {
 
     public void setFreqNum(int amount) {
         this.freqNum = amount;
+    }
+
+    public abstract GregorianCalendar getNextDate();
+
+    public String getNextDateString() {
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        return (sdf.format(getNextDate().getTime()));
     }
 
     public String getFrequency() { return frequency.toString(); }

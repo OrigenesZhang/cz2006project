@@ -34,7 +34,7 @@ public class HygieneAdapter extends ArrayAdapter<HygieneReminder> {
         TextView mFrequency = oneItemView.findViewById(R.id.frequency);
         TextView mStartDate = oneItemView.findViewById(R.id.nextDate);
 
-        mStartDate.setText(hygiene.getNextDate());
+        mStartDate.setText(hygiene.getNextDateString());
         Log.i("HygieneTab", "getView: " + hygiene.getNextDate());
         name.setText(hygiene.getName());
 

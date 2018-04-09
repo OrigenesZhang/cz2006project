@@ -13,15 +13,11 @@ import java.util.GregorianCalendar;
 
 public class ExerciseReminder extends Reminder {
     private LocalTime time;
-    private GregorianCalendar nextDate;
-    private UpdateNextDateStrategy updateNextDate;
 
     public ExerciseReminder(String name, int freqNum, Frequency frequency, LocalTime time,
                             GregorianCalendar nextDate, UpdateNextDateStrategy updateNextDate) {
-        super(name, freqNum, frequency);
+        super(name, freqNum, frequency, updateNextDate);
         this.time = time;
-        this.nextDate = nextDate;
-        this.updateNextDate = updateNextDate;
         this.nextDate = updateNextDate.update(nextDate, null, time, freqNum, frequency);
     }
 
@@ -31,10 +27,9 @@ public class ExerciseReminder extends Reminder {
         this.time = time;
     }
 
-    public String getNextDate() {
-        SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
-        this.nextDate = updateNextDate.update(nextDate, null, time, freqNum, frequency);
-        return (sdf.format(nextDate.getTime()));
+    public GregorianCalendar getNextDate() {
+        nextDate = updateNextDate.update(nextDate, null, time, freqNum, frequency);
+        return nextDate;
     }
 
     public void setNextDate(GregorianCalendar startDate) {

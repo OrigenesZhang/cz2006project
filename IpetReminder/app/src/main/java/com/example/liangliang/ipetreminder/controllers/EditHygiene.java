@@ -72,7 +72,7 @@ public class EditHygiene extends AppCompatActivity {
 
         mHygieneName.setText(hygiene.getName());
         mFreqNum.setText(Integer.toString(hygiene.getFreqNum()));
-        mNextDate.setText(hygiene.getNextDate());
+        mNextDate.setText(hygiene.getNextDateString());
         freqSpinner.setSelection(hygiene.getFrequencyInex());
 
         mNote.setText(hygiene.getNote());
@@ -151,7 +151,7 @@ public class EditHygiene extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         hygiene.setNextDate(new GregorianCalendar(i, i1, i2));
-                        mNextDate.setText(hygiene.getNextDate());
+                        mNextDate.setText(hygiene.getNextDateString());
                     }
                 }, year, month, day
                 );

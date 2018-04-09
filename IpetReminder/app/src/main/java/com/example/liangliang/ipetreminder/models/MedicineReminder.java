@@ -13,18 +13,17 @@ public class MedicineReminder extends Reminder {
     private LocalTime time;
     private GregorianCalendar startDate;
     private GregorianCalendar endDate;
-    private UpdateNextDateStrategy updateNextDate;
 
     public MedicineReminder(String name, LocalTime time, GregorianCalendar startDate, GregorianCalendar endDate,
-                            int freqNum, Frequency freq, UpdateNextDateStrategy updateNextDate) {
-        super(name, freqNum, freq);
+                            int freqNum, Frequency freq, UpdateNextDateStrategy update) {
+        super(name, freqNum, freq, update);
         this.time = time;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.updateNextDate = updateNextDate;
-        updateNextDate.update(startDate, endDate, time, freqNum, frequency);
+        nextDate = updateNextDate.update(startDate, endDate, time, freqNum, frequency);
     }
 
+    @Override
     public GregorianCalendar getNextDate(){
         GregorianCalendar nextDate = updateNextDate.update(startDate, endDate, time, freqNum, frequency);
         return nextDate;

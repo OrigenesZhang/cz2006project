@@ -179,7 +179,7 @@ public class EditExercise extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         exercise.setNextDate(new GregorianCalendar(i, i1, i2));
-                        mNextDate.setText(exercise.getNextDate());
+                        mNextDate.setText(exercise.getNextDateString());
                     }
                 }, year, month, day
                 );

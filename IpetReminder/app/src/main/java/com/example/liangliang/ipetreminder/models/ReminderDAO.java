@@ -5,4 +5,5 @@ package com.example.liangliang.ipetreminder.models;
  */
 
 public interface ReminderDAO {
+    
 }
