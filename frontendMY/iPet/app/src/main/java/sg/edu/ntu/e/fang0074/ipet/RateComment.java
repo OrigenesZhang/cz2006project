@@ -16,22 +16,14 @@ import sg.edu.ntu.e.fang0074.ipet.controlclasses.RateDAO;
 public class RateComment extends AppCompatActivity {
 
 
-    //float rating = -1;
     RateDAO ratedao = LogIn.rateDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate_comment);
-        /*
-        ratingBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rating = ratingBar.getRating();
-            }
-        }); */
 
-
+        // Checks performed upon submission
         Button submitrating = (Button)findViewById(R.id.submit_rating);
         submitrating.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,13 +33,11 @@ public class RateComment extends AppCompatActivity {
                 String reasontext;
                 RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 
-                //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                //Calendar cal = Calendar.getInstance();
-                //System.out.println(dateFormat.format(cal)); //2016/11/16 12:08:43
-
+                // Get the current date and time of the device for rating submission.
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
                 System.out.println(timeStamp);
 
+                // Ensure both ratings and reasons are given upon submission
                 reasontext = reason.getText().toString();
                 if((ratingBar.getRating()== 0.0)&&(reasontext.isEmpty())){
                     Toast tst = Toast.makeText(RateComment.this,"Please enter your rating and comments.",Toast.LENGTH_SHORT);

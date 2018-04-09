@@ -67,6 +67,7 @@ public class PetList extends AppCompatActivity
 
         createPetList();
 
+        // Set up the pet list
         listshowrcy = (RecyclerView)findViewById(id.petlist);
         listshowrcy.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -98,13 +99,6 @@ public class PetList extends AppCompatActivity
         /*Testing*/ /////////////////////////////////////////////////////////////////////
         /*
         clinicList.add(new ClinicItem("Third dog", drawable.dog3, 12345687, "3.7"));
-        clinicList.add(new ClinicItem("Fourth dog", drawable.dog4, 12345876, "4.5"));
-        clinicList.add(new ClinicItem("Fifth dog", drawable.dog5, 12354768, "3.5"));
-        clinicList.add(new ClinicItem("Sixth dog", drawable.dog6, 12421356, "3.9"));
-        clinicList.add(new ClinicItem("Seventh dog", drawable.dog7, 12412354, "4.3"));
-        clinicList.add(new ClinicItem("Eighth dog", drawable.dog8, 35414524, "4.7"));
-        clinicList.add(new ClinicItem("Ninth dog", drawable.dog9, 52345343, "4.9"));
-        clinicList.add(new ClinicItem("Tenth dog", drawable.dog10, 35328364, "4.1"));
         clinicList.add(new ClinicItem("Eleventh dog", drawable.dog11, 35234345, "3.6"));
         */
     }
@@ -144,7 +138,7 @@ public class PetList extends AppCompatActivity
         }
 
         if(id == R.id.edit){
-            Intent startIntent = new Intent(getApplicationContext(), EditProfile.class);
+            Intent startIntent = new Intent(getApplicationContext(), EditPetProfile.class);
             startActivity(startIntent);
         }
 
@@ -156,19 +150,6 @@ public class PetList extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        /*
-        NavigationOptions navOp = new NavigationOptions();
-        boolean handle = navOp.navOptions(id);
-
-        if(handle){
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            drawer.closeDrawer(GravityCompat.START);
-            return true;
-        }
-
-       return false;
-       */
 
         if (id == R.id.nav_profile) {
             // Handle the camera action

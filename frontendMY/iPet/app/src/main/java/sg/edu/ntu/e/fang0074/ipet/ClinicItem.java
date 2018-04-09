@@ -1,7 +1,7 @@
 package sg.edu.ntu.e.fang0074.ipet;
 
 /**
- * Created by user on 15/3/2018.
+ * Created by Meiyi on 15/3/2018.
  */
 
 // Defines a list item on the clinic search page

@@ -73,6 +73,7 @@ public class SearchPage extends AppCompatActivity
 
         createClinicList();
 
+        // Set up the clinic search list
         listshowrcy = (RecyclerView)findViewById(id.clinic_list);
         listshowrcy.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -105,11 +106,6 @@ public class SearchPage extends AppCompatActivity
         clinicList.add(new ClinicItem("Third dog", drawable.dog3, 12345687, "3.7"));
         clinicList.add(new ClinicItem("Fourth dog", drawable.dog4, 12345876, "4.5"));
         clinicList.add(new ClinicItem("Fifth dog", drawable.dog5, 12354768, "3.5"));
-        clinicList.add(new ClinicItem("Sixth dog", drawable.dog6, 12421356, "3.9"));
-        clinicList.add(new ClinicItem("Seventh dog", drawable.dog7, 12412354, "4.3"));
-        clinicList.add(new ClinicItem("Eighth dog", drawable.dog8, 35414524, "4.7"));
-        clinicList.add(new ClinicItem("Ninth dog", drawable.dog9, 52345343, "4.9"));
-        clinicList.add(new ClinicItem("Tenth dog", drawable.dog10, 35328364, "4.1"));
         clinicList.add(new ClinicItem("Eleventh dog", drawable.dog11, 35234345, "3.6"));
         */
     }
@@ -219,36 +215,4 @@ public class SearchPage extends AppCompatActivity
             }
         }
     }
-
-    /*
-    private String getInfo(){
-        GeoDataClient myGeoDataClient = Places.getGeoDataClient(this, null);
-
-        myGeoDataClient.getPlaceById("ChIJa0VT3f0Z2jERB36JatD_MFM").addOnCompleteListener(new OnCompleteListener<PlaceBufferResponse>() {
-           // @Override
-            public void onComplete(@NonNull Task<PlaceBufferResponse> task) {
-                if (task.isSuccessful()) {
-                    PlaceBufferResponse places = task.getResult();
-                    Place myPlace = places.get(0);
-
-                    clinicphone = myPlace.getPhoneNumber().toString();
-
-                    //System.out.println("Place found: " + myPlace.getName());
-                    places.release(); //IMPORTANT!! MUST FREE THE BUFFER
-                } else {
-                    //Log.e(TAG, "Place not found.");
-                    Toast.makeText(SearchPage.this, "Some information not available", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        if(clinicphone != null){
-            return clinicphone;
-        }
-        else{
-            return "";
-        }
-    }
-    */
-
 }

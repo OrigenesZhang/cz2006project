@@ -31,6 +31,7 @@ public class SignUp extends AppCompatActivity {
             }
         });
 
+        // Sign Up Completion
         Button signupBtn = (Button)findViewById(R.id.signupButton);
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,7 +41,7 @@ public class SignUp extends AppCompatActivity {
                 EditText password1 = (EditText)findViewById(R.id.newpassword1);
                 EditText password2 = (EditText)findViewById(R.id.newpassword2);
 
-                String newpassword = null;
+                String newpassword;
                 String usernew = newusername.getText().toString();
                 String phonenew = newphone.getText().toString();
                 String newpwd1 = password1.getText().toString();
@@ -49,14 +50,20 @@ public class SignUp extends AppCompatActivity {
                 CheckBox clinicrep = (CheckBox)findViewById(R.id.clinicVerify);
                 EditText clinicname = (EditText)findViewById(R.id.editText3);
                 String cname = clinicname.getText().toString();
+
+                // Ensure all the fields have been filled upon registration
                 if((TextUtils.isEmpty(usernew))||(TextUtils.isEmpty(phonenew))||(TextUtils.isEmpty(newpwd1))||(TextUtils.isEmpty(newpwd2))){
                     Toast tst = Toast.makeText(SignUp.this,"Please fill in the first four fields.",Toast.LENGTH_SHORT);
                     tst.show();
                 }
+                // Check the two passwords entered match
                 else if(newpwd1.equals(newpwd2)){
                     newpassword = newpwd1;
+                    // Check if user intends to register as clinic representative
                     if(clinicrep.isChecked()){
+                        // Ensure the clinic name is entered for verification
                         if(!TextUtils.isEmpty(cname)){
+                            // Add the new user to the clinic rep database
                             LogIn.repDAO.addRep(usernew, "", newpassword, phonenew, 0);
                             Toast tst = Toast.makeText(SignUp.this,"Signing up as clinic rep. Verification pending.",Toast.LENGTH_SHORT);
                             tst.show();
@@ -66,6 +73,7 @@ public class SignUp extends AppCompatActivity {
                             tst.show();
                         }
                     }
+                    // Add the new user to the pet owner database
                     else{
                         LogIn.userDAO.addUser(usernew, newpassword,phonenew);
                         Toast tst = Toast.makeText(SignUp.this,"You have signed up as a pet owner!",Toast.LENGTH_SHORT);

@@ -37,9 +37,6 @@ public abstract class ClinicDAOabs implements Subject{
 	abstract void updateCurrClinicName(String newname);
 	abstract void updateCurrClinicLocId(String newid);
 	
-	//abstract void deleteClinic(String petName);
-	//abstract void addPet(Pet newpet);
-	
 	//For clinics, we assume updates are directy performed on the database
 
 

@@ -43,7 +43,7 @@ public class ClinicDAO extends ClinicDAOabs{
 				return;
 			}
 		}
-		System.out.println("Clinic not found"); // TODO: Throw a toast here
+		System.out.println("Clinic not found");
 	}
 
 	@Override

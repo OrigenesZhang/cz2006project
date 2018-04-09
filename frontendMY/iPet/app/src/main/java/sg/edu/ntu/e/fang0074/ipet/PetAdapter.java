@@ -11,9 +11,10 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * Created by user on 22/3/2018.
+ * Created by Meiyi on 22/3/2018.
  */
 
+// Item adapter for the pet list
 public class PetAdapter extends RecyclerView.Adapter<PetAdapter.HolderView> {
 
     private List<PetItem> petlist;

@@ -14,9 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by user on 15/3/2018.
+ * Created by Meiyi on 15/3/2018.
  */
 
+// Item adapter for the clinic search list.
 public class SearchActivityAdapter extends RecyclerView.Adapter<SearchActivityAdapter.HolderView> {
 
     private List<ClinicItem> cliniclist;
@@ -48,9 +49,6 @@ public class SearchActivityAdapter extends RecyclerView.Adapter<SearchActivityAd
                 Intent startIntent = new Intent(context, ClinicIntro.class);
                 //putExtra: clinic name
                 context.startActivity(startIntent);
-                // infoToLoad = queryData
-                // Base(cliniclist.get(position).getName())
-                // showClinicInfoPage(infoToLoad);
 
             }
         });

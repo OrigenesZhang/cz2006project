@@ -55,6 +55,7 @@ public class Profile extends AppCompatActivity
         TextView petweighttv = (TextView)findViewById(R.id.weight);
         TextView petgendertv = (TextView)findViewById(R.id.fm);
 
+        // initialize the profile contents upon loading
         petnametv.setText(petdao.getCurrentPet().getPetName());
         petbreedtv.setText(petdao.getCurrentPet().getBreed());
         petlocationtv.setText(petdao.getCurrentPet().getLocation());
@@ -101,7 +102,7 @@ public class Profile extends AppCompatActivity
         }
 
         if(id == R.id.edit){
-            Intent startIntent = new Intent(getApplicationContext(), EditProfile.class);
+            Intent startIntent = new Intent(getApplicationContext(), EditPetProfile.class);
             startActivity(startIntent);
         }
 
