@@ -29,11 +29,13 @@ public class ReminderFactory {
             case "medicine":
                 return new MedicineReminder("Medicine Name", time,
                         today, new GregorianCalendar(year, month, day+1),
-                        freqNum, frequency);
+                        freqNum, frequency, new updateWithEndDate());
             case "hygiene":
-                return new HygieneReminder("Hygiene Name", freqNum, frequency, today);
+                return new HygieneReminder("Hygiene Name", freqNum, frequency, today,
+                        new updateWithoutEndDateWithoutTime());
             case "exercise":
-                return new ExerciseReminder("Exercise Name", freqNum, frequency, time, today);
+                return new ExerciseReminder("Exercise Name", freqNum, frequency, time, today,
+                        new updateWithoutEndDateWithTime());
         }
 
         return null;

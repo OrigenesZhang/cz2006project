@@ -32,7 +32,7 @@ public class DataBase {
         hygieneItems = new ArrayList<>();
         exerciseItems = new ArrayList<>();
 
-        medicineItems.add(new MedicineReminder("Vitamin", LocalTime.of(13,20), (new GregorianCalendar(2018, Calendar.FEBRUARY, 12)),
+        medicineItems.add(new MedicineReminder("Vitamin", LocalTime.of(13,20), new GregorianCalendar(2018, Calendar.FEBRUARY, 12), new updateWithEndDate())),
                 new GregorianCalendar(2018, 4, 2), 2, Frequency.DAY));
         medicineItems.add(new MedicineReminder("Antibiotic", LocalTime.of(15, 20), new GregorianCalendar(2018, Calendar.APRIL, 4),
                 new GregorianCalendar(2018, 7, 14), 4, Frequency.MONTH));

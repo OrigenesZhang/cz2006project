@@ -14,11 +14,15 @@ import java.util.GregorianCalendar;
 public class ExerciseReminder extends Reminder {
     private LocalTime time;
     private GregorianCalendar nextDate;
+    private UpdateNextDateStrategy updateNextDate;
 
-    public ExerciseReminder(String name, int freqNum, Frequency frequency, LocalTime time, GregorianCalendar nextDate) {
+    public ExerciseReminder(String name, int freqNum, Frequency frequency, LocalTime time,
+                            GregorianCalendar nextDate, UpdateNextDateStrategy updateNextDate) {
         super(name, freqNum, frequency);
         this.time = time;
         this.nextDate = nextDate;
+        this.updateNextDate = updateNextDate;
+        this.nextDate = updateNextDate.update(nextDate, null, time, freqNum, frequency);
     }
 
     public String getTime() { return this.time.toString();}
@@ -29,6 +33,7 @@ public class ExerciseReminder extends Reminder {
 
     public String getNextDate() {
         SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        this.nextDate = updateNextDate.update(nextDate, null, time, freqNum, frequency);
         return (sdf.format(nextDate.getTime()));
     }
 
@@ -36,31 +41,6 @@ public class ExerciseReminder extends Reminder {
         this.nextDate = startDate;
     }
 
-    private void updateNextDate() {
-        Calendar today = Calendar.getInstance();  // get today's date
-        if (nextDate.after(today))    // no need to update
-            return;
-
-        int increment;
-        switch (frequency) {
-            case DAY:
-                int year = today.get(Calendar.YEAR);
-                int month = today.get(Calendar.MONTH);
-                int day = today.get(Calendar.DAY_OF_MONTH);
-                nextDate = new GregorianCalendar(year, month, day);
-                break;
-            case WEEK:
-                increment = (int)(7 / (freqNum));
-                nextDate.add(GregorianCalendar.DAY_OF_MONTH, increment);
-                break;
-            case MONTH:
-                increment = (int)(30 / (freqNum));
-                nextDate.add(GregorianCalendar.DAY_OF_MONTH, increment);
-                break;
-            default:
-                break;
-        }
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public GregorianCalendar getNextDateInstance() {
