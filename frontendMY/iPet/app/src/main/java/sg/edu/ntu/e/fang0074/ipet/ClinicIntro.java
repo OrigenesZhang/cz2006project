@@ -37,8 +37,8 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
     TextView mapClinicAddress;
     TextView mapClinicTel;
     TextView mapClnicRating;
-    //private final static int MY_PERMISSION_FINE_LOCATION = 101;
-    //private final static int PLACE_PICKER_REQUEST = 1;
+
+
     private final static LatLngBounds bounds = new LatLngBounds(new LatLng(51.5152192,-0.1321900), new LatLng(51.5166013,-0.1299262));
 
     RecyclerView listshowrcy;
@@ -55,6 +55,7 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        // Zoom Controls
         zoom = (ZoomControls)findViewById(R.id.zcZoom);
         zoom.setOnZoomOutClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +63,6 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
                 mMap.animateCamera(CameraUpdateFactory.zoomOut());
             }
         });
-
         zoom.setOnZoomInClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,6 +70,8 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
             }
         });
 
+
+        // Get Clinic Information
         mapClinicName = (TextView) findViewById(R.id.map_clinic_name);
         mapClinicAddress = (TextView) findViewById(R.id.map_clinic_addr);
         mapClinicTel = (TextView) findViewById(R.id.map_clinic_tel);
@@ -85,6 +87,7 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
 
         listshowrcy.setAdapter(adapter);
 
+        // direct to the rating page
         Button ratingBtn = (Button) findViewById(R.id.rating_btn);
         ratingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,32 +117,6 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
-        /*
-        geoLocationBt = (Button) findViewById(R.id.btSearch);
-        geoLocationBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EditText searchText = (EditText) findViewById(R.id.gmap_entry);
-                String search = searchText.getText().toString();
-                //System.out.println(search);
-                if(search != null && !search.equals("")) {
-                    //System.out.println("valid string");
-                    List<Address> addressList = null;
-                    Geocoder geocoder = new Geocoder(ClinicIntro.this);
-                    //System.out.println("Going to try");
-                    try {
-                        addressList = geocoder.getFromLocationName(search, 2);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println(addressList);
-                    Address address = addressList.get(0);
-                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                    mMap.addMarker(new MarkerOptions().position(latLng).title("from geocoder"));
-                    mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-                }
-            }
-        });*/
 
         GeoDataClient myGeoDataClient = Places.getGeoDataClient(this, null);
 
@@ -150,7 +127,7 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
                 if (task.isSuccessful()) {
                     PlaceBufferResponse places = task.getResult();
                     Place myPlace = places.get(0);
-                    //myPlace.getLatLng();
+
                     mMap.addMarker(new MarkerOptions().position(myPlace.getLatLng()).title("Marker in Target Clinic"));
 
                     mapClinicName.setText(myPlace.getName());
@@ -158,23 +135,23 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
                     mapClinicTel.setText(myPlace.getPhoneNumber());
 
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPlace.getLatLng(), 14.0f));
-
-                    //System.out.println("Place found: " + myPlace.getName());
                     places.release(); //IMPORTANT!! MUST FREE THE BUFFER
+
                 } else {
-                    //Log.e(TAG, "Place not found.");
                     Toast.makeText(ClinicIntro.this, "Clinic not found", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
+
     private void createCommentList(){
-        //System.out.println("Create list..");
+        // Hardcoded info for illustration purposes
         commentList.add(new CommentItem("First dog", "Good", "02/03/2018", "4.0/5.0"));
         commentList.add(new CommentItem("Third dog", "I like this clinic", "02/03/2018", "3.7/5.0"));
         commentList.add(new CommentItem("Fourth dog", "Excellent Service", "02/03/2018", "4.5/5.0"));
         commentList.add(new CommentItem("Fifth dog", "Very good.", "02/03/2018", "3.5/5.0"));
         commentList.add(new CommentItem("Sixth dog", "Recommended", "02/03/2018", "3.9/5.0"));
     }
+
 }

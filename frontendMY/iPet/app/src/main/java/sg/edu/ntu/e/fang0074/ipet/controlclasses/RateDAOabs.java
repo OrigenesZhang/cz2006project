@@ -14,6 +14,6 @@ public abstract class RateDAOabs implements Observer {
 	
 	// Delete and Edit Rating is not enabled
 	abstract ArrayList<Rating> getRatingsForAClinic();
-	abstract void addRating(Rating r);
+	abstract void addRating(float score, String comment, String date);
 		
 }

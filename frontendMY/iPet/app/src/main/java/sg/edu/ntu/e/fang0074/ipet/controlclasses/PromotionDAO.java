@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class PromotionDAO extends PromotionDAOabs {
 	
-	static ArrayList<Promotion> promotions = new ArrayList<Promotion>();
-	static Promotion currentpromo = new Promotion("test", "test", "test");
+	public static ArrayList<Promotion> promotions = new ArrayList<Promotion>();
+	public static Promotion currentpromo = new Promotion("test", "test", "test");
 	
 	private Subject clinicRepDAO;
 	
@@ -15,11 +15,13 @@ public class PromotionDAO extends PromotionDAOabs {
 		this.clinicRepDAO = clinicRepDAO;
 		clinicRepDAO.register(this);
 		
-		/* init the promotion list */
+		// TODO: Load the promotion list from the database
 	}
 
 	@Override
 	void updateClinicRepInfo() {
+		// Since the current rep has been updated by the time this method is invoked,
+        // the current name of the rep here would be the previous name of the rep in ClinicRep class
 		String oldRep = ClinicRepDAO.currentRep.getPrevName();
 		for(Promotion promo: promotions) {
 			if(promo.getRepName().equals(oldRep)) {
@@ -41,7 +43,7 @@ public class PromotionDAO extends PromotionDAOabs {
 			}
 		}
 		return null;
-		/*throw a toast: no promotion found*/
+		//TODO: Use a toast to handle the case where no promotion is found
 		
 	}
 
@@ -69,7 +71,7 @@ public class PromotionDAO extends PromotionDAOabs {
 	@Override
 	void updateCurrPromoRepName(String newname) {
 
-		/* notify database */
+		//TODO: notify the database
 		
 		currentpromo.setRepName(newname);
 		
@@ -77,8 +79,8 @@ public class PromotionDAO extends PromotionDAOabs {
 
 	@Override
 	void udpateCurrPromoDate(String newdate) {
-		
-		/* notify database */
+
+        //TODO: notify the database
 		
 		currentpromo.setDate(newdate);
 		
@@ -86,8 +88,8 @@ public class PromotionDAO extends PromotionDAOabs {
 
 	@Override
 	void updateCurrPromocontent(String newContent) {
-		
-		/* notify database */
+
+        //TODO: notify the database
 		
 		currentpromo.setContent(newContent);
 	}
@@ -102,7 +104,7 @@ public class PromotionDAO extends PromotionDAOabs {
 				return;
 			}
 		}
-		/* Handle promo not found*/
+		//TODO: handle the case where no promotion is found
 		
 		
 	}

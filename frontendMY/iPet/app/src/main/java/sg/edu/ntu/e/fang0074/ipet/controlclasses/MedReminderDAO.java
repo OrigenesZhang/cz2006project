@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class MedReminderDAO extends MedReminderDAOabs {
 	
-	static ArrayList<Reminder> medreminders = new ArrayList<Reminder>();
-	static Reminder currentReminder = new Reminder(0, "test", "test", "test", "1234", "1234", 10);
+	public static ArrayList<Reminder> medreminders = new ArrayList<Reminder>();
+	public static Reminder currentReminder = new Reminder(0, "test", "test", "test", "1234", "1234", 10);
 	
 	private Subject userDAO;
 	
@@ -13,6 +13,7 @@ public class MedReminderDAO extends MedReminderDAOabs {
 		super();
 		this.userDAO = userDAO;
 		userDAO.register(this);
+		//TODO: Load the list of medical reminders for the current user from the database
 	}
 
 
@@ -28,9 +29,10 @@ public class MedReminderDAO extends MedReminderDAOabs {
 				return rem;
 			}
 		}
-		return null;     /* throw a toast here */
+		return null;     //TODO: throw a toast here
 	}
 
+	// used when a different reminder is selected
 	@Override
 	void chooseReminder(int rindex) {
 		for(Reminder rem: medreminders) {
@@ -44,9 +46,7 @@ public class MedReminderDAO extends MedReminderDAOabs {
 				currentReminder.setFrequency(rem.getFrequency());
 			}
 		}
-	
 	}
-	
 
 	@Override
 	void updateUserInfo() {
@@ -75,16 +75,16 @@ public class MedReminderDAO extends MedReminderDAOabs {
 
 	@Override
 	void addReminder(Reminder newR) {
-		
-		/*NOtify Database*/
+
+		//TODO: notify the database
 		
 		medreminders.add(newR);	
 	}
 
 	@Override
 	void updateCurrRindex(int n) {
-		
-		/* notify database*/
+
+        //TODO: notify the database
 		
 		currentReminder.setRindex(n);
 		
@@ -93,7 +93,7 @@ public class MedReminderDAO extends MedReminderDAOabs {
 	@Override
 	void updateCurrRPetname(String petname) {
 
-		/* notify datebase */
+        //TODO: notify the database
 		
 		currentReminder.setPetName(petname);
 		
@@ -101,8 +101,8 @@ public class MedReminderDAO extends MedReminderDAOabs {
 
 	@Override
 	void updateCurrRActivity(String newact) {
-		
-		/* notify datebase */
+
+        //TODO: notify the database
 		
 		currentReminder.setActivity(newact);
 		
@@ -110,24 +110,24 @@ public class MedReminderDAO extends MedReminderDAOabs {
 
 	@Override
 	void updateCurrRStartDate(String newDate) {
-		
-		/* notify datebase */
+
+        //TODO: notify the database
 		
 		currentReminder.setStartDate(newDate);
 	}
 
 	@Override
 	void updateCurrRStartTime(String newTime) {
-		
-		/* notify datebase */
+
+        //TODO: notify the database
 		
 		currentReminder.setStartTime(newTime);
 	}
 
 	@Override
 	void updateCurrRFreq(int newFreq) {
-		
-		/* notify datebase */
+
+        //TODO: notify the database
 		
 		currentReminder.setFrequency(newFreq);
 		

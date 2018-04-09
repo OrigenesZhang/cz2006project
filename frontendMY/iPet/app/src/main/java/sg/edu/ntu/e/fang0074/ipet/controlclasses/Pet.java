@@ -5,12 +5,12 @@ public class Pet {
 	private String petName;
 	private String ownerName;
 	private String breed;
-	private int age;
+	private String age;
 	private String location;
 	private String gender;
-	private int weight;
+	private String weight;
 	
-	public Pet(String petName, String ownerName, String breed, int age, String location, String gender, int weight) {
+	public Pet(String petName, String ownerName, String breed, String age, String location, String gender, String weight) {
 		this.petName = petName;
 		this.ownerName = ownerName;
 		this.breed = breed;
@@ -44,11 +44,11 @@ public class Pet {
 		breed = newBreed;
 	}
 	
-	public int getAge() {
+	public String getAge() {
 		return age;
 	}
 	
-	public void setAge(int newAge) {
+	public void setAge(String newAge) {
 		age = newAge;
 	}
 	
@@ -68,11 +68,11 @@ public class Pet {
 		gender = newGender;
 	}
 	
-	public int getWeight() {
+	public String getWeight() {
 		return weight;
 	}
 	
-	public void setWeight(int newWeight) {
+	public void setWeight(String newWeight) {
 		weight = newWeight;
 	}
 }

@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 public class ClinicDAO extends ClinicDAOabs{
 	
-	static ArrayList<Clinic> clinics = new ArrayList<Clinic>();
-	static Clinic currentClinic = new Clinic(0, 0, "test", "test");
+	public static ArrayList<Clinic> clinics = new ArrayList<Clinic>();
+	public static Clinic currentClinic = new Clinic(0, 0, "test", "test");
 	
 	public ClinicDAO() {
 		super();
+		// TODO: load all the clinics from the database into the clinics list
 	}
 
 	@Override
@@ -23,7 +24,7 @@ public class ClinicDAO extends ClinicDAOabs{
 				return cl;
 			}
 		}
-		System.out.println("Clinic not found"); /*Throw a toast here*/
+		System.out.println("Clinic not found"); //TODO: Throw a toast here
 		return null;
 	}
 
@@ -42,35 +43,36 @@ public class ClinicDAO extends ClinicDAOabs{
 				return;
 			}
 		}
-		System.out.println("Clinic not found"); /*Throw a toast here*/
+		System.out.println("Clinic not found"); // TODO: Throw a toast here
 	}
 
 	@Override
 	void updateCurrClinicId(int n) {
 
-		/*notify database*/
+        //TODO: notify the database
+
 		currentClinic.setPrevID(currentClinic.getClinicID());
 		currentClinic.setClinicID(n);
-		notify();
+		notifyAllObservers();
 		
 	}
 
 	@Override
 	void updateCurrClinicName(String newname) {
-		
-		/*notify database*/
+
+        //TODO: notify the database
 		
 		currentClinic.setClinicName(newname);
-		notify();
+		notifyAllObservers();
 	}
 
 	@Override
 	void updateCurrClinicLocId(String newid) {
-		
-		/*notify database*/
+
+        //TODO: notify the database
 		
 		currentClinic.setLocationID(newid);
-		//notify();
+		notifyAllObservers();
 	}
 
 }

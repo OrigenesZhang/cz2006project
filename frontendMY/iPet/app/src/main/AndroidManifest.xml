@@ -28,13 +28,17 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".SearchPage"
             android:label="@string/title_activity_search_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PetList"
+            android:label="@string/title_activity_pet_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Profile"
@@ -63,7 +67,7 @@
             android:name=".SignUp"
             android:label="@string/title_activity_sign_up"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RateComment"></activity>
+        <activity android:name=".RateComment" />
     </application>
 
 </manifest>

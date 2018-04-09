@@ -21,7 +21,7 @@ public class MainPage extends AppCompatActivity {
             @Override
             // Launch an activity within the app
             public void onClick(View view) {
-                Intent startIntent = new Intent(getApplicationContext(), Profile.class);
+                Intent startIntent = new Intent(getApplicationContext(), PetList.class);
                 startActivity(startIntent);
             }
         });

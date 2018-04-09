@@ -5,7 +5,7 @@ public abstract class UserDAOabs implements Subject, Roles{
 	static ArrayList<Observer> observers = new ArrayList<Observer>();
 	
 	public UserDAOabs() {
-		// register subscribers upon init
+		/* register subscribers upon init */
 	}
 	
 	public void register(Observer newObserver) {
@@ -36,7 +36,6 @@ public abstract class UserDAOabs implements Subject, Roles{
 	abstract User getCurrentUser();
 	abstract void getNewUser(String username);
 	abstract void updateUser(User updateUser);
-	//public boolean verify(String name, String pwd);
 	
 	
 	/*add admin priviledge as well */

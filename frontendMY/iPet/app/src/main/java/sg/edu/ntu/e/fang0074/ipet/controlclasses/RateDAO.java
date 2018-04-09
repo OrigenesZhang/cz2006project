@@ -3,8 +3,9 @@ package sg.edu.ntu.e.fang0074.ipet.controlclasses;
 import java.util.ArrayList;
 
 public class RateDAO extends RateDAOabs{
-	
-	static ArrayList<Rating> ratingByClinic = new ArrayList<Rating>();
+
+    // All the ratings for a clinic
+	public static ArrayList<Rating> ratingByClinic = new ArrayList<Rating>();
 	
 	private Subject userDAO;
 	private Subject clinicDAO;
@@ -22,7 +23,7 @@ public class RateDAO extends RateDAOabs{
 	@Override
 	void updateUserInfo() {
 		String initialuser = UserDAO.currentUser.getPrevName();
-		ArrayList<Rating> ratingByUser = null; /* load from Rating databse based on the old username retrieved above*/
+		ArrayList<Rating> ratingByUser = new ArrayList<Rating>(); //TODO: load from Rating databse based on the old username retrieved above
 		
 		for(Rating rating:ratingByUser) {
 			if(rating.getUsername().equals(initialuser)) {
@@ -51,14 +52,17 @@ public class RateDAO extends RateDAOabs{
 		return ratingByClinic;
 	}
 
+	// Add new ratings
 	@Override
-	void addRating(Rating r) {
-		if(r.getClinicID() == ratingByClinic.get(0).getClinicID())
-		{
-			ratingByClinic.add(r);
-		}
-		/* notify database*/
-		
+	public void addRating( float score, String comment, String date) {
+	    //Update the rating for the current clinic
+	    int size = ratingByClinic.size();
+	    int cid = ClinicDAO.currentClinic.getClinicID();
+	    String username = UserDAO.currentUser.getUserName();
+	    Rating r = new Rating(size, username, cid, score, comment, date);
+	    ratingByClinic.add(r);
+
+	    //TODO: notify database
 	}
 		
 }

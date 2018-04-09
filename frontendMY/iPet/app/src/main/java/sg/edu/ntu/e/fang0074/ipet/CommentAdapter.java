@@ -35,20 +35,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.HolderVi
         holder.v_comment.setText(commentlist.get(position).getComment());
         holder.v_date.setText(commentlist.get(position).getDate());
         holder.v_rating.setText(commentlist.get(position).getRating()); //rating should be 1 d.p.
-        /*
-        holder.itemView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Toast.makeText(context, cliniclist.get(position).getName(), Toast.LENGTH_LONG).show();
-                Intent startIntent = new Intent(context, ClinicIntro.class);
-                //putExtra: clinic name
-                context.startActivity(startIntent);
-                // infoToLoad = queryData
-                // Base(cliniclist.get(position).getName())
-                // showClinicInfoPage(infoToLoad);
 
-            }
-        }); */
     }
 
     @Override

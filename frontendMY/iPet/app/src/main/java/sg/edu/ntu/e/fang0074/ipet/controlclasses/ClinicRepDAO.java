@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class ClinicRepDAO extends ClinicRepDAOabs{
 
-	static ClinicRep currentRep = new ClinicRep("test","test","test", "test", 0);
-	static ArrayList<ClinicRep> allreps = new ArrayList<ClinicRep>();
+	public static ClinicRep currentRep = new ClinicRep("test","test","test", "test", 0);
+	public static ArrayList<ClinicRep> allreps = new ArrayList<ClinicRep>();
 	private Subject clinicDAO;
 	
 	public ClinicRepDAO(Subject clinicDAO) {
@@ -14,7 +14,7 @@ public class ClinicRepDAO extends ClinicRepDAOabs{
 		this.clinicDAO = clinicDAO;
 		clinicDAO.register(this);
 		
-		/*load all from rep databse onto rep list*/
+		//TODO: Load into allreps: all the clinic reps from the database
 	}
 	
 	
@@ -34,14 +34,14 @@ public class ClinicRepDAO extends ClinicRepDAOabs{
 
 	@Override
 	void getNewRep(String repname) {
-		ClinicRep newRep = null; /* Get the new rep from ClinicRep database based on the rep name given*/
+		ClinicRep newRep = null; //TODO: get the new rep from the database based on the repname given
 		currentRep.setRepName(repname);
 		currentRep.setPrevName(newRep.getPrevName());
 		currentRep.setRepPassword(newRep.getRepPassword());
 		currentRep.setRepPhone(newRep.getRepPhone());
 		currentRep.setClinicID(newRep.getClinicID());
 		
-	    /* Handle the case of rep not found */	
+	    //TODO: handle the case where a rep is not found.
 	}
 
 	@Override
@@ -57,39 +57,40 @@ public class ClinicRepDAO extends ClinicRepDAOabs{
 	@Override
 	void updateCurrentRepName(String newname) {
 
-		/* Notify database */
+		//TODO: notify the database
+
 		currentRep.setPrevName(currentRep.getRepName());
 		currentRep.setRepName(newname);
-		super.notify();	
+		notifyAllObservers();
 	}
 
 	@Override
 	void updateCurrentRepPwd(String newpwd) {
-		
-		/* Notify database */
+
+		//TODO: notify the database
 		
 		currentRep.setRepPassword(newpwd);
-		super.notify();	
+		notifyAllObservers();
 		
 	}
 
 	@Override
 	void updateCurrentRepPhone(String newphone) {
-		
-		/* Notify database */
+
+		//TODO: notify the database
 		
 		currentRep.setRepPhone(newphone);
-		super.notify();	
+		notifyAllObservers();
 		
 	}
 
 	@Override
 	void updateCurrentRepClinicID(int newid) {
-		
-		/* Notify database */
+
+		//TODO: notify the database
 		
 		currentRep.setClinicID(newid);
-		super.notify();	
+		notifyAllObservers();
 		
 	}
 
@@ -104,14 +105,14 @@ public class ClinicRepDAO extends ClinicRepDAOabs{
 	public void addRep(String repName, String prevName, String password, String phone, int clinicid) {
 		ClinicRep rep = new ClinicRep(repName, prevName, password, phone, clinicid);
 		allreps.add(rep);
-		/* Notify database*/
+		//TODO: notify the database
 	}
 
 
 	@Override
 	void deleteRep(String repname) {
 
-		/*Notify database*/
+		//TODO: notify the database
 		
 		for(ClinicRep rep : allreps) {
 			if(rep.getRepName().equals(repname)) {

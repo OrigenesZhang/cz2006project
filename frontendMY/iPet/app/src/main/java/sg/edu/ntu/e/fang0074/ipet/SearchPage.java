@@ -97,7 +97,7 @@ public class SearchPage extends AppCompatActivity
         clinics.add(new3);
 
         for(Clinic cn : clinics){
-            clinicList.add(new ClinicItem(cn.getClinicName(), drawable.dog3, "12345", "5.0"));
+            clinicList.add(new ClinicItem(cn.getClinicName(), drawable.clinic_logo, "Singapore", "5.0"));
         }
 
         /*Testing*/ /////////////////////////////////////////////////////////////////////

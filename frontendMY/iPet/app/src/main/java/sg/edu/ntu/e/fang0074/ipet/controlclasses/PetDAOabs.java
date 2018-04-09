@@ -7,7 +7,7 @@ public abstract class PetDAOabs implements Subject, Observer{
 	static ArrayList<Observer> observers = new ArrayList<Observer>();
 	
 	public PetDAOabs() {
-		/*init the observer list */
+		//init the list of observers
 	}
 	
 	public void register(Observer newObserver) {
@@ -30,7 +30,7 @@ public abstract class PetDAOabs implements Subject, Observer{
 			observer.update();
 		}
 	}
-	
+
 	public void update() {
 		this.updateOwnerInfo();
 	}
@@ -38,16 +38,17 @@ public abstract class PetDAOabs implements Subject, Observer{
 	abstract ArrayList<Pet> getAllPets();
 	abstract Pet getAPet(String petName);
 	abstract void chooseCurrentPet(String petName);
+	abstract Pet getCurrentPet();
 	
 	abstract void deletePet(String petName);
 	abstract void addPet(Pet newpet);
 	
 	abstract void updateCurrPetName(String newPetName);
 	abstract void updateCurrPetBreed(String newBreed);
-	abstract void updateCurrPetAge(int newAge);
+	abstract void updateCurrPetAge(String newAge);
 	abstract void updateCurrPetLocation(String newLocation);
 	abstract void updateCurrPetGender(String newGender);
-	abstract void updateCurrPetWeight(int newWeight);
+	abstract void updateCurrPetWeight(String newWeight);
 	
 	
 	abstract void updateOwnerInfo();

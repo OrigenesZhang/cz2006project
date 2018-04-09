@@ -38,7 +38,7 @@ public class SearchActivityAdapter extends RecyclerView.Adapter<SearchActivityAd
     public void onBindViewHolder(HolderView holder, final int position) {
         holder.v_name.setText(cliniclist.get(position).getName());
         holder.v_image.setImageResource(cliniclist.get(position).getPhoto());
-        holder.v_phone.setText("Tel: " + String.valueOf(cliniclist.get(position).getPhone()));
+        holder.v_phone.setText(String.valueOf(cliniclist.get(position).getPhone()));
         holder.v_rating.setText(cliniclist.get(position).getRating()); //rating should be 1 d.p.
 
         holder.itemView.setOnClickListener(new View.OnClickListener(){

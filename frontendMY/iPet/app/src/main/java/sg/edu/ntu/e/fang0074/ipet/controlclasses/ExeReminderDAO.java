@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class ExeReminderDAO extends ExeReminderDAOabs {
 	
-	static ArrayList<Reminder> exereminders = new ArrayList<Reminder>();
-	static Reminder currentReminder = new Reminder(0, "test", "test", "test", "1234", "1234", 10);;
+	public static ArrayList<Reminder> exereminders = new ArrayList<Reminder>();
+	public static Reminder currentReminder = new Reminder(0, "test", "test", "test", "1234", "1234", 10);;
 	
 	private Subject userDAO;
 	
@@ -13,6 +13,7 @@ public class ExeReminderDAO extends ExeReminderDAOabs {
 		super();
 		this.userDAO = userDAO;
 		userDAO.register(this);
+		//TODO: load the list of exercise reminders for the current user from the database
 	}
 
 
@@ -28,7 +29,7 @@ public class ExeReminderDAO extends ExeReminderDAOabs {
 				return rem;
 			}
 		}
-		return null;     /* throw a toast here */
+		return null;     //TODO: Throw a toast here
 	}
 
 	@Override
@@ -67,25 +68,24 @@ public class ExeReminderDAO extends ExeReminderDAOabs {
 				return;
 			}
 		}
-		System.out.println("Reminder not found"); /* throw a toast here */
+		System.out.println("Reminder not found"); //TODO: Throw a toast here
 		
 	}
 
 	@Override
 	void addReminder(Reminder newR) {
-		
-		/*Notify database*/
+
+        //TODO: notify the database
 		
 		exereminders.add(newR);	
 	}
 
 	@Override
 	void updateCurrRindex(int n) {
-		
-		/* notify database*/
+
+        //TODO: notify the database
 		
 		currentReminder.setRindex(n);
-		//notify();   // Change to reload activity
 		
 	}
 
@@ -93,48 +93,43 @@ public class ExeReminderDAO extends ExeReminderDAOabs {
 	@Override
 	void updateCurrRPetname(String petname) {
 
-		/* notify datebase */
+        //TODO: notify the database
 		
 		currentReminder.setPetName(petname);
-		//notify();
 		
 	}
 
 	@Override
 	void updateCurrRActivity(String newact) {
-		
-		/* notify datebase */
+
+        //TODO: notify the database
 		
 		currentReminder.setActivity(newact);
-		//notify();
 		
 	}
 
 	@Override
 	void updateCurrRStartDate(String newDate) {
-		
-		/* notify datebase */
+
+        //TODO: notify the database
 		
 		currentReminder.setStartDate(newDate);
-		//notify();
 	}
 
 	@Override
 	void updateCurrRStartTime(String newTime) {
-		
-		/* notify datebase */
+
+        //TODO: notify the database
 		
 		currentReminder.setStartTime(newTime);
-		//notify();
 	}
 
 	@Override
 	void updateCurrRFreq(int newFreq) {
-		
-		/* notify datebase */
+
+        //TODO: notify the database
 		
 		currentReminder.setFrequency(newFreq);
-		//notify();
 		
 	}
 

@@ -7,7 +7,9 @@ public class LoginController {
 	public LoginController(Subject clinicDAO) {
 		this.clinicDAO = clinicDAO;
 	} // pass in userDAO as well?
-	
+
+	// Check the username and the password
+    // Check user existence before verifying username and password
 	public boolean verify(String usernameInput, String pwd) {
 		role = new UserDAO();
 		if(role.checkexist(usernameInput)) {

@@ -1,6 +1,7 @@
 package sg.edu.ntu.e.fang0074.ipet;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -9,25 +10,41 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
-import sg.edu.ntu.e.fang0074.ipet.controlclasses.PetDAO;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Profile extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
-    // set current pet at the pet list selection
+import sg.edu.ntu.e.fang0074.ipet.controlclasses.Pet;
+
+import static sg.edu.ntu.e.fang0074.ipet.R.id;
+import static sg.edu.ntu.e.fang0074.ipet.R.layout;
+import static sg.edu.ntu.e.fang0074.ipet.R.string;
+
+public class PetList extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
+
+    RecyclerView listshowrcy;
+    List<PetItem> petList = new ArrayList<>();
+    PetAdapter adapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(layout.activity_pet_list);
+        Toolbar toolbar = (Toolbar) findViewById(id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        int orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        setRequestedOrientation(orientation);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,38 +53,64 @@ public class Profile extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+                this, drawer, toolbar, string.navigation_drawer_open, string.navigation_drawer_close);
+        if(drawer != null){
+            drawer.addDrawerListener(toggle);
+            toggle.syncState();
+        }
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        NavigationView navigationView = (NavigationView) findViewById(id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        createPetList();
 
-        PetDAO petdao = LogIn.petDAO;
+        listshowrcy = (RecyclerView)findViewById(id.petlist);
+        listshowrcy.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        listshowrcy.setLayoutManager(linearLayoutManager);
+        adapter = new PetAdapter(petList,PetList.this);
 
-        TextView petnametv = (TextView)findViewById(R.id.dogName);
-        TextView petbreedtv = (TextView)findViewById(R.id.dogBreed);
-        TextView petlocationtv = (TextView)findViewById(R.id.dogLocation);
-        TextView petagetv = (TextView)findViewById(R.id.petAge);
-        TextView petweighttv = (TextView)findViewById(R.id.weight);
-        TextView petgendertv = (TextView)findViewById(R.id.fm);
-
-        petnametv.setText(petdao.getCurrentPet().getPetName());
-        petbreedtv.setText(petdao.getCurrentPet().getBreed());
-        petlocationtv.setText(petdao.getCurrentPet().getLocation());
-        petagetv.setText(petdao.getCurrentPet().getAge());
-        petweighttv.setText(petdao.getCurrentPet().getWeight());
-        petgendertv.setText(petdao.getCurrentPet().getGender());
-
-        TextView ownername = (TextView)findViewById(R.id.ownerName);
-        TextView ownerphone = (TextView)findViewById(R.id.ownerPhoneNumber);
-        ownername.setText("Owner:  " + LogIn.userDAO.getCurrUserName());
-        ownerphone.setText("Owner Tel:  " + LogIn.userDAO.getCurrUserPhone());
-
+        listshowrcy.setAdapter(adapter);
     }
+
+
+    private void createPetList(){
+        //System.out.println("Create list..");
+
+        //TODO: handle phone, rating and image
+        /* Testing */////////////////////////////////////////////////////////////////////
+        ArrayList<Pet> pets =  LogIn.petDAO.getAllPets();
+        Pet new1 = new Pet("Ah Dog","test", "dog","2", "Singapore", "F", "12");
+        pets.add(new1);
+        Pet new2 = new Pet("Ah Cat","test", "cat","2", "Singapore", "F", "12");
+        pets.add(new2);
+        Pet new3 = new Pet("Ah Fish","test", "fish","2", "Singapore", "F", "12");
+        pets.add(new3);
+
+
+        for(Pet pt : pets){
+            petList.add(new PetItem(pt.getPetName()));
+        }
+
+        /*Testing*/ /////////////////////////////////////////////////////////////////////
+        /*
+        clinicList.add(new ClinicItem("Third dog", drawable.dog3, 12345687, "3.7"));
+        clinicList.add(new ClinicItem("Fourth dog", drawable.dog4, 12345876, "4.5"));
+        clinicList.add(new ClinicItem("Fifth dog", drawable.dog5, 12354768, "3.5"));
+        clinicList.add(new ClinicItem("Sixth dog", drawable.dog6, 12421356, "3.9"));
+        clinicList.add(new ClinicItem("Seventh dog", drawable.dog7, 12412354, "4.3"));
+        clinicList.add(new ClinicItem("Eighth dog", drawable.dog8, 35414524, "4.7"));
+        clinicList.add(new ClinicItem("Ninth dog", drawable.dog9, 52345343, "4.9"));
+        clinicList.add(new ClinicItem("Tenth dog", drawable.dog10, 35328364, "4.1"));
+        clinicList.add(new ClinicItem("Eleventh dog", drawable.dog11, 35234345, "3.6"));
+        */
+    }
+
+
+
 
     @Override
     public void onBackPressed() {
@@ -83,7 +126,7 @@ public class Profile extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.log_in, menu);
-        getMenuInflater().inflate(R.menu.edit_profile, menu);
+        //getMenuInflater().inflate(R.menu.edit_profile, menu);
         return true;
     }
 
@@ -148,4 +191,5 @@ public class Profile extends AppCompatActivity
         return true;
 
     }
+
 }

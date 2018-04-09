@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class PetDAO extends PetDAOabs {
 	
-	static ArrayList<Pet> pets = new ArrayList<Pet>(); /*Load all the pets under a particular user*/
-	static Pet currentPet = new Pet("test", "test", "test", 6, "test", "F",10);
+	 static ArrayList<Pet> pets = new ArrayList<Pet>(); /*Load all the pets under a particular user*/
+	 static Pet currentPet = new Pet("test", "test", "test", "6", "test", "F","10");
 	
 	private Subject userDAO;
 	
@@ -18,12 +18,12 @@ public class PetDAO extends PetDAOabs {
 	
 
 	@Override
-	ArrayList<Pet> getAllPets() {
+	public ArrayList<Pet> getAllPets() {
 		return pets;
 	}
 
 	@Override
-	Pet getAPet(String petName) {
+	public Pet getAPet(String petName) {
 		for(Pet pet: pets) {
 			if(pet.getPetName().equals(petName)) {
 				return pet;
@@ -33,31 +33,31 @@ public class PetDAO extends PetDAOabs {
 	}
 
 	@Override
-	void deletePet(String petName) {
+	public void deletePet(String petName) {
 		for(Pet pet: pets) {
 			if(pet.getPetName().equals(petName)) {
 				pets.remove(pet);
 				return;
 			}
 		}
-		System.out.println("Nothing to remove"); /* throw a toast here*/
+		System.out.println("Nothing to remove"); //TODO: throw a toast here
 	}
 
 	
 	@Override
-	void addPet(Pet newpet) {
+	public void addPet(Pet newpet) {
 		
-		/*Notify database*/
+		//TODO: notify the database
 		
 		pets.add(newpet);	
 	}
 	
 
 	@Override
-	void updateOwnerInfo() {
+	public void updateOwnerInfo() {
 
 		String currownername = UserDAO.currentUser.getUserName();
-		
+
 		//compare owner name before update
 		if(!currownername.equals(pets.get(0).getOwnerName())) {
 			for(Pet pet : pets) {
@@ -67,9 +67,13 @@ public class PetDAO extends PetDAOabs {
 	
 	}
 
+	public Pet getCurrentPet(){
+	    return currentPet;
+    }
 
+    // used when another pet is chosen
 	@Override
-	void chooseCurrentPet(String petName) {
+	public void chooseCurrentPet(String petName) {
 		for(Pet pet: pets) {
 			if(pet.getPetName().equals(petName)) {
 				currentPet.setPetName(petName);
@@ -88,62 +92,58 @@ public class PetDAO extends PetDAOabs {
 
 
 	@Override
-	void updateCurrPetName(String newPetName) {
+	public void updateCurrPetName(String newPetName) {
 
-		/*Notify Pet Database*/
+		//TODO: notify the database
 		
-		currentPet.setPetName(newPetName);	
-		notify();
+		currentPet.setPetName(newPetName);
 	}
 
 
 	@Override
-	void updateCurrPetBreed(String newBreed) {
-		
-		/*Notify Pet Database*/
+	public void updateCurrPetBreed(String newBreed) {
+
+        //TODO: notify the database
 		
 		currentPet.setBreed(newBreed);
-		notify();
+
 	}
 
 
 	@Override
-	void updateCurrPetAge(int newAge) {
-		
-		/*Notify Pet Database*/
+	public void updateCurrPetAge(String newAge) {
+
+        //TODO: notify the database
 		
 		currentPet.setAge(newAge);	
-		notify();
+
 	}
 
 
 	@Override
-	void updateCurrPetLocation(String newLocation) {
-		
-		/*Notify Pet Database*/
+	public void updateCurrPetLocation(String newLocation) {
+
+        //TODO: notify the database
 		
 		currentPet.setLocation(newLocation);
-		notify();
 	}
 
 
 	@Override
-	void updateCurrPetGender(String newGender) {
+	public void updateCurrPetGender(String newGender) {
+
+        //TODO: notify the database
 		
-		/*Notify Pet Database*/
-		
-		currentPet.setGender(newGender);	
-		notify();
+		currentPet.setGender(newGender);
 	}
 
 
 	@Override
-	void updateCurrPetWeight(int newWeight) {
-		
-		/*Notify Pet Database*/
+	public void updateCurrPetWeight(String newWeight) {
+
+        //TODO: notify the database
 		
 		currentPet.setWeight(newWeight);
-		notify();
 	}
 
 }

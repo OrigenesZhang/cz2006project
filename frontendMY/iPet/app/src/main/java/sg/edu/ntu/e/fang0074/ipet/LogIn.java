@@ -35,7 +35,7 @@ import sg.edu.ntu.e.fang0074.ipet.controlclasses.UserDAO;
 public class LogIn extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    /* Initialize all control classes *///************************************************
+    /* Initialize all control classes */
     static UserDAO userDAO = new UserDAO();
     static ClinicDAO clinicDAO = new ClinicDAO();
 
@@ -52,7 +52,7 @@ public class LogIn extends AppCompatActivity
 
     static LoginController logincontroller = new LoginController(clinicDAO);
 
-    /* Initialize all control classes *///************************************************
+    /* Initialize all control classes */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,9 +67,12 @@ public class LogIn extends AppCompatActivity
 
         /* test temp *////////////////////////////////////////////////////////////////////
 
+
+        // fix the orientation of the screen
         int orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         setRequestedOrientation(orientation);
 
+        // floating button action
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,17 +82,20 @@ public class LogIn extends AppCompatActivity
             }
         });
 
+
+        // define drawer layout action
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        // set select action for the navigation view
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        // Login actions: verify
         Button loginButton = (Button)findViewById(R.id.loginButton);
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,12 +111,8 @@ public class LogIn extends AppCompatActivity
                     verify = true;
                 }
                 System.out.println(verify);
-                /*
-                while(!verify){
-                    Intent startIntent = new Intent(getApplicationContext(), LogIn.class);
-                    startActivity(startIntent);
-                }
-                */
+
+                // Ensure that all the fields are filled in and the credentials keyed in are valid
                 if(TextUtils.isEmpty(user)||(TextUtils.isEmpty(pwd))){
                     Toast tst = Toast.makeText(LogIn.this,"Login fields must be filled",Toast.LENGTH_SHORT);
                     tst.show();
@@ -124,6 +126,7 @@ public class LogIn extends AppCompatActivity
             }
         });
 
+        // direct to signup page
         TextView signUp = (TextView) findViewById(R.id.signup_link);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +139,7 @@ public class LogIn extends AppCompatActivity
 
     }
 
+    // Menu drawer actions
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

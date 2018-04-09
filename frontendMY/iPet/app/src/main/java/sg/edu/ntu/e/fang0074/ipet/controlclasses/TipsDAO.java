@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class TipsDAO extends TipsDAOabs {
 	
-	static ArrayList<Tips> alltips = new ArrayList<Tips>();
-	static Tips currenttip = new Tips("test", "test","test");
+	public static ArrayList<Tips> alltips = new ArrayList<Tips>();
+	public static Tips currenttip = new Tips("test", "test","test");
 	
 	private Subject clinicRepDAO;
 	
@@ -15,7 +15,7 @@ public class TipsDAO extends TipsDAOabs {
 		this.clinicRepDAO = clinicRepDAO;
 		clinicRepDAO.register(this);
 		
-		/* init the promotion list */
+		//TODO: Load the tips list from database
 	}
 
 	@Override
@@ -41,7 +41,8 @@ public class TipsDAO extends TipsDAOabs {
 			}
 		}
 		return null;
-		/*throw a toast: no promotion found*/
+
+		//TODO: handle the case where no tip is found.
 		
 	}
 
@@ -66,10 +67,11 @@ public class TipsDAO extends TipsDAOabs {
 		return currenttip;
 	}
 
+	// used when the name of the clinic representative is changed
 	@Override
 	void updateCurrTipRepName(String newname) {
 
-		/* notify database */
+		//TODO: Notify databse
 		
 		currenttip.setRepName(newname);
 		
@@ -77,8 +79,8 @@ public class TipsDAO extends TipsDAOabs {
 
 	@Override
 	void udpateCurrTipDate(String newdate) {
-		
-		/* notify database */
+
+		//TODO: Notify databse
 		
 		currenttip.setDate(newdate);
 		
@@ -87,7 +89,7 @@ public class TipsDAO extends TipsDAOabs {
 	@Override
 	void updateCurrTipcontent(String newContent) {
 		
-		/* notify database */
+		//TODO: notify database
 		
 		currenttip.setContent(newContent);
 	}
@@ -102,7 +104,8 @@ public class TipsDAO extends TipsDAOabs {
 				return;
 			}
 		}
-		/* Handle promo not found*/
+
+		//TODO: Handle the case where no tip is found
 		
 		
 	}

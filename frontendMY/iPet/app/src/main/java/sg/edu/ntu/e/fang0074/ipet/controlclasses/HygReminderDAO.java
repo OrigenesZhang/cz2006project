@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class HygReminderDAO extends HygReminderDAOabs {
 	
-	static ArrayList<Reminder> hygreminders = new ArrayList<Reminder>();
-	static Reminder currentReminder = new Reminder(0, "test", "test", "test", "1234", "1234", 10);;
+	public static ArrayList<Reminder> hygreminders = new ArrayList<Reminder>();
+	public static Reminder currentReminder = new Reminder(0, "test", "test", "test", "1234", "1234", 10);;
 	
 	private Subject userDAO;
 	
@@ -28,7 +28,7 @@ public class HygReminderDAO extends HygReminderDAOabs {
 				return rem;
 			}
 		}
-		return null;     /* throw a toast here */
+		return null;     //TODO: Throw a toast here
 	}
 
 	@Override
@@ -69,21 +69,21 @@ public class HygReminderDAO extends HygReminderDAOabs {
 				return;
 			}
 		}
-		System.out.println("Reminder not found"); /* throw a toast here */
+		System.out.println("Reminder not found"); //TODO: Throw a toast here
 		
 	}
 
 	@Override
 	void addReminder(Reminder newR) {
-		
-		/* Notify Database*/
+
+		//TODO: notify the database
 		hygreminders.add(newR);	
 	}
 
 	@Override
 	void updateCurrRindex(int n) {
-		
-		/* notify database*/
+
+		//TODO: notify the database
 		
 		currentReminder.setRindex(n);
 		
@@ -92,7 +92,7 @@ public class HygReminderDAO extends HygReminderDAOabs {
 	@Override
 	void updateCurrRPetname(String petname) {
 
-		/* notify datebase */
+		//TODO: notify the database
 		
 		currentReminder.setPetName(petname);
 		
@@ -100,8 +100,8 @@ public class HygReminderDAO extends HygReminderDAOabs {
 
 	@Override
 	void updateCurrRActivity(String newact) {
-		
-		/* notify datebase */
+
+		//TODO: notify the database
 		
 		currentReminder.setActivity(newact);
 		
@@ -109,16 +109,16 @@ public class HygReminderDAO extends HygReminderDAOabs {
 
 	@Override
 	void updateCurrRStartDate(String newDate) {
-		
-		/* notify datebase */
+
+		//TODO: notify the database
 		
 		currentReminder.setStartDate(newDate);
 	}
 
 	@Override
 	void updateCurrRStartTime(String newTime) {
-		
-		/* notify datebase */
+
+		//TODO: notify the database
 		
 		currentReminder.setStartTime(newTime);
 
@@ -126,8 +126,8 @@ public class HygReminderDAO extends HygReminderDAOabs {
 
 	@Override
 	void updateCurrRFreq(int newFreq) {
-		
-		/* notify datebase */
+
+		//TODO: notify the database
 		
 		currentReminder.setFrequency(newFreq);
 		
