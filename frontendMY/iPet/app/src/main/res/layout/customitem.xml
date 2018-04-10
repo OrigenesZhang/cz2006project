@@ -19,33 +19,39 @@
 
         <ImageView
             android:id="@+id/clinic_image"
-            android:layout_width="100dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
             android:padding="2dp"
-            android:layout_marginRight="15dp"
+
             android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/clinic_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_alignParentTop="true"
 
+            android:layout_marginBottom="-4dp"
             android:layout_marginStart="14dp"
-            android:text="Clinic Name"
             android:paddingTop="0dp"
-            android:textColor="@color/colorDarkerGray"
+            android:text="Clinic Name"
             android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/colorDarkerGray"
             android:textSize="19sp" />
 
         <TextView
             android:id="@+id/clinic_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/clinic_image"
             android:layout_alignStart="@+id/clinic_title"
+            android:layout_below="@+id/clinic_image"
+            android:layout_marginTop="-25dp"
             android:paddingTop="0dp"
             android:text="Clinic Phone Number"
             android:textSize="15sp" />
@@ -57,8 +63,8 @@
             android:layout_alignStart="@+id/clinic_title"
             android:layout_centerVertical="true"
             android:paddingLeft="0dp"
-            android:text="4.7"
             android:paddingTop="4dp"
+            android:text="4.7"
             android:textColor="@color/colorPrimary"
             android:textSize="17sp" />
 
@@ -67,10 +73,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/clinic_rating"
             android:layout_centerVertical="true"
-            android:text="/5.0"
+            android:layout_toEndOf="@+id/clinic_rating"
             android:paddingTop="4dp"
+            android:text="/5.0"
             android:textColor="@color/colorPrimary"
             android:textSize="17sp" />
 

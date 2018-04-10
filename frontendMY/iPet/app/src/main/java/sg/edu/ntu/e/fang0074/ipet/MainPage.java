@@ -11,7 +11,6 @@ public class MainPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //Intent startIntent = new Intent(getApplicationContext(), LogIn.class);
         //startActivity(startIntent);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
@@ -21,7 +20,7 @@ public class MainPage extends AppCompatActivity {
             @Override
             // Launch an activity within the app
             public void onClick(View view) {
-                Intent startIntent = new Intent(getApplicationContext(), Profile.class);
+                Intent startIntent = new Intent(getApplicationContext(), PetList.class);
                 startActivity(startIntent);
             }
         });

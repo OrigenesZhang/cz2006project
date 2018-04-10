@@ -37,10 +37,14 @@
             android:label="@string/title_activity_search_page"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".PetList"
+            android:label="@string/title_activity_pet_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".Profile"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".EditProfile" />
+        <activity android:name=".EditPetProfile" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -63,7 +67,7 @@
             android:name=".SignUp"
             android:label="@string/title_activity_sign_up"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RateComment"></activity>
+        <activity android:name=".RateComment" />
     </application>
 
 </manifest>

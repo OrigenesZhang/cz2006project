@@ -43,8 +43,9 @@
             android:id="@+id/dogName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/ownerName"
+            android:layout_alignParentEnd="true"
             android:layout_alignTop="@+id/imageViewProfile"
+            android:layout_marginEnd="116dp"
             android:fontFamily="sans-serif"
             android:text="Doge"
             android:textColor="@color/colorDarkerGray"
@@ -217,7 +218,7 @@
             android:layout_below="@+id/feature1"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="52dp"
-            android:text="Owner: Liang Liang"
+            android:text="Owner: Amy"
             android:textSize="22sp" />
 
         <TextView

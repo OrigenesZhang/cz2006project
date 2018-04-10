@@ -13,18 +13,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+
+import sg.edu.ntu.e.fang0074.ipet.controlclasses.PetDAO;
 
 public class Profile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
-
+    // set current pet at the pet list selection
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,8 +45,27 @@ public class Profile extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        PetDAO petdao = LogIn.petDAO;
 
+        TextView petnametv = (TextView)findViewById(R.id.dogName);
+        TextView petbreedtv = (TextView)findViewById(R.id.dogBreed);
+        TextView petlocationtv = (TextView)findViewById(R.id.dogLocation);
+        TextView petagetv = (TextView)findViewById(R.id.petAge);
+        TextView petweighttv = (TextView)findViewById(R.id.weight);
+        TextView petgendertv = (TextView)findViewById(R.id.fm);
 
+        // initialize the profile contents upon loading
+        petnametv.setText(petdao.getCurrentPet().getPetName());
+        petbreedtv.setText(petdao.getCurrentPet().getBreed());
+        petlocationtv.setText(petdao.getCurrentPet().getLocation());
+        petagetv.setText(petdao.getCurrentPet().getAge());
+        petweighttv.setText(petdao.getCurrentPet().getWeight());
+        petgendertv.setText(petdao.getCurrentPet().getGender());
+
+        TextView ownername = (TextView)findViewById(R.id.ownerName);
+        TextView ownerphone = (TextView)findViewById(R.id.ownerPhoneNumber);
+        ownername.setText("Owner:  " + LogIn.userDAO.currentUser.getUserName());
+        ownerphone.setText("Owner Tel:  " + LogIn.userDAO.currentUser.getPhone());
     }
 
     @Override
@@ -70,18 +92,14 @@ public class Profile extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
-
         if (id == R.id.action_settings) {
             return true;
         }
-
         if(id == R.id.edit){
-            Intent startIntent = new Intent(getApplicationContext(), EditProfile.class);
+            Intent startIntent = new Intent(getApplicationContext(), EditPetProfile.class);
             startActivity(startIntent);
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -91,21 +109,9 @@ public class Profile extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        /*
-        NavigationOptions navOp = new NavigationOptions();
-        boolean handle = navOp.navOptions(id);
-
-        if(handle){
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            drawer.closeDrawer(GravityCompat.START);
-            return true;
-        }
-
-       return false;
-       */
-
         if (id == R.id.nav_profile) {
-            // Handle the camera action
+            Intent startIntent = new Intent(getApplicationContext(), PetList.class);
+            startActivity(startIntent);
         } else if (id == R.id.nav_clinic) {
             Intent startIntent = new Intent(getApplicationContext(), SearchPage.class);
             startActivity(startIntent);
@@ -123,6 +129,5 @@ public class Profile extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-
     }
 }

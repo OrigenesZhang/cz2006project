@@ -3,13 +3,13 @@ package sg.edu.ntu.e.fang0074.ipet;
 import android.content.Intent;
 
 /**
- * Created by user on 17/3/2018.
+ * Created by Meiyi on 17/3/2018.
  */
 
+// Defines the actions performed when items in the navigation bar is clicked on.
 public class NavigationOptions {
 
-    NavigationOptions(){}
-
+    public NavigationOptions(){}
 
     public boolean navOptions(int id){
         // Handle navigation view item clicks here.
@@ -32,6 +32,5 @@ public class NavigationOptions {
 
         }
         return true;
-
     }
 }

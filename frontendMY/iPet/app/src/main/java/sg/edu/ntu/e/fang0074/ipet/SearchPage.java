@@ -25,6 +25,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import sg.edu.ntu.e.fang0074.ipet.controlclasses.Clinic;
+
 import static sg.edu.ntu.e.fang0074.ipet.R.color;
 import static sg.edu.ntu.e.fang0074.ipet.R.drawable;
 import static sg.edu.ntu.e.fang0074.ipet.R.id;
@@ -47,7 +49,6 @@ public class SearchPage extends AppCompatActivity
         setContentView(layout.activity_search_page);
         Toolbar toolbar = (Toolbar) findViewById(id.toolbar);
         setSupportActionBar(toolbar);
-
         int orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         setRequestedOrientation(orientation);
 
@@ -68,30 +69,36 @@ public class SearchPage extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         createClinicList();
 
+        // Set up the clinic search list
         listshowrcy = (RecyclerView)findViewById(id.clinic_list);
         listshowrcy.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         listshowrcy.setLayoutManager(linearLayoutManager);
         adapter = new SearchActivityAdapter(clinicList,SearchPage.this);
-
         listshowrcy.setAdapter(adapter);
     }
 
+
     private void createClinicList(){
-        System.out.println("Create list..");
-        clinicList.add(new ClinicItem("First dog", drawable.dog1, 12345678, "4.0"));
-        clinicList.add(new ClinicItem("Third dog", drawable.dog3, 12345687, "3.7"));
-        clinicList.add(new ClinicItem("Fourth dog", drawable.dog4, 12345876, "4.5"));
-        clinicList.add(new ClinicItem("Fifth dog", drawable.dog5, 12354768, "3.5"));
-        clinicList.add(new ClinicItem("Sixth dog", drawable.dog6, 12421356, "3.9"));
-        clinicList.add(new ClinicItem("Seventh dog", drawable.dog7, 12412354, "4.3"));
-        clinicList.add(new ClinicItem("Eighth dog", drawable.dog8, 35414524, "4.7"));
-        clinicList.add(new ClinicItem("Ninth dog", drawable.dog9, 52345343, "4.9"));
-        clinicList.add(new ClinicItem("Tenth dog", drawable.dog10, 35328364, "4.1"));
-        clinicList.add(new ClinicItem("Eleventh dog", drawable.dog11, 35234345, "3.6"));
+        //TODO: handle phone, rating and image
+        /* Testing */////////////////////////////////////////////////////////////////////
+
+        ArrayList<Clinic> clinics =  LogIn.clinicDAO.getAllClinics();
+        /*
+        Clinic new1 = new Clinic(1,0, "Happy Dog", "12345");
+        clinics.add(new1);
+        Clinic new2 = new Clinic(1,0, "Happy Cat", "12345");
+        clinics.add(new2);
+        Clinic new3 = new Clinic(1,0, "Happy Fish", "12345");
+        clinics.add(new3);
+        */
+
+        for(Clinic cn : clinics){
+            double avgRating = LogIn.rateDAO.getAvgRating(cn.getClinicID());
+            clinicList.add(new ClinicItem(cn.getClinicName(), drawable.clinic_logo, "Singapore", Double.toString(avgRating)));
+        }
     }
 
 
@@ -135,7 +142,6 @@ public class SearchPage extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -145,7 +151,8 @@ public class SearchPage extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_profile) {
-            // Handle the camera action
+            Intent startIntent = new Intent(getApplicationContext(), PetList.class);
+            startActivity(startIntent);
         } else if (id == R.id.nav_clinic) {
             Intent startIntent = new Intent(getApplicationContext(), SearchPage.class);
             startActivity(startIntent);
@@ -172,16 +179,8 @@ public class SearchPage extends AppCompatActivity
 
         for(ClinicItem vetClinic:cList){
             if(vetClinic.getName().toLowerCase().contains(query)){
-                filteredModeList.add(vetClinic);
-            }
+                filteredModeList.add(vetClinic); }
         }
-        /*
-        for(ClinicItem model:pl){
-            final String text = model.getName().toLowerCase();
-            if(text.startsWith(query)){
-                filteredModeList.add(model);
-            }
-        }*/
         return filteredModeList;
     }
 
@@ -199,5 +198,4 @@ public class SearchPage extends AppCompatActivity
             }
         }
     }
-
 }

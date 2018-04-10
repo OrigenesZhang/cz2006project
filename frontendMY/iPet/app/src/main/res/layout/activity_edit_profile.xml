@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="sg.edu.ntu.e.fang0074.ipet.EditProfile">
+    tools:context="sg.edu.ntu.e.fang0074.ipet.EditPetProfile">
 
     <RelativeLayout
         android:layout_width="match_parent"

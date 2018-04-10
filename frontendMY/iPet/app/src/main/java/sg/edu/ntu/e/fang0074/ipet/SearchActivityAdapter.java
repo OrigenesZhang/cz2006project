@@ -14,9 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by user on 15/3/2018.
+ * Created by Meiyi on 15/3/2018.
  */
 
+// Item adapter for the clinic search list.
 public class SearchActivityAdapter extends RecyclerView.Adapter<SearchActivityAdapter.HolderView> {
 
     private List<ClinicItem> cliniclist;
@@ -30,7 +31,6 @@ public class SearchActivityAdapter extends RecyclerView.Adapter<SearchActivityAd
     @Override
     public HolderView onCreateViewHolder(ViewGroup parent, int viewType) {
         View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.customitem, parent, false);
-
         return new HolderView(layout);
     }
 
@@ -38,20 +38,17 @@ public class SearchActivityAdapter extends RecyclerView.Adapter<SearchActivityAd
     public void onBindViewHolder(HolderView holder, final int position) {
         holder.v_name.setText(cliniclist.get(position).getName());
         holder.v_image.setImageResource(cliniclist.get(position).getPhoto());
-        holder.v_phone.setText("Tel: " + String.valueOf(cliniclist.get(position).getPhone()));
+        holder.v_phone.setText(String.valueOf(cliniclist.get(position).getPhone()));
         holder.v_rating.setText(cliniclist.get(position).getRating()); //rating should be 1 d.p.
 
         holder.itemView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                LogIn.clinicDAO.chooseClinic(cliniclist.get(position).getName());
                 Toast.makeText(context, cliniclist.get(position).getName(), Toast.LENGTH_LONG).show();
                 Intent startIntent = new Intent(context, ClinicIntro.class);
                 //putExtra: clinic name
                 context.startActivity(startIntent);
-                // infoToLoad = queryData
-                // Base(cliniclist.get(position).getName())
-                // showClinicInfoPage(infoToLoad);
-
             }
         });
     }
@@ -68,7 +65,6 @@ public class SearchActivityAdapter extends RecyclerView.Adapter<SearchActivityAd
     }
 
     class HolderView extends RecyclerView.ViewHolder{
-
         ImageView v_image;
         TextView v_name;
         TextView v_phone;
@@ -76,7 +72,6 @@ public class SearchActivityAdapter extends RecyclerView.Adapter<SearchActivityAd
 
         HolderView(View itemView) {
             super(itemView);
-
             v_image = (ImageView)itemView.findViewById(R.id.clinic_image);
             v_name = (TextView)itemView.findViewById(R.id.clinic_title);
             v_phone = (TextView) itemView.findViewById(R.id.clinic_phone);
