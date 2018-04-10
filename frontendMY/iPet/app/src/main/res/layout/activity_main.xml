@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.customlist.MainActivity">
+
+    <ImageButton
+        android:id="@+id/next"
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/prev"
+        android:layout_toEndOf="@+id/imageSwitcher"
+        android:layout_toRightOf="@+id/imageSwitcher"
+        app:srcCompat="@drawable/next_1" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_alignEnd="@+id/next"
+        android:layout_alignRight="@+id/next"
+        android:layout_below="@+id/imageSwitcher"
+        android:layout_marginTop="40dp" />
+
+    <ImageSwitcher
+        android:id="@+id/imageSwitcher"
+        android:layout_width="280dp"
+        android:layout_height="@android:dimen/thumbnail_width"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp"
+        android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/prev"
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageSwitcher"
+        android:layout_marginBottom="60dp"
+        android:layout_toLeftOf="@+id/imageSwitcher"
+        android:layout_toStartOf="@+id/imageSwitcher"
+        app:srcCompat="@drawable/back_1" />
+
+    <ImageButton
+        android:id="@+id/collectionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageSwitcher"
+        android:layout_alignEnd="@+id/next"
+        android:layout_alignRight="@+id/next"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        app:srcCompat="@android:drawable/star_big_on" />
+</RelativeLayout>
