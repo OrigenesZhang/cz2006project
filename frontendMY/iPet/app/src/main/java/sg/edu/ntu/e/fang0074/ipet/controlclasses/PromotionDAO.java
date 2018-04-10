@@ -6,15 +6,13 @@ public class PromotionDAO extends PromotionDAOabs {
 	
 	public static ArrayList<Promotion> promotions = new ArrayList<Promotion>();
 	public static Promotion currentpromo = new Promotion("test", "test", "test");
-	
 	private Subject clinicRepDAO;
+
 	
 	public PromotionDAO(Subject clinicRepDAO) {
 		super();
-		
 		this.clinicRepDAO = clinicRepDAO;
 		clinicRepDAO.register(this);
-		
 		// TODO: Load the promotion list from the database
 	}
 
@@ -54,13 +52,13 @@ public class PromotionDAO extends PromotionDAOabs {
 				promotions.remove(promo);		
 			}
 		}
-		
 	}
 	
 
 	@Override
-	void addPromotion(Promotion prm) {
-		promotions.add(prm);
+	void addPromotion(String repName, String date, String content) {
+		Promotion prm = new Promotion(repName, date, content);
+	    promotions.add(prm);
 	}
 
 	@Override
@@ -70,27 +68,30 @@ public class PromotionDAO extends PromotionDAOabs {
 
 	@Override
 	void updateCurrPromoRepName(String newname) {
-
 		//TODO: notify the database
-		
+        for(Promotion promo:promotions){
+            if(promo.getRepName().equals(currentpromo.getRepName())){
+                promo.setRepName(newname);
+            }
+        }
 		currentpromo.setRepName(newname);
-		
 	}
 
 	@Override
 	void udpateCurrPromoDate(String newdate) {
-
         //TODO: notify the database
-		
 		currentpromo.setDate(newdate);
-		
 	}
 
+	// find the promotion sent by the same rep on the same date for update
 	@Override
 	void updateCurrPromocontent(String newContent) {
-
         //TODO: notify the database
-		
+        for(Promotion promo:promotions){
+            if((promo.getRepName().equals(currentpromo.getRepName()))||(promo.getDate().equals(currentpromo.getDate()))){
+                promo.setContent(newContent);
+            }
+        }
 		currentpromo.setContent(newContent);
 	}
 
@@ -105,8 +106,6 @@ public class PromotionDAO extends PromotionDAOabs {
 			}
 		}
 		//TODO: handle the case where no promotion is found
-		
-		
 	}
 
 }

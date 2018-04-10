@@ -5,8 +5,11 @@ import java.util.ArrayList;
 public class RateDAO extends RateDAOabs{
 
     // All the ratings for a clinic
+    //for testing //////////////////////////////////////////////////////////////////
+    public static ArrayList<Rating> allratings = new ArrayList<Rating>();
+    ////////////////////////////////////////////////////////////////////////////////
+
 	public static ArrayList<Rating> ratingByClinic = new ArrayList<Rating>();
-	
 	private Subject userDAO;
 	private Subject clinicDAO;
 	
@@ -16,15 +19,19 @@ public class RateDAO extends RateDAOabs{
 		this.clinicDAO = clinicDAO;
 		userDAO.register(this);
 		clinicDAO.register(this);
-
 		//TODO /* Load relevant rating onto the ratingByClinic list */
 	}
+
+	public double getAvgRating(int clinicID){
+	    double rating = 0.0;
+	    //TODO: based on the clinic id, get the avg rating for the current clinic from the dtabase;
+        return rating;
+    }
 
 	@Override
 	void updateUserInfo() {
 		String initialuser = UserDAO.currentUser.getPrevName();
 		ArrayList<Rating> ratingByUser = new ArrayList<Rating>(); //TODO: load from Rating databse based on the old username retrieved above
-		
 		for(Rating rating:ratingByUser) {
 			if(rating.getUsername().equals(initialuser)) {
 				rating.setUsername(UserDAO.currentUser.getUserName());
@@ -44,7 +51,6 @@ public class RateDAO extends RateDAOabs{
 		else {
 			System.out.println("No need to update clinic ID");
 		}
-
 	}
 
 	@Override
@@ -54,14 +60,13 @@ public class RateDAO extends RateDAOabs{
 
 	// Add new ratings
 	@Override
-	public void addRating( float score, String comment, String date) {
+	public void addRating( double score, String comment, String date) {
 	    //Update the rating for the current clinic
 	    int size = ratingByClinic.size();
 	    int cid = ClinicDAO.currentClinic.getClinicID();
 	    String username = UserDAO.currentUser.getUserName();
 	    Rating r = new Rating(size, username, cid, score, comment, date);
 	    ratingByClinic.add(r);
-
 	    //TODO: notify database
 	}
 		

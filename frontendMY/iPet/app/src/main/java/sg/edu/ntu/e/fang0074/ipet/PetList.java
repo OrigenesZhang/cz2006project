@@ -79,30 +79,14 @@ public class PetList extends AppCompatActivity
 
 
     private void createPetList(){
-        //System.out.println("Create list..");
-
-        //TODO: handle phone, rating and image
-        /* Testing */////////////////////////////////////////////////////////////////////
-        ArrayList<Pet> pets =  LogIn.petDAO.getAllPets();
-        Pet new1 = new Pet("Ah Dog","test", "dog","2", "Singapore", "F", "12");
-        pets.add(new1);
-        Pet new2 = new Pet("Ah Cat","test", "cat","2", "Singapore", "F", "12");
-        pets.add(new2);
-        Pet new3 = new Pet("Ah Fish","test", "fish","2", "Singapore", "F", "12");
-        pets.add(new3);
-
-
-        for(Pet pt : pets){
-            petList.add(new PetItem(pt.getPetName()));
+        ArrayList<Pet> pets =  LogIn.petDAO.retPetsbyowner();
+        if(pets != null){
+            for(Pet pt : pets){
+                petList.add(new PetItem(pt.getPetName()));
+            }
         }
 
-        /*Testing*/ /////////////////////////////////////////////////////////////////////
-        /*
-        clinicList.add(new ClinicItem("Third dog", drawable.dog3, 12345687, "3.7"));
-        clinicList.add(new ClinicItem("Eleventh dog", drawable.dog11, 35234345, "3.6"));
-        */
     }
-
 
 
 
@@ -120,7 +104,6 @@ public class PetList extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.log_in, menu);
-        //getMenuInflater().inflate(R.menu.edit_profile, menu);
         return true;
     }
 
@@ -130,18 +113,9 @@ public class PetList extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-
         if (id == R.id.action_settings) {
             return true;
         }
-
-        if(id == R.id.edit){
-            Intent startIntent = new Intent(getApplicationContext(), EditPetProfile.class);
-            startActivity(startIntent);
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -152,7 +126,8 @@ public class PetList extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-            // Handle the camera action
+            Intent startIntent = new Intent(getApplicationContext(), PetList.class);
+            startActivity(startIntent);
         } else if (id == R.id.nav_clinic) {
             Intent startIntent = new Intent(getApplicationContext(), SearchPage.class);
             startActivity(startIntent);
@@ -170,7 +145,6 @@ public class PetList extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-
     }
 
 }

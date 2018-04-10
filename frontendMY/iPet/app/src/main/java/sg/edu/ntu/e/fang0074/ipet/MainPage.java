@@ -11,7 +11,6 @@ public class MainPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //Intent startIntent = new Intent(getApplicationContext(), LogIn.class);
         //startActivity(startIntent);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);

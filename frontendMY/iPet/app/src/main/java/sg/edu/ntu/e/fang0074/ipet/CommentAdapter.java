@@ -44,7 +44,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.HolderVi
     }
 
     class HolderView extends RecyclerView.ViewHolder{
-
         TextView v_name;
         TextView v_comment;
         TextView v_rating;
@@ -52,7 +51,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.HolderVi
 
         HolderView(View itemView) {
             super(itemView);
-
             v_comment = (TextView)itemView.findViewById(R.id.comment_content);
             v_name = (TextView)itemView.findViewById(R.id.comment_user_name);
             v_date = (TextView) itemView.findViewById(R.id.single_comment_date);

@@ -11,10 +11,8 @@ public class TipsDAO extends TipsDAOabs {
 	
 	public TipsDAO(Subject clinicRepDAO) {
 		super();
-		
 		this.clinicRepDAO = clinicRepDAO;
 		clinicRepDAO.register(this);
-		
 		//TODO: Load the tips list from database
 	}
 
@@ -41,9 +39,7 @@ public class TipsDAO extends TipsDAOabs {
 			}
 		}
 		return null;
-
 		//TODO: handle the case where no tip is found.
-		
 	}
 
 	@Override
@@ -53,13 +49,13 @@ public class TipsDAO extends TipsDAOabs {
 				alltips.remove(tip);		
 			}
 		}
-		
 	}
 	
 
 	@Override
-	void addTip(Tips tip) {
-		alltips.add(tip);
+	void addTip(String repName, String date, String content) {
+		Tips tip = new Tips(repName, date, content);
+	    alltips.add(tip);
 	}
 
 	@Override
@@ -70,27 +66,30 @@ public class TipsDAO extends TipsDAOabs {
 	// used when the name of the clinic representative is changed
 	@Override
 	void updateCurrTipRepName(String newname) {
-
 		//TODO: Notify databse
-		
 		currenttip.setRepName(newname);
-		
 	}
 
+	//won't be used
 	@Override
 	void udpateCurrTipDate(String newdate) {
-
 		//TODO: Notify databse
-		
+        for(Tips tip: alltips) {
+            if((tip.getRepName().equals(currenttip.getRepName()))&&(tip.getDate().equals(currenttip.getDate()))) {
+                tip.setDate(newdate);
+            }
+        }
 		currenttip.setDate(newdate);
-		
 	}
 
 	@Override
 	void updateCurrTipcontent(String newContent) {
-		
 		//TODO: notify database
-		
+        for(Tips tip: alltips) {
+            if((tip.getRepName().equals(currenttip.getRepName()))&&(tip.getDate().equals(currenttip.getDate()))) {
+                tip.setContent(newContent);
+            }
+        }
 		currenttip.setContent(newContent);
 	}
 
@@ -104,10 +103,8 @@ public class TipsDAO extends TipsDAOabs {
 				return;
 			}
 		}
-
 		//TODO: Handle the case where no tip is found
-		
-		
+
 	}
 
 }

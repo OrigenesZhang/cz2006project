@@ -31,7 +31,6 @@ public class SearchActivityAdapter extends RecyclerView.Adapter<SearchActivityAd
     @Override
     public HolderView onCreateViewHolder(ViewGroup parent, int viewType) {
         View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.customitem, parent, false);
-
         return new HolderView(layout);
     }
 
@@ -45,11 +44,11 @@ public class SearchActivityAdapter extends RecyclerView.Adapter<SearchActivityAd
         holder.itemView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                LogIn.clinicDAO.chooseClinic(cliniclist.get(position).getName());
                 Toast.makeText(context, cliniclist.get(position).getName(), Toast.LENGTH_LONG).show();
                 Intent startIntent = new Intent(context, ClinicIntro.class);
                 //putExtra: clinic name
                 context.startActivity(startIntent);
-
             }
         });
     }
@@ -66,7 +65,6 @@ public class SearchActivityAdapter extends RecyclerView.Adapter<SearchActivityAd
     }
 
     class HolderView extends RecyclerView.ViewHolder{
-
         ImageView v_image;
         TextView v_name;
         TextView v_phone;
@@ -74,7 +72,6 @@ public class SearchActivityAdapter extends RecyclerView.Adapter<SearchActivityAd
 
         HolderView(View itemView) {
             super(itemView);
-
             v_image = (ImageView)itemView.findViewById(R.id.clinic_image);
             v_name = (TextView)itemView.findViewById(R.id.clinic_title);
             v_phone = (TextView) itemView.findViewById(R.id.clinic_phone);

@@ -1,12 +1,14 @@
 package sg.edu.ntu.e.fang0074.ipet.controlclasses;
 
+import sg.edu.ntu.e.fang0074.ipet.LogIn;
+
 public class LoginController {
 	static Roles role;
 	private Subject clinicDAO;
 	
 	public LoginController(Subject clinicDAO) {
 		this.clinicDAO = clinicDAO;
-	} // pass in userDAO as well?
+	}
 
 	// Check the username and the password
     // Check user existence before verifying username and password
@@ -18,7 +20,7 @@ public class LoginController {
 			}
 		}
 		
-		role = new ClinicRepDAO(clinicDAO);
+		role = LogIn.repDAO;
 		if(role.checkexist(usernameInput)) {
 			if(role.verify(usernameInput, pwd)) {
 				return true;

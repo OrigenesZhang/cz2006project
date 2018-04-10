@@ -10,10 +10,8 @@ public class ClinicRepDAO extends ClinicRepDAOabs{
 	
 	public ClinicRepDAO(Subject clinicDAO) {
 		super();
-		
 		this.clinicDAO = clinicDAO;
 		clinicDAO.register(this);
-		
 		//TODO: Load into allreps: all the clinic reps from the database
 	}
 	
@@ -21,7 +19,6 @@ public class ClinicRepDAO extends ClinicRepDAOabs{
 	@Override
 	void updateClinicInfo() {
 		int prevID = ClinicDAO.currentClinic.getPrevId();
-		
 		if(currentRep.getClinicID() == prevID) {
 			currentRep.setClinicID(ClinicDAO.currentClinic.getClinicID());
 		}	
@@ -34,64 +31,80 @@ public class ClinicRepDAO extends ClinicRepDAOabs{
 
 	@Override
 	void getNewRep(String repname) {
-		ClinicRep newRep = null; //TODO: get the new rep from the database based on the repname given
-		currentRep.setRepName(repname);
-		currentRep.setPrevName(newRep.getPrevName());
-		currentRep.setRepPassword(newRep.getRepPassword());
-		currentRep.setRepPhone(newRep.getRepPhone());
-		currentRep.setClinicID(newRep.getClinicID());
-		
+		ClinicRep newRep; //TODO: get the new rep from the database based on the repname given
+        for(ClinicRep rep: allreps){
+            if(rep.getRepName().equals(repname)){
+                currentRep.setRepName(repname);
+                currentRep.setPrevName(rep.getPrevName());
+                currentRep.setRepPassword(rep.getRepPassword());
+                currentRep.setRepPhone(rep.getRepPhone());
+                currentRep.setClinicID(rep.getClinicID());
+            }
+        }
+        return;
+
 	    //TODO: handle the case where a rep is not found.
 	}
 
+	/*
 	@Override
 	void updateRep(ClinicRep updateRep) {
-		
 		currentRep.setRepName(updateRep.getRepName());
 		currentRep.setPrevName(updateRep.getPrevName());
 		currentRep.setRepPassword(updateRep.getRepPassword());
 		currentRep.setRepPhone(updateRep.getRepPhone());
 		currentRep.setClinicID(updateRep.getClinicID());
-	}
+	}*/
 
 	@Override
 	void updateCurrentRepName(String newname) {
-
 		//TODO: notify the database
-
+        for(ClinicRep rep: allreps){
+            if(rep.getRepName().equals(currentRep.getRepName())){
+                rep.setPrevName(rep.getRepName());
+                rep.setRepName(newname);
+            }
+        }
 		currentRep.setPrevName(currentRep.getRepName());
 		currentRep.setRepName(newname);
 		notifyAllObservers();
 	}
 
+	// Do not notify observers since they should not access the password
 	@Override
 	void updateCurrentRepPwd(String newpwd) {
-
 		//TODO: notify the database
-		
+        for(ClinicRep rep: allreps){
+            if(rep.getRepName().equals(currentRep.getRepName())){
+                rep.setRepPassword(newpwd);
+            }
+        }
 		currentRep.setRepPassword(newpwd);
-		notifyAllObservers();
-		
 	}
 
 	@Override
 	void updateCurrentRepPhone(String newphone) {
-
 		//TODO: notify the database
-		
+        for(ClinicRep rep: allreps){
+            if(rep.getRepName().equals(currentRep.getRepName())){
+                rep.setRepPhone(newphone);
+            }
+        }
 		currentRep.setRepPhone(newphone);
 		notifyAllObservers();
-		
 	}
 
+	/*There is no need to update the observers on this change*/
 	@Override
 	void updateCurrentRepClinicID(int newid) {
-
 		//TODO: notify the database
-		
+        for(ClinicRep rep: allreps){
+            if(rep.getRepName().equals(currentRep.getRepName())){
+                rep.setClinicID(newid);
+            }
+        }
 		currentRep.setClinicID(newid);
 		notifyAllObservers();
-		
 	}
 
 
@@ -104,28 +117,24 @@ public class ClinicRepDAO extends ClinicRepDAOabs{
 	@Override
 	public void addRep(String repName, String prevName, String password, String phone, int clinicid) {
 		ClinicRep rep = new ClinicRep(repName, prevName, password, phone, clinicid);
+        //TODO: notify the database
 		allreps.add(rep);
-		//TODO: notify the database
 	}
 
 
 	@Override
 	void deleteRep(String repname) {
-
 		//TODO: notify the database
-		
 		for(ClinicRep rep : allreps) {
 			if(rep.getRepName().equals(repname)) {
 				allreps.remove(rep);
 				return;
 			}
 		}
-		/*Handle unfound rep*/
-		
+		//TODO: Handle unfound rep
 	}
 	
 	public boolean verify(String name, String pwd) {
-
 		// if repname exists, verify password
 		this.getNewRep(name);
 		if(pwd.equals(currentRep.getRepPassword())) {
@@ -143,7 +152,5 @@ public class ClinicRepDAO extends ClinicRepDAOabs{
 		}		
 		return false;
 	}
-
-
 
 }

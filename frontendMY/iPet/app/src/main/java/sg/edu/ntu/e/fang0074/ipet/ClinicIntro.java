@@ -55,6 +55,7 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
         // Zoom Controls
         zoom = (ZoomControls)findViewById(R.id.zcZoom);
         zoom.setOnZoomOutClickListener(new View.OnClickListener() {
@@ -78,14 +79,13 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
         mapClnicRating = (TextView) findViewById(R.id.map_clinic_rating);
 
         createCommentList();
-
         listshowrcy = (RecyclerView)findViewById(R.id.comment_list);
         listshowrcy.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         listshowrcy.setLayoutManager(linearLayoutManager);
         adapter = new CommentAdapter(commentList,ClinicIntro.this);
-
         listshowrcy.setAdapter(adapter);
+
 
         // direct to the rating page
         Button ratingBtn = (Button) findViewById(R.id.rating_btn);
@@ -111,17 +111,9 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        //LatLng sydney = new LatLng(-34, 151);
-        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-
         GeoDataClient myGeoDataClient = Places.getGeoDataClient(this, null);
 
-
-        myGeoDataClient.getPlaceById("ChIJa0VT3f0Z2jERB36JatD_MFM").addOnCompleteListener(new OnCompleteListener<PlaceBufferResponse>() {
+        myGeoDataClient.getPlaceById(LogIn.clinicDAO.currentClinic.getLocationID()).addOnCompleteListener(new OnCompleteListener<PlaceBufferResponse>() {
             @Override
             public void onComplete(@NonNull Task<PlaceBufferResponse> task) {
                 if (task.isSuccessful()) {
@@ -129,11 +121,9 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
                     Place myPlace = places.get(0);
 
                     mMap.addMarker(new MarkerOptions().position(myPlace.getLatLng()).title("Marker in Target Clinic"));
-
                     mapClinicName.setText(myPlace.getName());
                     mapClinicAddress.setText(myPlace.getAddress());
                     mapClinicTel.setText(myPlace.getPhoneNumber());
-
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPlace.getLatLng(), 14.0f));
                     places.release(); //IMPORTANT!! MUST FREE THE BUFFER
 

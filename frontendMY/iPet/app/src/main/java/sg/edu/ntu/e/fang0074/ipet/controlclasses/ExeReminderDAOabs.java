@@ -6,6 +6,7 @@ public abstract class ExeReminderDAOabs implements Observer{
 	
 	public void update() {
 		this.updateUserInfo();
+		this.updateCurrRPetname();
 	}
 	
 	abstract void updateUserInfo();
@@ -18,7 +19,7 @@ public abstract class ExeReminderDAOabs implements Observer{
 	
 	// Updatexxx() will modify the database
 	abstract void updateCurrRindex(int n); 
-	abstract void updateCurrRPetname(String petname);
+	abstract void updateCurrRPetname();
 	abstract void updateCurrRActivity(String newact);
 	abstract void updateCurrRStartDate(String newDate);
 	abstract void updateCurrRStartTime(String newTime);

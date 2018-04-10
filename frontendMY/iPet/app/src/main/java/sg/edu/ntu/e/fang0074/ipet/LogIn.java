@@ -28,6 +28,7 @@ import sg.edu.ntu.e.fang0074.ipet.controlclasses.MedReminderDAO;
 import sg.edu.ntu.e.fang0074.ipet.controlclasses.PetDAO;
 import sg.edu.ntu.e.fang0074.ipet.controlclasses.PromotionDAO;
 import sg.edu.ntu.e.fang0074.ipet.controlclasses.RateDAO;
+import sg.edu.ntu.e.fang0074.ipet.controlclasses.TempDB;
 import sg.edu.ntu.e.fang0074.ipet.controlclasses.TipsDAO;
 import sg.edu.ntu.e.fang0074.ipet.controlclasses.UserDAO;
 
@@ -35,21 +36,22 @@ public class LogIn extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     /* Initialize all control classes */
-    static UserDAO userDAO = new UserDAO();
-    static ClinicDAO clinicDAO = new ClinicDAO();
+    public static UserDAO userDAO = new UserDAO();
+    public static ClinicDAO clinicDAO = new ClinicDAO();
 
     // Subscriptions
-    static PetDAO petDAO = new PetDAO(userDAO);
-    static MedReminderDAO medRDAO = new MedReminderDAO(userDAO);
-    static HygReminderDAO hygRDAO = new HygReminderDAO(userDAO);
-    static ExeReminderDAO exeRDAO = new ExeReminderDAO(userDAO);
-    static RateDAO rateDAO = new RateDAO(userDAO, clinicDAO);
+    public static PetDAO petDAO = new PetDAO(userDAO);
+    public static MedReminderDAO medRDAO = new MedReminderDAO(userDAO);
+    public static HygReminderDAO hygRDAO = new HygReminderDAO(userDAO);
+    public static ExeReminderDAO exeRDAO = new ExeReminderDAO(userDAO);
+    public static RateDAO rateDAO = new RateDAO(userDAO, clinicDAO);
+    public static ClinicRepDAO repDAO = new ClinicRepDAO(clinicDAO);
+    public static PromotionDAO promoDAO = new PromotionDAO(clinicDAO);
+    public static TipsDAO tipsDAO = new TipsDAO(clinicDAO);
 
-    static ClinicRepDAO repDAO = new ClinicRepDAO(clinicDAO);
-    static PromotionDAO promoDAO = new PromotionDAO(clinicDAO);
-    static TipsDAO tipsDAO = new TipsDAO(clinicDAO);
+    TempDB tempdb = new TempDB(userDAO, petDAO, clinicDAO,repDAO, medRDAO, hygRDAO, exeRDAO, rateDAO, promoDAO, tipsDAO);
 
-    static LoginController logincontroller = new LoginController(clinicDAO);
+    public static LoginController logincontroller = new LoginController(clinicDAO);
 
     /* Initialize all control classes */
     @Override
@@ -59,11 +61,9 @@ public class LogIn extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
+        tempdb.initDB();
         /* test temp *////////////////////////////////////////////////////////////////////
-        userDAO.addUser("Meiyi", "12345", "12345678");
-
+        //userDAO.addUser("Meiyi", "12345", "12345678");
         /* test temp *////////////////////////////////////////////////////////////////////
 
 
@@ -81,7 +81,6 @@ public class LogIn extends AppCompatActivity
             }
         });
 
-
         // set select action for the navigation view
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -93,17 +92,15 @@ public class LogIn extends AppCompatActivity
             public void onClick(View view) {
                 EditText username = (EditText)findViewById(R.id.username);
                 EditText password = (EditText)findViewById(R.id.password);
-
                 boolean verify = false;
                 String user = username.getText().toString();
                 String pwd = password.getText().toString();
                 System.out.println(user);
                 System.out.println(pwd);
+
                 if(logincontroller.verify(user, pwd)){
                     verify = true;
                 }
-                System.out.println(verify);
-
                 // Ensure that all the fields are filled in and the credentials keyed in are valid
                 if(TextUtils.isEmpty(user)||(TextUtils.isEmpty(pwd))){
                     Toast tst = Toast.makeText(LogIn.this,"Login fields must be filled",Toast.LENGTH_SHORT);
@@ -118,6 +115,7 @@ public class LogIn extends AppCompatActivity
             }
         });
 
+
         // direct to signup page
         TextView signUp = (TextView) findViewById(R.id.signup_link);
         signUp.setOnClickListener(new View.OnClickListener() {
@@ -128,8 +126,8 @@ public class LogIn extends AppCompatActivity
                 startActivity(startIntent);
             }
         });
-
     }
+
 
     // Menu drawer actions
     @Override
@@ -160,7 +158,6 @@ public class LogIn extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -189,6 +186,5 @@ public class LogIn extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-
     }
 }

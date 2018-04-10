@@ -15,7 +15,6 @@ public abstract class ClinicRepDAOabs implements Subject, Observer, Roles{
 	}
 
 	public void unregister(Observer deleteObserver) {
-		
         // Get the index of the observer to delete
         int observerIndex = observers.indexOf(deleteObserver);
         // Print out message (Have to increment index to match)
@@ -35,7 +34,6 @@ public abstract class ClinicRepDAOabs implements Subject, Observer, Roles{
 	public void update() {
 		this.updateClinicInfo();
 	}
-	
 	public String getRoleName() {
 		return "ClinicRep";
 	}
@@ -43,7 +41,7 @@ public abstract class ClinicRepDAOabs implements Subject, Observer, Roles{
 	abstract void updateClinicInfo(); // clinic info used is clinic id only
 	abstract ClinicRep getCurrentRep();
 	abstract void getNewRep(String repname);
-	abstract void updateRep(ClinicRep updateRep);
+	//abstract void updateRep(ClinicRep updateRep);
 	abstract void updateCurrentRepName(String newname);
 	abstract void updateCurrentRepPwd(String newpwd);
 	abstract void updateCurrentRepPhone(String newphone);

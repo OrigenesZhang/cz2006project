@@ -15,7 +15,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp">
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/cus_pet_name"
@@ -24,8 +24,7 @@
 
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="10dp"
             android:paddingTop="0dp"
             android:text="User Name"
             android:textAppearance="?android:textAppearanceSmall"

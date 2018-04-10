@@ -35,7 +35,7 @@ public abstract class UserDAOabs implements Subject, Roles{
 	
 	abstract User getCurrentUser();
 	abstract void getNewUser(String username);
-	abstract void updateUser(User updateUser);
+	//abstract void updateUser(User updateUser);
 	
 	
 	/*add admin priviledge as well */

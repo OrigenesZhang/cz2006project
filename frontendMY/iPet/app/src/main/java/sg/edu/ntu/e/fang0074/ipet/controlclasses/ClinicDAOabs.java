@@ -32,7 +32,7 @@ public abstract class ClinicDAOabs implements Subject{
 	abstract ArrayList<Clinic> getAllClinics();
 	abstract Clinic getAClinic(int clinicid);
 	abstract Clinic getCurrentClinic();
-	abstract void chooseClinic(int clinicid);
+	abstract void chooseClinic(String clinicname);
 	abstract void updateCurrClinicId(int n);
 	abstract void updateCurrClinicName(String newname);
 	abstract void updateCurrClinicLocId(String newid);

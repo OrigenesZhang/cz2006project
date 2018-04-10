@@ -23,15 +23,14 @@ public class EditPetProfile extends AppCompatActivity {
         // Set the static owner info on the pet profile page
         TextView ownername = (TextView)findViewById(R.id.edit_profile_owner);
         TextView ownerphone = (TextView)findViewById(R.id.edit_profile_owner_tel);
-        ownername.setText("Owner:  " + LogIn.userDAO.getCurrUserName());
-        ownerphone.setText("Owner Tel:  " + LogIn.userDAO.getCurrUserPhone());
+        ownername.setText("Owner:  " + LogIn.userDAO.currentUser.getUserName());
+        ownerphone.setText("Owner Tel:  " + LogIn.userDAO.currentUser.getPhone());
 
         // Edit and update the pet profile
         Button saveEdit = (Button) findViewById(R.id.saveEdit);
         saveEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 EditText editName = (EditText)findViewById(R.id.editName);
                 EditText editBreed = (EditText) findViewById(R.id.editBreed);
                 EditText editLocation = (EditText) findViewById(R.id.editLocation);
@@ -41,19 +40,14 @@ public class EditPetProfile extends AppCompatActivity {
 
                 String newname = editName.getText().toString();
                 petdao.updateCurrPetName(newname);
-
                 String newbreed = editBreed.getText().toString();
                 petdao.updateCurrPetBreed(newbreed);
-
                 String newlocation = editLocation.getText().toString();
                 petdao.updateCurrPetLocation(newlocation);
-
                 String newage = editAge.getText().toString();
                 petdao.updateCurrPetAge(newage);
-
                 String newweight = editWeight.getText().toString();
                 petdao.updateCurrPetWeight(newweight);
-
                 String newgender = editGender.getText().toString();
                 petdao.updateCurrPetGender(newgender);
 
@@ -62,12 +56,12 @@ public class EditPetProfile extends AppCompatActivity {
             }
         });
 
+
         // Set the textboxes to empty once the editting is cancelled
         Button cancelEdit = (Button)findViewById(R.id.cancelEdit);
         cancelEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 EditText editName = (EditText)findViewById(R.id.editName);
                 EditText editBreed = (EditText) findViewById(R.id.editBreed);
                 EditText editLocation = (EditText) findViewById(R.id.editLocation);
@@ -84,7 +78,6 @@ public class EditPetProfile extends AppCompatActivity {
             }
 
         });
-
     }
 
 }
