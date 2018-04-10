@@ -96,6 +96,7 @@ def list_posts(type):
 		cur = [event.pk]
 		cur.append(event.user.name)
 		cur.append(event.title)
+		cur.append(event.title)
 		cur.append(event.abstract)
 		cur.append(event.time)
 		ret.append(cur)

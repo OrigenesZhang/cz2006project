@@ -42,6 +42,8 @@ class SingleReminder(models.Model):
 class Clinic(models.Model):
 	name = models.CharField(max_length = 128, unique = True)
 	geo_hash = models.CharField(max_length = 32, unique = True, default = "")
+	sum = models.FloatField(default = 0)
+	cnt = models.IntegerField(default = 0)
 
 
 class ClinicRep(models.Model):

@@ -1,6 +1,6 @@
 from .models import User, Pet
 from django.core.exceptions import ObjectDoesNotExist
-from datetime import datetime
+from datetime import date
 
 
 '''
@@ -60,8 +60,8 @@ def insert_pet(name, owner_name, breed, gender = None, birthday = None, location
 
 	if birthday is not None:
 		try:
-			assert isinstance(type(birthday), type(datetime.today()))
-		except AssertionError:
+			date.today() - birthday
+		except TypeError:
 			raise ValueError("Pls input a valid birthday or leave it blank")
 
 	if location is not None:
@@ -134,7 +134,7 @@ The functions is used to calculate a pet's age given the birthday.
 If the birthday is None, a FileNotFoundError would be raised.
 If the birthday does not belong to datetime.datetime.date type, a TypeError would be raised.
 
-The function returns a tuple of the year, the month and the day of the age respectively.
+The function returns a tuple of the year and the month the age respectively.
 '''
 
 
@@ -142,12 +142,15 @@ def get_pet_age(birthday):
 	if birthday is None:
 		raise FileNotFoundError("The birthday is not given")
 
-	if not isinstance(type(birthday), type(datetime.today())):
+	try:
+		age = date.today() - birthday
+	except TypeError:
 		raise TypeError("Pls input a valid birthday")
 
-	age = datetime.today() - birthday
+	years = age.days // 365
+	months = age.days // 30 - years * 12
 
-	return age.year, age.month, age.day
+	return years, months
 
 
 '''
