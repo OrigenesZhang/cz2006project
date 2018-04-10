@@ -21,11 +21,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainPage" />
+        <activity
+            android:name=".MainPage"
+            android:parentActivityName=".LogIn">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LogIn" />
+        </activity>
         <activity
             android:name=".LogIn"
             android:label="iPet"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,16 +42,38 @@
         <activity
             android:name=".SearchPage"
             android:label="@string/title_activity_search_page"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainPage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPage" />
+        </activity>
         <activity
             android:name=".PetList"
             android:label="@string/title_activity_pet_list"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainPage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPage" />
+        </activity>
         <activity
             android:name=".Profile"
             android:label="@string/title_activity_profile"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".EditPetProfile" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".PetList">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".PetList" />
+        </activity>
+        <activity
+            android:name=".EditPetProfile"
+            android:parentActivityName=".Profile"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Profile" />
+        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -62,12 +91,38 @@
 
         <activity
             android:name=".ClinicIntro"
-            android:label="@string/title_activity_clinic_intro" />
+            android:label="@string/title_activity_clinic_intro"
+            android:parentActivityName=".SearchPage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SearchPage" />
+        </activity>
         <activity
             android:name=".SignUp"
             android:label="@string/title_activity_sign_up"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RateComment" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".LogIn">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LogIn" />
+        </activity>
+        <activity
+            android:name=".RateComment"
+            android:parentActivityName=".ClinicIntro"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ClinicIntro" />
+        </activity>
+        <activity
+            android:name=".ContactUs"
+            android:label="@string/title_activity_contact_us"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainPage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPage" />
+        </activity>
     </application>
 
 </manifest>

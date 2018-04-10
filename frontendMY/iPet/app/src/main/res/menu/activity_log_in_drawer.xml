@@ -5,7 +5,11 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_profile"
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_orange_24dp"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_petlist"
             android:icon="@drawable/ic_pets_black_24dp"
             android:title="Profile" />
         <item
@@ -28,10 +32,6 @@
             android:id="@+id/nav_contacts"
             android:icon="@drawable/ic_local_phone_black_24dp"
             android:title="Contact Us" />
-        <item
-            android:id="@+id/nav_help"
-            android:icon="@drawable/ic_help_outline_black_24dp"
-            android:title="Help" />
 
     </group>
 

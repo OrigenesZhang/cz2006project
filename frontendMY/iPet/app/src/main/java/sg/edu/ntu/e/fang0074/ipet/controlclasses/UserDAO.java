@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class UserDAO extends UserDAOabs {
 	
-	public static User currentUser = new User("test", "test", "11111111", null) ;
+	public static User currentUser = new User("AUser", "test", "11111111", "") ;
 	public static ArrayList<User> allusers = new ArrayList<User>();
 	
 	public UserDAO() {
@@ -78,6 +78,7 @@ public class UserDAO extends UserDAOabs {
         //TODO: Notify database
         User newuser = new User(username, pwd, phone, "");
         allusers.add(newuser);
+        //cont("--add_user", username, pwd, phone);
 	}
 
 	@Override

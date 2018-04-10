@@ -1,6 +1,7 @@
 package sg.edu.ntu.e.fang0074.ipet;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -27,6 +28,10 @@ public class Profile extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        // fix the orientation of the screen
+        int orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        setRequestedOrientation(orientation);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,10 +114,13 @@ public class Profile extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_profile) {
+        if (id == R.id.nav_petlist) {
             Intent startIntent = new Intent(getApplicationContext(), PetList.class);
             startActivity(startIntent);
-        } else if (id == R.id.nav_clinic) {
+        } else if (id == R.id.nav_home) {
+            Intent startIntent = new Intent(getApplicationContext(), MainPage.class);
+            startActivity(startIntent);
+        }else if (id == R.id.nav_clinic) {
             Intent startIntent = new Intent(getApplicationContext(), SearchPage.class);
             startActivity(startIntent);
         } else if (id == R.id.nav_reminder) {
@@ -122,10 +130,10 @@ public class Profile extends AppCompatActivity
         } else if (id == R.id.nav_tips) {
 
         } else if (id == R.id.nav_contacts) {
-
-        } else if (id == R.id.nav_help) {
-
+            Intent startIntent = new Intent(getApplicationContext(), ContactUs.class);
+            startActivity(startIntent);
         }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

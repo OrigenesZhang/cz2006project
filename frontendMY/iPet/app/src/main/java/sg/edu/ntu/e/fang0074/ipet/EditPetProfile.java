@@ -1,6 +1,7 @@
 package sg.edu.ntu.e.fang0074.ipet;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,9 +17,12 @@ public class EditPetProfile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
+        setContentView(R.layout.activity_edit_pet_profile);
 
         final PetDAO petdao = LogIn.petDAO;
+        // fix the orientation of the screen
+        int orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        setRequestedOrientation(orientation);
 
         // Set the static owner info on the pet profile page
         TextView ownername = (TextView)findViewById(R.id.edit_profile_owner);
