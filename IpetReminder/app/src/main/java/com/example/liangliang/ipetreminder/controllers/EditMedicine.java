@@ -28,7 +28,6 @@ import com.example.liangliang.ipetreminder.models.DataBase;
 import com.example.liangliang.ipetreminder.R;
 import com.example.liangliang.ipetreminder.models.Frequency;
 import com.example.liangliang.ipetreminder.models.MedicineReminder;
-import com.example.liangliang.ipetreminder.models.ReminderFactory;
 
 import java.time.LocalTime;
 import java.util.Calendar;
@@ -54,6 +53,7 @@ public class EditMedicine extends AppCompatActivity{
 
     MedicineReminder medicine;
     int position;
+    int index;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,21 +74,23 @@ public class EditMedicine extends AppCompatActivity{
         Intent intent = getIntent();
         position = intent.getIntExtra("Position", -1);
 
+
+        // If is to edit a reminder
         if (position == -1) {
-            medicine = (MedicineReminder) ReminderFactory.getReminder("medicine");
+            medicine = MedicineReminder.getInstance();
 
         } else {
             medicine = DataBase.medicineItems.get(position);
+            mMedicineName.setText(medicine.getName());
+            mDosage.setText(Integer.toString(medicine.getFreqNum()));
+            mStartDate.setText(medicine.getStartDate());
+            mEndDate.setText(medicine.getEndDate());
+            time.setText(medicine.getTime());
+            freqSpinner.setSelection(medicine.getFrequencyInex());
 
+            if (medicine.getNote() != null)
+                note.setText(medicine.getNote());
         }
-
-        mMedicineName.setText(medicine.getName());
-        mDosage.setText(Integer.toString(medicine.getFreqNum()));
-        mStartDate.setText(medicine.getStartDate());
-        mEndDate.setText(medicine.getEndDate());
-        time.setText(medicine.getTime());
-        freqSpinner.setSelection(medicine.getFrequencyInex());
-        note.setText(medicine.getNote());
 
         mMedicineName.addTextChangedListener(new TextWatcher () {
 

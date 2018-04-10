@@ -19,8 +19,12 @@ public abstract class Reminder implements Serializable {
         this.name = name;
         this.freqNum = freqNum;
         this.frequency = frequency;
+<<<<<<< HEAD
         this.note = "Note";
         this.updateNextDate = update;
+=======
+        this.note = null;
+>>>>>>> parent of 36fd795... edit
     }
 
     public String getName() {

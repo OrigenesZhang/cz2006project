@@ -15,11 +15,21 @@ public class HygieneReminder extends Reminder {
         super(name, freqNum, frequency, update);
     }
 
+<<<<<<< HEAD
     @Override
     public GregorianCalendar getNextDate() {
         this.nextDate = updateNextDate.update(nextDate, null,
                 null,  freqNum, frequency);
         return nextDate;
+=======
+    public static HygieneReminder getInctance() {
+        return new HygieneReminder(null, 0, null, null);
+    }
+
+    public String getNextDate() {
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        return (sdf.format(nextDate.getTime()));
+>>>>>>> parent of 36fd795... edit
     }
 
     public void setNextDate(GregorianCalendar startDate) {

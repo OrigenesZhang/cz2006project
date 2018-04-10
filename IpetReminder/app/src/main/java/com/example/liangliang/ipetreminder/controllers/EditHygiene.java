@@ -24,7 +24,6 @@ import com.example.liangliang.ipetreminder.models.DataBase;
 import com.example.liangliang.ipetreminder.R;
 import com.example.liangliang.ipetreminder.models.Frequency;
 import com.example.liangliang.ipetreminder.models.HygieneReminder;
-import com.example.liangliang.ipetreminder.models.ReminderFactory;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -42,6 +41,7 @@ public class EditHygiene extends AppCompatActivity {
 
     HygieneReminder hygiene;
     int position;
+    int index;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -64,18 +64,27 @@ public class EditHygiene extends AppCompatActivity {
         position = intent.getIntExtra("Position", -1);
 
         // display model
-        if (position == -1) {
-            hygiene = (HygieneReminder) ReminderFactory.getReminder("hygiene");
-        } else {
+        if (position != -1) {
             hygiene = DataBase.hygieneItems.get(position);
-        }
+            mHygieneName.setText(hygiene.getName());
+            mFreqNum.setText(Integer.toString(hygiene.getFreqNum()));
+            mNextDate.setText(hygiene.getNextDate());
+            freqSpinner.setSelection(hygiene.getFrequencyInex());
 
+<<<<<<< HEAD
         mHygieneName.setText(hygiene.getName());
         mFreqNum.setText(Integer.toString(hygiene.getFreqNum()));
         mNextDate.setText(hygiene.getNextDateString());
         freqSpinner.setSelection(hygiene.getFrequencyInex());
+=======
+            if (hygiene.getNote() != null)
+                mNote.setText(hygiene.getNote());
+>>>>>>> parent of 36fd795... edit
 
-        mNote.setText(hygiene.getNote());
+        } else {
+            hygiene = HygieneReminder.getInctance();
+            index = DataBase.hygieneItems.indexOf(hygiene);
+        }
 
         // Edit hygiene name
         mHygieneName.addTextChangedListener(new TextWatcher() {
@@ -171,7 +180,7 @@ public class EditHygiene extends AppCompatActivity {
                     if (position == -1) {
                         DataBase.hygieneItems.add(hygiene);
                     } else {
-                        DataBase.hygieneItems.set(position, hygiene);
+                        DataBase.hygieneItems.set(index, hygiene);
                     }
                     startActivity(i);
                 }
@@ -188,7 +197,7 @@ public class EditHygiene extends AppCompatActivity {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        DataBase.hygieneItems.remove(position);
+                        DataBase.hygieneItems.remove(index);
                         Intent i = new Intent(EditHygiene.this, RemindersMainTab.class);
                         i.putExtra("Page", 1);
                         startActivity(i);

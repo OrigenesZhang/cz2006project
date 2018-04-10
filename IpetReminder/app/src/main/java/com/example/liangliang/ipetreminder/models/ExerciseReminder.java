@@ -23,6 +23,10 @@ public class ExerciseReminder extends Reminder {
 
     public String getTime() { return this.time.toString();}
 
+    public static ExerciseReminder getInstance() {
+        return new ExerciseReminder(null, 0, null, null, null);
+    }
+
     public void setTime(LocalTime time) {
         this.time = time;
     }
