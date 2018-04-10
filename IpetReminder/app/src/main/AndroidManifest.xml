@@ -13,7 +13,13 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".controllers.Profile"
-            android:label="Reminders"></activity>
+            android:label="Reminders">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".controllers.EditMedicine"
             android:label="Medicine"
@@ -26,11 +32,7 @@
             android:name=".controllers.RemindersMainTab"
             android:label="@string/title_activity_reminders_main_tab"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".controllers.EditHygiene"
