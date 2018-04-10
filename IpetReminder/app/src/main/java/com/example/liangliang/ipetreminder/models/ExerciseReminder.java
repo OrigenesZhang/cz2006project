@@ -8,7 +8,7 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 /**
- * Created by caoliu on 19/3/18.
+ * a exercise reminder
  */
 
 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -69,5 +69,11 @@ public class ExerciseReminder extends Reminder {
 
         nextDate.set(Calendar.HOUR_OF_DAY, time.getHour());
         nextDate.set(Calendar.MINUTE, time.getHour());
+    }
+
+    @Override
+    public GregorianCalendar getNextDate() {
+        updateNextDate();
+        return nextDate;
     }
 }

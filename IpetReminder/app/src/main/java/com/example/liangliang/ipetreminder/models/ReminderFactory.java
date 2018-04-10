@@ -8,11 +8,22 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
- * Created by caoliu on 9/4/18.
+ * ReminderFactory class implements factory method pattern. ReminderFactory
+ * defines a object creation method for creating Reminder instance
  */
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class ReminderFactory {
+    /**
+     * A object creation function which uses to create subclasses of Reminder
+     * all the date field will be set to today's date and all the time field will
+     * be set to current time
+     *
+     * @param reminderType a string which indicates the type of Reminder to create
+     *                     the value can be "medicine", "hygiene" or "exercise".
+     *                     by default it returns null object.
+     * @return a Reminder Object.
+     */
     public static Reminder getReminder(String reminderType) {
         if (reminderType == null) return null;
 
@@ -35,7 +46,6 @@ public class ReminderFactory {
             case "exercise":
                 return new ExerciseReminder("Exercise Name", freqNum, frequency, time, today);
         }
-
         return null;
     }
 }

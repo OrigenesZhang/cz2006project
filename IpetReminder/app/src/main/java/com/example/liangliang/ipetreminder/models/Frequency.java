@@ -1,7 +1,7 @@
 package com.example.liangliang.ipetreminder.models;
 
 /**
- * Created by caoliu on 7/4/18.
+ * A enumerator of frequency
  */
 
 public enum Frequency {

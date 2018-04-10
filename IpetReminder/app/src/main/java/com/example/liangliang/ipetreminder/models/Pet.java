@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 /**
- * Created by caoliu on 19/3/18.
+ * A Pet class
  */
 
 public class Pet implements Serializable{

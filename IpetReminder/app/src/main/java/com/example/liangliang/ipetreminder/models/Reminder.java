@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 /**
- * A parent class of reminder objects
+ * A parent class of Reminder objects
  */
 public abstract class Reminder implements Serializable {
     protected String name;
@@ -23,10 +23,7 @@ public abstract class Reminder implements Serializable {
 
     protected abstract void updateNextDate();
 
-    public GregorianCalendar getNextDate() {
-        updateNextDate();
-        return nextDate;
-    };
+    public abstract GregorianCalendar getNextDate();
 
     public String getName() {
         return name;

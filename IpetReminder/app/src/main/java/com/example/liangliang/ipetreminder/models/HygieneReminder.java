@@ -5,9 +5,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
- * Created by caoliu on 7/4/18.
+ * A hygiene reminder
  */
-
 public class HygieneReminder extends Reminder {
 
     public HygieneReminder(String name, int freqNum, Frequency frequency,
@@ -54,5 +53,11 @@ public class HygieneReminder extends Reminder {
             default:
                 break;
         }
+    }
+
+    @Override
+    public GregorianCalendar getNextDate() {
+        updateNextDate();
+        return nextDate;
     }
 }

@@ -16,7 +16,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
- * Created by caoliu on 24/3/18.
+ * A mock DataBase object
  */
 
 @RequiresApi(api = Build.VERSION_CODES.O)

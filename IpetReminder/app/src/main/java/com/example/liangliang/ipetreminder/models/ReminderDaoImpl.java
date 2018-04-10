@@ -1,8 +1,12 @@
 package com.example.liangliang.ipetreminder.models;
 
 /**
- * Created by caoliu on 8/4/18.
+ * A implemention of ReminderDAO
  */
 
 public class ReminderDaoImpl {
+
+    public static Reminder createReminder(String type) {
+        return null;
+    }
 }

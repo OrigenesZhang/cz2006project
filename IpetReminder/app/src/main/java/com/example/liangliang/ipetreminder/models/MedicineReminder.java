@@ -8,11 +8,15 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.text.SimpleDateFormat;
 
+/**
+ * A medicine reminder
+ */
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class MedicineReminder extends Reminder {
     private LocalTime time;
     private GregorianCalendar startDate;
     private GregorianCalendar endDate;
+    private GregorianCalendar nextDate;
 
     public MedicineReminder(String name, LocalTime time,
                             GregorianCalendar startDate, GregorianCalendar endDate,
@@ -59,12 +63,13 @@ public class MedicineReminder extends Reminder {
         int year = today.get(Calendar.YEAR);
         int month = today.get(Calendar.MONTH);
         int day = today.get(Calendar.DAY_OF_MONTH);
-        GregorianCalendar nextDate = (GregorianCalendar)startDate.clone();
+
+        nextDate = (GregorianCalendar)startDate.clone();
         int increment;
         switch (frequency) {
             case DAY:
                 nextDate = new GregorianCalendar(year, month, day);
-
+                break;
             case WEEK:
                 increment = (int)(7 / (freqNum));
                 do {
@@ -86,5 +91,11 @@ public class MedicineReminder extends Reminder {
 
         nextDate.set(Calendar.HOUR_OF_DAY, time.getHour());
         nextDate.set(Calendar.MINUTE, time.getHour());
+    }
+
+    @Override
+    public GregorianCalendar getNextDate() {
+        updateNextDate();
+        return nextDate;
     }
 }
