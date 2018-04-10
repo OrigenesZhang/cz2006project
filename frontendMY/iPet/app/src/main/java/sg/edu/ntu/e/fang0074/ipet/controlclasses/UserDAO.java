@@ -12,7 +12,7 @@ public class UserDAO extends UserDAOabs {
 		//TODO: load the user database into the allusers list
 	}
 
-	@Override
+
 	User getCurrentUser() {	
 		return currentUser;
 	}

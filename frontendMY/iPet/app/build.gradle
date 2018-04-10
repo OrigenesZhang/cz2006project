@@ -31,6 +31,8 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.google.android.gms:play-services:11.8.0'
     implementation 'com.google.firebase:firebase-messaging:11.4.0'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     implementation 'com.google.android.gms:play-services-maps:11.8.0'
     testImplementation 'junit:junit:4.12'

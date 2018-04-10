@@ -55,7 +55,7 @@ public class EditPetProfile extends AppCompatActivity {
                 String newgender = editGender.getText().toString();
                 petdao.updateCurrPetGender(newgender);
 
-                Intent startIntent = new Intent(getApplicationContext(), Profile.class);
+                Intent startIntent = new Intent(getApplicationContext(), PetProfile.class);
                 startActivity(startIntent);
             }
         });

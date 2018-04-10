@@ -33,7 +33,7 @@ public abstract class UserDAOabs implements Subject, Roles{
 		return "PetOwner";
 	}
 	
-	abstract User getCurrentUser();
+	//abstract User getCurrentUser();
 	abstract void getNewUser(String username);
 	//abstract void updateUser(User updateUser);
 	

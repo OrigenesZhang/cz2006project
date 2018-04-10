@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/hygieneName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="20dp"
+        android:drawableLeft='@drawable/hair'
+        android:gravity="center_vertical"
+        android:drawablePadding="15dp"
+        android:text="Hygiene Name"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_marginTop="7dp"
+        android:id="@+id/nextDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="70dp"
+        android:drawableLeft="@drawable/icon_calendar"
+        android:drawablePadding="30dp"
+        android:text="2018-2-12"
+        android:textSize="18dp" />
+
+
+    <TextView
+        android:layout_marginTop="7dp"
+        android:id="@+id/frequency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="70dp"
+        android:drawableLeft="@drawable/icon_dosage"
+        android:drawablePadding="30dp"
+        android:text="3 times a month"
+        android:textSize="18dp" />
+
+</LinearLayout>

@@ -5,7 +5,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
     <string name="title_activity_search_page">Search vet clinic</string>
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_clinic_intro">Map</string>
@@ -13,5 +12,19 @@
     <string name="title_activity_sign_up">Sign Up</string>
     <string name="title_activity_pet_list">My Pets</string>
     <string name="title_activity_contact_us">Contact Us</string>
+
+    <string name="title_activity_reminders__tab">Reminders_Tab</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string-array name="frequency">
+        <item name="daily">Day</item>
+        <item name='weekly'>Week</item>
+        <item name='monthly'>Month</item>
+    </string-array>
+
+    <string name="title_activity_reminders_main_tab">RemindersMainTab</string>
 
 </resources>

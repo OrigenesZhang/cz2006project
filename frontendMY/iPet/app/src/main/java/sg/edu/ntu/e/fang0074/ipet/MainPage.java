@@ -8,6 +8,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 
 import sg.edu.ntu.e.fang0074.ipet.controlclasses.LoginController;
+import sg.edu.ntu.e.fang0074.ipet.controllers.Profile;
 
 public class MainPage extends AppCompatActivity {
 
@@ -22,15 +23,6 @@ public class MainPage extends AppCompatActivity {
         int orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         setRequestedOrientation(orientation);
 
-        /*
-        if(!LogIn.userDAO.currentUser.getUserName().equals("AUser")){
-            Toast tst = Toast.makeText(MainPage.this,"Logged in as pet owner.",Toast.LENGTH_SHORT);
-            tst.show();
-        }
-        else if(!LogIn.repDAO.currentRep.getRepName().equals("test")){
-            Toast tst = Toast.makeText(MainPage.this,"Logged in as clinic representative.",Toast.LENGTH_SHORT);
-            tst.show();
-        }*/
 
 
         CardView logInGrid = (CardView)findViewById(R.id.profileGrid);
@@ -51,6 +43,16 @@ public class MainPage extends AppCompatActivity {
             // Launch an activity within the app
             public void onClick(View view) {
                 Intent startIntent = new Intent(getApplicationContext(), SearchPage.class);
+                startActivity(startIntent);
+            }
+        });
+
+        CardView rmGrid = (CardView)findViewById(R.id.reminderGrid);
+        searchGrid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            // Launch an activity within the app
+            public void onClick(View view) {
+                Intent startIntent = new Intent(getApplicationContext(), Profile.class);
                 startActivity(startIntent);
             }
         });

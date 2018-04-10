@@ -33,11 +33,6 @@
             android:label="iPet"
             android:theme="@style/AppTheme.NoActionBar"
             >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".SearchPage"
@@ -58,7 +53,7 @@
                 android:value=".MainPage" />
         </activity>
         <activity
-            android:name=".Profile"
+            android:name=".PetProfile"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".PetList">
@@ -68,11 +63,11 @@
         </activity>
         <activity
             android:name=".EditPetProfile"
-            android:parentActivityName=".Profile"
+            android:parentActivityName=".PetProfile"
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Profile" />
+                android:value=".PetProfile" />
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -123,6 +118,35 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainPage" />
         </activity>
+
+        <activity
+            android:name=".controllers.Profile"
+            android:label="Reminders">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".controllers.EditMedicine"
+            android:label="Medicine"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".controllers.EditProfile"
+            android:label="EditReminders"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".controllers.RemindersMainTab"
+            android:label="@string/title_activity_reminders_main_tab"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".controllers.EditHygiene"
+            android:label="Hygiene"
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".controllers.EditExercise"></activity>
     </application>
 
 </manifest>

@@ -37,7 +37,7 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.HolderView> {
         holder.itemView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent startIntent = new Intent(context, Profile.class);
+                Intent startIntent = new Intent(context, PetProfile.class);
                 LogIn.petDAO.chooseCurrentPet(petlist.get(position).getName());
                 context.startActivity(startIntent);
             }
