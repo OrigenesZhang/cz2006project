@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public abstract class PetDAOabs implements Subject, Observer{
 	
 	static ArrayList<Observer> observers = new ArrayList<Observer>();
-	
+
+
 	public PetDAOabs() {
 		//init the list of observers
 	}
@@ -15,7 +16,6 @@ public abstract class PetDAOabs implements Subject, Observer{
 	}
 
 	public void unregister(Observer deleteObserver) {
-		
         // Get the index of the observer to delete
         int observerIndex = observers.indexOf(deleteObserver);
         // Print out message (Have to increment index to match)
@@ -41,16 +41,14 @@ public abstract class PetDAOabs implements Subject, Observer{
 	abstract Pet getCurrentPet();
 	
 	abstract void deletePet(String petName);
-	abstract void addPet(Pet newpet);
-	
+	abstract void addPet(String petName, String ownerName, String breed, String age, String location, String gender, String weight);
 	abstract void updateCurrPetName(String newPetName);
 	abstract void updateCurrPetBreed(String newBreed);
 	abstract void updateCurrPetAge(String newAge);
 	abstract void updateCurrPetLocation(String newLocation);
 	abstract void updateCurrPetGender(String newGender);
 	abstract void updateCurrPetWeight(String newWeight);
-	
-	
+
 	abstract void updateOwnerInfo();
 	
 }

@@ -9,7 +9,6 @@ public abstract class PromotionDAOabs implements Observer{
 	public void update() {
 		this.updateClinicRepInfo();
 	}
-	
 	abstract void updateClinicRepInfo();
 	
 	abstract ArrayList<Promotion> getallPromotion();
@@ -17,7 +16,7 @@ public abstract class PromotionDAOabs implements Observer{
 	
 	//admin priviledge
 	abstract void deletePromotion(String repName, String date);
-	abstract void addPromotion(Promotion prm);
+	abstract void addPromotion(String repName, String date, String content);
 	abstract Promotion getCurrentPromotion();
 	abstract void chooseCurrentPromotion(String repName, String date);
 	abstract void updateCurrPromoRepName(String newname);

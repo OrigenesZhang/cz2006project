@@ -5,11 +5,11 @@ public class Rating {
 	private int rateID;
 	private String username;
 	private int clinicID;
-	private float score;
+	private double score;
 	private String comment;
 	private String date; // subject to changes
 	
-	public Rating(int rateid, String username, int clinicID, float score, String comment, String date) {
+	public Rating(int rateid, String username, int clinicID, double score, String comment, String date) {
 		this.rateID = rateid;
 		this.username = username;
 		this.clinicID = clinicID;
@@ -42,11 +42,11 @@ public class Rating {
 		clinicID = newid;
 	}
 	
-	public float getScore() {
+	public double getScore() {
 		return score;
 	}
 	
-	public void setScore(float newscore) {
+	public void setScore(double newscore) {
 		score = newscore;
 	}
 	

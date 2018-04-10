@@ -21,13 +21,10 @@ public class ClinicItem {
     public String getName() {
         return name;
     }
-
     public String getPhone(){return phone;}
-
     public String getRating() {
         return rating;
     }
-
     public int getPhoto() {
         return photo;
     }

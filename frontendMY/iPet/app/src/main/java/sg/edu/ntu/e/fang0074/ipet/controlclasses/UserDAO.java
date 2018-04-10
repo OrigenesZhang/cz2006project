@@ -17,39 +17,38 @@ public class UserDAO extends UserDAOabs {
 		return currentUser;
 	}
 
-	/*Change attributes of the current user*/
-	@Override
-	void updateUser(User updateUser) {
 
-        //TODO: Update the User DataBase
-
-		currentUser.setPrevName(currentUser.getUserName());
-		currentUser.setUserName(updateUser.getUserName());
-		currentUser.setPassword(updateUser.getPassword());
-		currentUser.setPhone(updateUser.getPhone());
-		notifyAllObservers();
-	}
-	
 	public void updateUserName(String newUserName) {
-
         //TODO: Notify database
-
+        for(User user: allusers){
+            if(user.getUserName().equals(currentUser.getUserName())){
+                user.setPrevName(user.getUserName());
+                user.setUserName(newUserName);
+            }
+        }
         currentUser.setPrevName(currentUser.getUserName());
 		currentUser.setUserName(newUserName);
 		notifyAllObservers();
 	}
-	
+
+	// Do not notify observers since this information is not shared.
 	public void updateUserPassword(String newPassword) {
-
         //TODO: Notify database
-
+        for(User user:allusers){
+            if(user.getUserName().equals(currentUser.getUserName())){
+                user.setPassword(newPassword);
+            }
+        }
         currentUser.setPassword(newPassword);
     }
 	
 	public void updatePhone(String newPhone) {
-
         //TODO: Notify database
-
+	    for(User user:allusers){
+            if(user.getUserName().equals(currentUser.getUserName())){
+                user.setPhone(newPhone);
+            }
+        }
         currentUser.setPhone(newPhone);
         notifyAllObservers();
 	}
@@ -68,18 +67,6 @@ public class UserDAO extends UserDAOabs {
 		}
 
 	}
-	
-	public String getCurrUserName() {
-		return currentUser.getUserName();
-	}
-	
-	public String getCurrUserPwd() {
-		return currentUser.getPassword();
-	}
-	
-	public String getCurrUserPhone() {
-		return currentUser.getPhone();
-	}
 
 	@Override
 	ArrayList<User> getAllUsers() {
@@ -88,28 +75,21 @@ public class UserDAO extends UserDAOabs {
 
 	@Override
 	public void addUser(String username, String pwd, String phone) {
-
         //TODO: Notify database
-
         User newuser = new User(username, pwd, phone, "");
         allusers.add(newuser);
-		
 	}
 
 	@Override
 	void deleteUser(String username) {
-
         //TODO: Notify database
-
         for(User user : allusers) {
 			if(user.getUserName().equals(username)) {
 				allusers.remove(user);
 				return;
 			}
 		}
-
         //TODO: Handle User Not Found
-
     }
 
     /*Verify username and password*/

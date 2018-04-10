@@ -26,8 +26,8 @@ public class Profile extends AppCompatActivity
         setContentView(R.layout.activity_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,7 +44,6 @@ public class Profile extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
 
         PetDAO petdao = LogIn.petDAO;
 
@@ -65,9 +64,8 @@ public class Profile extends AppCompatActivity
 
         TextView ownername = (TextView)findViewById(R.id.ownerName);
         TextView ownerphone = (TextView)findViewById(R.id.ownerPhoneNumber);
-        ownername.setText("Owner:  " + LogIn.userDAO.getCurrUserName());
-        ownerphone.setText("Owner Tel:  " + LogIn.userDAO.getCurrUserPhone());
-
+        ownername.setText("Owner:  " + LogIn.userDAO.currentUser.getUserName());
+        ownerphone.setText("Owner Tel:  " + LogIn.userDAO.currentUser.getPhone());
     }
 
     @Override
@@ -94,18 +92,14 @@ public class Profile extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
-
         if (id == R.id.action_settings) {
             return true;
         }
-
         if(id == R.id.edit){
             Intent startIntent = new Intent(getApplicationContext(), EditPetProfile.class);
             startActivity(startIntent);
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -115,21 +109,9 @@ public class Profile extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        /*
-        NavigationOptions navOp = new NavigationOptions();
-        boolean handle = navOp.navOptions(id);
-
-        if(handle){
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            drawer.closeDrawer(GravityCompat.START);
-            return true;
-        }
-
-       return false;
-       */
-
         if (id == R.id.nav_profile) {
-            // Handle the camera action
+            Intent startIntent = new Intent(getApplicationContext(), PetList.class);
+            startActivity(startIntent);
         } else if (id == R.id.nav_clinic) {
             Intent startIntent = new Intent(getApplicationContext(), SearchPage.class);
             startActivity(startIntent);
@@ -147,6 +129,5 @@ public class Profile extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-
     }
 }

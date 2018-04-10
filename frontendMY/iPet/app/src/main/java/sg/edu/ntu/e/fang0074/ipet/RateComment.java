@@ -32,10 +32,8 @@ public class RateComment extends AppCompatActivity {
                 EditText reason = (EditText)findViewById(R.id.rating_reason);
                 String reasontext;
                 RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-
                 // Get the current date and time of the device for rating submission.
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-                System.out.println(timeStamp);
 
                 // Ensure both ratings and reasons are given upon submission
                 reasontext = reason.getText().toString();
@@ -59,8 +57,6 @@ public class RateComment extends AppCompatActivity {
             }
         });
 
-
     }
-
 
 }

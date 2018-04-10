@@ -9,8 +9,7 @@ import android.content.Intent;
 // Defines the actions performed when items in the navigation bar is clicked on.
 public class NavigationOptions {
 
-    NavigationOptions(){}
-
+    public NavigationOptions(){}
 
     public boolean navOptions(int id){
         // Handle navigation view item clicks here.
@@ -33,6 +32,5 @@ public class NavigationOptions {
 
         }
         return true;
-
     }
 }

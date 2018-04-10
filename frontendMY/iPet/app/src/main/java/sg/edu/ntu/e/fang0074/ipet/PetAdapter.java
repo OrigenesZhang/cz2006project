@@ -34,19 +34,12 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.HolderView> {
     @Override
     public void onBindViewHolder(HolderView holder, final int position) {
         holder.v_name.setText(petlist.get(position).getName());
-
-
         holder.itemView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                //Toast.makeText(context, cliniclist.get(position).getName(), Toast.LENGTH_LONG).show();
                 Intent startIntent = new Intent(context, Profile.class);
-                //putExtra: clinic name
+                LogIn.petDAO.chooseCurrentPet(petlist.get(position).getName());
                 context.startActivity(startIntent);
-                // infoToLoad = queryData
-                // Base(cliniclist.get(position).getName())
-                // showClinicInfoPage(infoToLoad);
-
             }
         });
     }
@@ -57,9 +50,7 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.HolderView> {
     }
 
     class HolderView extends RecyclerView.ViewHolder{
-
         TextView v_name;
-
         HolderView(View itemView) {
             super(itemView);
             v_name = (TextView)itemView.findViewById(R.id.cus_pet_name);

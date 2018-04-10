@@ -17,7 +17,7 @@ public abstract class TipsDAOabs implements Observer{
 	
 	//admin priviledge
 	abstract void deleteTip(String repName, String date);
-	abstract void addTip(Tips prm);
+	abstract void addTip(String repName, String date, String content);
 	abstract Tips getCurrentTip();
 	abstract void chooseCurrentTip(String repName, String date);
 	abstract void updateCurrTipRepName(String newname);

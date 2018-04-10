@@ -1,6 +1,7 @@
 package sg.edu.ntu.e.fang0074.ipet;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -46,7 +47,6 @@ public class SignUp extends AppCompatActivity {
                 String phonenew = newphone.getText().toString();
                 String newpwd1 = password1.getText().toString();
                 String newpwd2 = password2.getText().toString();
-
                 CheckBox clinicrep = (CheckBox)findViewById(R.id.clinicVerify);
                 EditText clinicname = (EditText)findViewById(R.id.editText3);
                 String cname = clinicname.getText().toString();
@@ -78,6 +78,9 @@ public class SignUp extends AppCompatActivity {
                         LogIn.userDAO.addUser(usernew, newpassword,phonenew);
                         Toast tst = Toast.makeText(SignUp.this,"You have signed up as a pet owner!",Toast.LENGTH_SHORT);
                         tst.show();
+                        //redirect to the login page
+                        Intent startIntent = new Intent(getApplicationContext(), LogIn.class);
+                        startActivity(startIntent);
                     }
                 }
                 else{
