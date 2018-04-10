@@ -12,5 +12,6 @@
     <string name="title_activity_map">Maps</string>
     <string name="title_activity_sign_up">Sign Up</string>
     <string name="title_activity_pet_list">My Pets</string>
+    <string name="title_activity_contact_us">Contact Us</string>
 
 </resources>

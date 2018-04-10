@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sg.edu.ntu.e.fang0074.ipet.controlclasses.Clinic;
+import sg.edu.ntu.e.fang0074.ipet.controlclasses.LoginController;
 
 import static sg.edu.ntu.e.fang0074.ipet.R.color;
 import static sg.edu.ntu.e.fang0074.ipet.R.drawable;
@@ -49,6 +50,9 @@ public class SearchPage extends AppCompatActivity
         setContentView(layout.activity_search_page);
         Toolbar toolbar = (Toolbar) findViewById(id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        // fix the orientation of the screen
         int orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         setRequestedOrientation(orientation);
 
@@ -83,18 +87,8 @@ public class SearchPage extends AppCompatActivity
 
     private void createClinicList(){
         //TODO: handle phone, rating and image
-        /* Testing */////////////////////////////////////////////////////////////////////
 
         ArrayList<Clinic> clinics =  LogIn.clinicDAO.getAllClinics();
-        /*
-        Clinic new1 = new Clinic(1,0, "Happy Dog", "12345");
-        clinics.add(new1);
-        Clinic new2 = new Clinic(1,0, "Happy Cat", "12345");
-        clinics.add(new2);
-        Clinic new3 = new Clinic(1,0, "Happy Fish", "12345");
-        clinics.add(new3);
-        */
-
         for(Clinic cn : clinics){
             double avgRating = LogIn.rateDAO.getAvgRating(cn.getClinicID());
             clinicList.add(new ClinicItem(cn.getClinicName(), drawable.clinic_logo, "Singapore", Double.toString(avgRating)));
@@ -131,6 +125,12 @@ public class SearchPage extends AppCompatActivity
         return true;
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -150,10 +150,15 @@ public class SearchPage extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        if (id == R.id.nav_profile) {
-            Intent startIntent = new Intent(getApplicationContext(), PetList.class);
+        if (id == R.id.nav_petlist) {
+            if(!LoginController.currentrole.equals("rep")) {
+                Intent startIntent = new Intent(getApplicationContext(), PetList.class);
+                startActivity(startIntent);
+            }
+        } else if (id == R.id.nav_home) {
+            Intent startIntent = new Intent(getApplicationContext(), MainPage.class);
             startActivity(startIntent);
-        } else if (id == R.id.nav_clinic) {
+        }else if (id == R.id.nav_clinic) {
             Intent startIntent = new Intent(getApplicationContext(), SearchPage.class);
             startActivity(startIntent);
         } else if (id == R.id.nav_reminder) {
@@ -163,9 +168,8 @@ public class SearchPage extends AppCompatActivity
         } else if (id == R.id.nav_tips) {
 
         } else if (id == R.id.nav_contacts) {
-
-        } else if (id == R.id.nav_help) {
-
+            Intent startIntent = new Intent(getApplicationContext(), ContactUs.class);
+            startActivity(startIntent);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

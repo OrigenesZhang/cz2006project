@@ -44,6 +44,7 @@ public class SearchActivityAdapter extends RecyclerView.Adapter<SearchActivityAd
         holder.itemView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                // Set the current clinic
                 LogIn.clinicDAO.chooseClinic(cliniclist.get(position).getName());
                 Toast.makeText(context, cliniclist.get(position).getName(), Toast.LENGTH_LONG).show();
                 Intent startIntent = new Intent(context, ClinicIntro.class);

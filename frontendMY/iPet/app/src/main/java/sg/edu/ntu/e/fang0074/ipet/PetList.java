@@ -125,10 +125,13 @@ public class PetList extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_profile) {
+        if (id == R.id.nav_petlist) {
             Intent startIntent = new Intent(getApplicationContext(), PetList.class);
             startActivity(startIntent);
-        } else if (id == R.id.nav_clinic) {
+        } else if (id == R.id.nav_home) {
+            Intent startIntent = new Intent(getApplicationContext(), MainPage.class);
+            startActivity(startIntent);
+        }else if (id == R.id.nav_clinic) {
             Intent startIntent = new Intent(getApplicationContext(), SearchPage.class);
             startActivity(startIntent);
         } else if (id == R.id.nav_reminder) {
@@ -138,9 +141,8 @@ public class PetList extends AppCompatActivity
         } else if (id == R.id.nav_tips) {
 
         } else if (id == R.id.nav_contacts) {
-
-        } else if (id == R.id.nav_help) {
-
+            Intent startIntent = new Intent(getApplicationContext(), ContactUs.class);
+            startActivity(startIntent);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -5,6 +5,7 @@ import sg.edu.ntu.e.fang0074.ipet.LogIn;
 public class LoginController {
 	static Roles role;
 	private Subject clinicDAO;
+	public static String currentrole = "";
 	
 	public LoginController(Subject clinicDAO) {
 		this.clinicDAO = clinicDAO;
@@ -16,6 +17,7 @@ public class LoginController {
 		role = new UserDAO();
 		if(role.checkexist(usernameInput)) {
 			if(role.verify(usernameInput, pwd)) {
+                currentrole = "owner";
 				return true;
 			}
 		}
@@ -23,6 +25,7 @@ public class LoginController {
 		role = LogIn.repDAO;
 		if(role.checkexist(usernameInput)) {
 			if(role.verify(usernameInput, pwd)) {
+			    currentrole = "rep";
 				return true;
 			}
 		}

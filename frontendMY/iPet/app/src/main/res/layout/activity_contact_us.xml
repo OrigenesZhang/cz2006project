@@ -9,7 +9,7 @@
     tools:openDrawer="start">
 
     <include
-        layout="@layout/app_bar_sign_up"
+        layout="@layout/app_bar_contactus"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

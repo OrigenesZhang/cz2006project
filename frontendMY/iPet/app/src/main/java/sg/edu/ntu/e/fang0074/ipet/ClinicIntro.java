@@ -1,6 +1,7 @@
 package sg.edu.ntu.e.fang0074.ipet;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -20,14 +21,15 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import sg.edu.ntu.e.fang0074.ipet.controlclasses.LoginController;
+import sg.edu.ntu.e.fang0074.ipet.controlclasses.Rating;
 
 public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback {
 
@@ -38,8 +40,6 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
     TextView mapClinicTel;
     TextView mapClnicRating;
 
-
-    private final static LatLngBounds bounds = new LatLngBounds(new LatLng(51.5152192,-0.1321900), new LatLng(51.5166013,-0.1299262));
 
     RecyclerView listshowrcy;
     List<CommentItem> commentList = new ArrayList<>();
@@ -55,6 +55,9 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        // fix the orientation of the screen
+        int orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        setRequestedOrientation(orientation);
 
         // Zoom Controls
         zoom = (ZoomControls)findViewById(R.id.zcZoom);
@@ -92,8 +95,10 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
         ratingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent startIntent = new Intent(getApplicationContext(), RateComment.class);
-                startActivity(startIntent);
+                if(!LoginController.currentrole.equals("rep")) {
+                    Intent startIntent = new Intent(getApplicationContext(), RateComment.class);
+                    startActivity(startIntent);
+                }
             }
         });
     }
@@ -124,24 +129,34 @@ public class ClinicIntro extends FragmentActivity implements OnMapReadyCallback 
                     mapClinicName.setText(myPlace.getName());
                     mapClinicAddress.setText(myPlace.getAddress());
                     mapClinicTel.setText(myPlace.getPhoneNumber());
+                    int currentClinicID = LogIn.clinicDAO.currentClinic.getClinicID();
+                    mapClnicRating.setText(Double.toString(LogIn.rateDAO.getAvgRating(currentClinicID)) + " / 5.0");
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPlace.getLatLng(), 14.0f));
                     places.release(); //IMPORTANT!! MUST FREE THE BUFFER
 
                 } else {
-                    Toast.makeText(ClinicIntro.this, "Clinic not found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ClinicIntro.this, "Clinic not found on Map", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
     private void createCommentList(){
-        // Hardcoded info for illustration purposes
-        commentList.add(new CommentItem("First dog", "Good", "02/03/2018", "4.0/5.0"));
-        commentList.add(new CommentItem("Third dog", "I like this clinic", "02/03/2018", "3.7/5.0"));
-        commentList.add(new CommentItem("Fourth dog", "Excellent Service", "02/03/2018", "4.5/5.0"));
-        commentList.add(new CommentItem("Fifth dog", "Very good.", "02/03/2018", "3.5/5.0"));
-        commentList.add(new CommentItem("Sixth dog", "Recommended", "02/03/2018", "3.9/5.0"));
+
+        // Filter again to ensure correctness
+        int currentClinicID = LogIn.clinicDAO.currentClinic.getClinicID();
+
+        for(Rating rt : LogIn.rateDAO.ratingByClinic){
+            if(rt.getClinicID() == currentClinicID){
+                commentList.add(new CommentItem(rt.getUsername(), rt.getComment(), rt.getDate(), Double.toString(rt.getScore())+" / 5.0"));
+            }
+        }
+
     }
 
 }

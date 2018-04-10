@@ -1,5 +1,7 @@
 package sg.edu.ntu.e.fang0074.ipet;
 
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -35,6 +37,10 @@ public class RateComment extends AppCompatActivity {
                 // Get the current date and time of the device for rating submission.
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 
+                // fix the orientation of the screen
+                int orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+                setRequestedOrientation(orientation);
+
                 // Ensure both ratings and reasons are given upon submission
                 reasontext = reason.getText().toString();
                 if((ratingBar.getRating()== 0.0)&&(reasontext.isEmpty())){
@@ -53,6 +59,8 @@ public class RateComment extends AppCompatActivity {
                     Toast tst = Toast.makeText(RateComment.this,"Rating given: " + ratingBar.getRating() + ". Thank you for your feedback!",Toast.LENGTH_SHORT);
                     tst.show();
                     ratedao.addRating(ratingBar.getRating(), reasontext,timeStamp);
+                    Intent startIntent = new Intent(getApplicationContext(), SearchPage.class);
+                    startActivity(startIntent);
                 }
             }
         });
