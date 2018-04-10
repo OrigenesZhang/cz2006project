@@ -8,35 +8,70 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 /**
- * a exercise reminder
+ * This class defines a medicine reminder for Ipet application.
+ * This class is a subclass of Reminder.
+ * @see Reminder
+ * @see Frequency
  */
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class ExerciseReminder extends Reminder {
     private LocalTime time;
 
+    /**
+     * This method constructs an exercise reminder
+     * @param name the name of the reminder
+     * @param freqNum the frequency number of the reminder
+     * @param frequency the frequency of the reminder
+     * @param time the time of the reminder
+     * @param nextDate the next date when the reminder will work
+     *
+     * @see Reminder
+     */
     public ExerciseReminder(String name, int freqNum, Frequency frequency, LocalTime time,
                             GregorianCalendar nextDate) {
+        // superclass's constructor
         super(name, freqNum, frequency);
         this.time = time;
         this.nextDate = nextDate;
         updateNextDate();
     }
 
+    /**
+     * Gets the time of the reminder
+     * @return the time of the reminder
+     */
     public String getTime() { return this.time.toString();}
 
+    /**
+     * Sets the time of the reminder
+     * @param time the time of the reminder
+     */
     public void setTime(LocalTime time) {
         this.time = time;
     }
 
+    /**
+     * Sets the next date when the reminder will work.
+     * @param startDate the start date of the reminder
+     */
     public void setNextDate(GregorianCalendar startDate) {
         this.nextDate = startDate;
     }
 
+    /**
+     * This method checks whether the date field in the class is valid.
+     * The next date of the reminder should not be before today.
+     * @return whether the class is valid
+     */
     public boolean isValidDate() {
         return !nextDate.before(Calendar.getInstance());
     }
 
+    /**
+     * This method updates the next date that the reminder will work
+     * based on the current nextDate along with the frequency.
+     */
     @Override
     protected void updateNextDate() {
         Calendar today = Calendar.getInstance();  // get today's date
@@ -45,18 +80,22 @@ public class ExerciseReminder extends Reminder {
 
         int increment;
         switch (frequency) {
+            // the frequency is set to DAY
             case DAY:
                 int year = today.get(Calendar.YEAR);
                 int month = today.get(Calendar.MONTH);
                 int day = today.get(Calendar.DAY_OF_MONTH);
                 nextDate = new GregorianCalendar(year, month, day);
                 break;
+            // the frequency is set to WEEK
             case WEEK:
                 increment = (int)(7 / (freqNum));
                 do {
                     nextDate.add(GregorianCalendar.DAY_OF_MONTH, increment);
                 } while (nextDate.before(today));
                 break;
+
+            // the frequency is set to MONTH
             case MONTH:
                 increment = (int)(30 / (freqNum));
                 do {
@@ -67,13 +106,8 @@ public class ExerciseReminder extends Reminder {
                 break;
         }
 
+        // set the minute and hour for the next date
         nextDate.set(Calendar.HOUR_OF_DAY, time.getHour());
         nextDate.set(Calendar.MINUTE, time.getHour());
-    }
-
-    @Override
-    public GregorianCalendar getNextDate() {
-        updateNextDate();
-        return nextDate;
     }
 }
