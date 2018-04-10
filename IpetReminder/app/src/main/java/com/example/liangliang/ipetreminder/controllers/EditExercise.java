@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.NumberKeyListener;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -85,7 +86,11 @@ public class EditExercise extends AppCompatActivity {
                 mNote.setText(exercise.getNote());
 
         } else {
-            exercise = (ExerciseReminder) ReminderFactory.getReminder("exercise");
+            try {
+                exercise = (ExerciseReminder) ReminderFactory.getReminder("exercise");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             index = DataBase.exerciseItems.size();
         }
 

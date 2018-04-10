@@ -1,5 +1,7 @@
 package com.example.liangliang.ipetreminder;
 
+import android.nfc.Tag;
+
 import com.example.liangliang.ipetreminder.models.Frequency;
 import com.example.liangliang.ipetreminder.models.MedicineReminder;
 import com.example.liangliang.ipetreminder.models.ReminderFactory;
@@ -52,15 +54,15 @@ public class MedicineReminderTest {
     @Test
     public void updateNextDate() throws Exception {
         medicineReminder.setFreqNum(2);
-        medicineReminder.setFrequency(Frequency.WEEK);
+        medicineReminder.setFrequency(Frequency.MONTH);
         GregorianCalendar nextDate =  medicineReminder.getNextDate();
-        System.out.println(nextDate);
+        d(TAG, medicineReminder.getNextDateString());
 
         int predMonth = nextDate.get(Calendar.MONTH);
         int predDay = nextDate.get(Calendar.DAY_OF_MONTH);
 
         int expectMonth = Calendar.APRIL;
-        int expectDAY = 13;
+        int expectDAY = 25;
 
         assertEquals(expectMonth, predMonth);
         assertEquals(expectDAY, predDay);

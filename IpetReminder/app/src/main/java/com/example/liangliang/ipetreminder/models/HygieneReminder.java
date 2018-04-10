@@ -12,7 +12,7 @@ import java.util.GregorianCalendar;
  * @see Frequency
  */
 public class HygieneReminder extends Reminder {
-
+    private GregorianCalendar nextDate;
     /**
      * This methods constructs a hygiene reminder instance.
      * @param name the name of the hygiene reminder
@@ -43,7 +43,14 @@ public class HygieneReminder extends Reminder {
      * @return whether the date is valid.
      */
     public boolean isValidDate() {
-        return !nextDate.before(Calendar.getInstance());
+        this.updateNextDate();
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
+
+        return !nextDate.before(today);
     }
 
     /**
@@ -85,5 +92,10 @@ public class HygieneReminder extends Reminder {
             default:
                 break;
         }
+    }
+
+    public GregorianCalendar getNextDate() {
+        updateNextDate();
+        return nextDate;
     }
 }

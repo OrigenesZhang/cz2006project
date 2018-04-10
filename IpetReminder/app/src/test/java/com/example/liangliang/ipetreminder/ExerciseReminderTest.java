@@ -1,5 +1,7 @@
 package com.example.liangliang.ipetreminder;
 
+import android.text.format.DateUtils;
+
 import com.example.liangliang.ipetreminder.models.ExerciseReminder;
 import com.example.liangliang.ipetreminder.models.Frequency;
 import com.example.liangliang.ipetreminder.models.MedicineReminder;
@@ -8,6 +10,7 @@ import com.example.liangliang.ipetreminder.models.ReminderFactory;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.FileReader;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -42,24 +45,24 @@ public class ExerciseReminderTest {
     @Test
     public void validDateInput() throws Exception {
         // all the nextDate will be valid since it will be updated automatically
-        month = month - 1;
-        day = day - 3;
-        GregorianCalendar nextDate = new GregorianCalendar(year, month, day);
+
+        d(TAG, exerciseReminder.getNextDateString());
         assertEquals(true, exerciseReminder.isValidDate());
     }
 
     @Test
     public void updateNextDate() throws Exception {
         exerciseReminder.setFreqNum(2);
-        exerciseReminder.setFrequency(Frequency.WEEK);
+        exerciseReminder.setFrequency(Frequency.MONTH);
         GregorianCalendar nextDate =  exerciseReminder.getNextDate();
-        System.out.println(nextDate);
 
         int predMonth = nextDate.get(Calendar.MONTH);
         int predDay = nextDate.get(Calendar.DAY_OF_MONTH);
 
         int expectMonth = Calendar.APRIL;
-        int expectDAY = 13;
+        int expectDAY = 25;
+
+        d(TAG, exerciseReminder.getNextDateString());
 
         assertEquals(expectMonth, predMonth);
         assertEquals(expectDAY, predDay);

@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
  * implemented based on different type.
  */
 public abstract class Reminder implements Serializable {
-    protected String name;
+    private String name;
     protected int freqNum;
     protected Frequency frequency;
     private String note;

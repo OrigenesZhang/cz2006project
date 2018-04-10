@@ -78,7 +78,11 @@ public class EditMedicine extends AppCompatActivity{
 
         // If is to edit a reminder
         if (position == -1) {
-            medicine = (MedicineReminder) ReminderFactory.getReminder("medicine");
+            try {
+                medicine = (MedicineReminder) ReminderFactory.getReminder("medicine");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         } else {
             medicine = DataBase.medicineItems.get(position);

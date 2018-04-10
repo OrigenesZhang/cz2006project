@@ -42,12 +42,7 @@ public class HygieneReminderTest {
 
     @Test
     public void validDateInput() throws Exception {
-        month = month - 1;
-        day = day - 3;
-
-        GregorianCalendar nextDate = new GregorianCalendar(year, month, day);
-        hygieneReminder.setNextDate(nextDate);
-
+        d(TAG, hygieneReminder.getNextDateString());
         assertEquals(true, hygieneReminder.isValidDate());
     }
 
@@ -56,7 +51,7 @@ public class HygieneReminderTest {
         hygieneReminder.setFreqNum(2);
         hygieneReminder.setFrequency(Frequency.WEEK);
         GregorianCalendar nextDate =  hygieneReminder.getNextDate();
-        System.out.println(nextDate);
+        d(TAG, hygieneReminder.getNextDateString());
 
         int predMonth = nextDate.get(Calendar.MONTH);
         int predDay = nextDate.get(Calendar.DAY_OF_MONTH);

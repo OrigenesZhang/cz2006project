@@ -74,7 +74,11 @@ public class EditHygiene extends AppCompatActivity {
 
 
         } else {
-            hygiene = (HygieneReminder) ReminderFactory.getReminder("hygiene");
+            try {
+                hygiene = (HygieneReminder) ReminderFactory.getReminder("hygiene");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             index = DataBase.hygieneItems.indexOf(hygiene);
         }
 

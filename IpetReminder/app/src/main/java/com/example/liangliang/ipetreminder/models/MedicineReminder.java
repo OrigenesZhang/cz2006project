@@ -19,7 +19,6 @@ public class MedicineReminder extends Reminder {
     private GregorianCalendar startDate;
     private GregorianCalendar endDate;
     private GregorianCalendar nextDate;
-
     /**
      * This method constructs an object of medicine reminder
      *
@@ -151,6 +150,11 @@ public class MedicineReminder extends Reminder {
 
         // sets the minute and hour
         nextDate.set(Calendar.HOUR_OF_DAY, time.getHour());
-        nextDate.set(Calendar.MINUTE, time.getHour());
+        nextDate.set(Calendar.MINUTE, time.getMinute());
+    }
+
+    public GregorianCalendar getNextDate() {
+        updateNextDate();
+        return nextDate;
     }
 }

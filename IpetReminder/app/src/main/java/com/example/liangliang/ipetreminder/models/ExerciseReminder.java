@@ -3,6 +3,7 @@ package com.example.liangliang.ipetreminder.models;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.Calendar;
@@ -33,7 +34,7 @@ public class ExerciseReminder extends Reminder {
         // superclass's constructor
         super(name, freqNum, frequency);
         this.time = time;
-        this.nextDate = nextDate;
+        super.nextDate = nextDate;
         updateNextDate();
     }
 
@@ -65,7 +66,14 @@ public class ExerciseReminder extends Reminder {
      * @return whether the class is valid
      */
     public boolean isValidDate() {
-        return !nextDate.before(Calendar.getInstance());
+        updateNextDate();
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
+
+        return !nextDate.before(today);
     }
 
     /**
@@ -75,6 +83,10 @@ public class ExerciseReminder extends Reminder {
     @Override
     protected void updateNextDate() {
         Calendar today = Calendar.getInstance();  // get today's date
+        int year = today.get(Calendar.YEAR);
+        int month = today.get(Calendar.MONTH);
+        int day = today.get(Calendar.DAY_OF_MONTH);
+
         if (nextDate.after(today))    // no need to update
             return;
 
@@ -82,11 +94,9 @@ public class ExerciseReminder extends Reminder {
         switch (frequency) {
             // the frequency is set to DAY
             case DAY:
-                int year = today.get(Calendar.YEAR);
-                int month = today.get(Calendar.MONTH);
-                int day = today.get(Calendar.DAY_OF_MONTH);
                 nextDate = new GregorianCalendar(year, month, day);
                 break;
+
             // the frequency is set to WEEK
             case WEEK:
                 increment = (int)(7 / (freqNum));
@@ -102,12 +112,23 @@ public class ExerciseReminder extends Reminder {
                     nextDate.add(GregorianCalendar.DAY_OF_MONTH, increment);
                 } while (nextDate.before(today));
                 break;
+
             default:
+                nextDate = new GregorianCalendar(year, month, day);
                 break;
         }
 
         // set the minute and hour for the next date
         nextDate.set(Calendar.HOUR_OF_DAY, time.getHour());
-        nextDate.set(Calendar.MINUTE, time.getHour());
+        nextDate.set(Calendar.MINUTE, time.getMinute());
+    }
+
+    /**
+     * This method gets the next date when the reminder will reminder the user.
+     * @return the date when user will be reminded
+     */
+    public GregorianCalendar getNextDate() {
+        updateNextDate();
+        return nextDate;
     }
 }
