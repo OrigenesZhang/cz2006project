@@ -84,6 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@color/colorAmber"
         app:srcCompat="@drawable/icon_save" />
 
     <android.support.design.widget.FloatingActionButton
@@ -94,6 +95,7 @@
         android:scaleType="center"
         app:layout_anchor="@id/save_fab"
         app:layout_anchorGravity="top"
+        android:backgroundTint="@color/colorAmber"
         app:srcCompat="@drawable/icon_trash" />
 
 </android.support.design.widget.CoordinatorLayout>

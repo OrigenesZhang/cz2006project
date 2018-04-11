@@ -114,11 +114,16 @@
 
         <Button
             android:id="@+id/setAlarmButton"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="set alarm"/>
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:text="set alarm"
+            />
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -127,6 +132,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin"
+        android:backgroundTint="@color/colorAmber"
         app:srcCompat="@drawable/icon_save" />
 
     <android.support.design.widget.FloatingActionButton
@@ -134,6 +140,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|top"
+        android:backgroundTint="@color/colorAmber"
         android:scaleType="center"
         app:layout_anchor="@id/save_fab"
         app:layout_anchorGravity="top"

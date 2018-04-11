@@ -33,6 +33,11 @@
             android:label="iPet"
             android:theme="@style/AppTheme.NoActionBar"
             >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".SearchPage"
@@ -149,11 +154,7 @@
         <activity android:name=".TipsDetail"></activity>
 
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".DetailActivity" />
         <activity android:name=".Detail2Activity" />

@@ -21,10 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sg.edu.ntu.e.fang0074.ipet.controlclasses.Pet;
+import sg.edu.ntu.e.fang0074.ipet.controllers.Profile;
+//import sg.edu.ntu.e.fang0074.ipet.controlclasses.Reminder;
 
 import static sg.edu.ntu.e.fang0074.ipet.R.id;
 import static sg.edu.ntu.e.fang0074.ipet.R.layout;
 import static sg.edu.ntu.e.fang0074.ipet.R.string;
+
 
 public class PetList extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -135,11 +138,14 @@ public class PetList extends AppCompatActivity
             Intent startIntent = new Intent(getApplicationContext(), SearchPage.class);
             startActivity(startIntent);
         } else if (id == R.id.nav_reminder) {
-
+            Intent startIntent = new Intent(getApplicationContext(), Profile.class);
+            startActivity(startIntent);
         } else if (id == R.id.nav_promo) {
-
+            Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(startIntent);
         } else if (id == R.id.nav_tips) {
-
+            Intent startIntent = new Intent(getApplicationContext(), Tips.class);
+            startActivity(startIntent);
         } else if (id == R.id.nav_contacts) {
             Intent startIntent = new Intent(getApplicationContext(), ContactUs.class);
             startActivity(startIntent);

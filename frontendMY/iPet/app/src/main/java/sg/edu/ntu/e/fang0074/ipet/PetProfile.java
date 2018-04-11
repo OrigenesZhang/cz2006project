@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import sg.edu.ntu.e.fang0074.ipet.controlclasses.PetDAO;
+import sg.edu.ntu.e.fang0074.ipet.controllers.Profile;
 
 public class PetProfile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -124,11 +125,14 @@ public class PetProfile extends AppCompatActivity
             Intent startIntent = new Intent(getApplicationContext(), SearchPage.class);
             startActivity(startIntent);
         } else if (id == R.id.nav_reminder) {
-
+            Intent startIntent = new Intent(getApplicationContext(), Profile.class);
+            startActivity(startIntent);
         } else if (id == R.id.nav_promo) {
-
+            Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(startIntent);
         } else if (id == R.id.nav_tips) {
-
+            Intent startIntent = new Intent(getApplicationContext(), Tips.class);
+            startActivity(startIntent);
         } else if (id == R.id.nav_contacts) {
             Intent startIntent = new Intent(getApplicationContext(), ContactUs.class);
             startActivity(startIntent);

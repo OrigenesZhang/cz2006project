@@ -48,11 +48,31 @@ public class MainPage extends AppCompatActivity {
         });
 
         CardView rmGrid = (CardView)findViewById(R.id.reminderGrid);
-        searchGrid.setOnClickListener(new View.OnClickListener() {
+        rmGrid.setOnClickListener(new View.OnClickListener() {
             @Override
             // Launch an activity within the app
             public void onClick(View view) {
                 Intent startIntent = new Intent(getApplicationContext(), Profile.class);
+                startActivity(startIntent);
+            }
+        });
+
+        CardView promoGrid = (CardView)findViewById(R.id.promoGrid);
+        promoGrid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            // Launch an activity within the app
+            public void onClick(View view) {
+                Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(startIntent);
+            }
+        });
+
+        CardView tipGrid = (CardView)findViewById(R.id.tipsGrid);
+        tipGrid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            // Launch an activity within the app
+            public void onClick(View view) {
+                Intent startIntent = new Intent(getApplicationContext(), Tips.class);
                 startActivity(startIntent);
             }
         });
